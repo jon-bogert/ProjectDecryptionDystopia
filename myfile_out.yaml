@@ -1,0 +1,11 @@
+title: My Game
+objects:
+  player:
+    name: Xepherin
+    health: 100
+  enemies:
+    count: 25
+val-list:
+- 20
+- 35
+- 99
