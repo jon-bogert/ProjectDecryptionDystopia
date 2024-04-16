@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using XephTools;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(GroundChecker))]
 public class ThirdPersonMovement : MonoBehaviour
 {
     [Header("Parameters")]
@@ -22,19 +21,18 @@ public class ThirdPersonMovement : MonoBehaviour
     bool _isGrounded = false;
 
     CharacterController _charController;
-    GroundChecker _groundChecker;
     Transform _camera;
 
     private void Awake()
     {
         _charController = GetComponent<CharacterController>();
-        _groundChecker = GetComponent<GroundChecker>();
         _camera = Camera.main.transform;
     }
 
     private void Update()
     {
-        _isGrounded = _groundChecker.CheckGround();
+        //_isGrounded = _groundChecker.CheckGround();
+        _isGrounded = _charController.isGrounded;
         VRDebug.Monitor(1, _isGrounded ? "t" : "f");
 
         Vector2 moveAxis = _moveInput.action.ReadValue<Vector2>();
@@ -50,7 +48,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if (_isGrounded && jumpAmt == 0f)
             _verticalVelocity = 0f;
-        else if (_jumpAmount > 0)
+        else if (jumpAmt > 0)
             _verticalVelocity = jumpAmt;
 
         _verticalVelocity -= _gravityAmount * Time.deltaTime;
