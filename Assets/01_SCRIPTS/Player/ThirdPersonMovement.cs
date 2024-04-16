@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using XephTools;
 
 [RequireComponent(typeof(CharacterController))]
@@ -43,6 +44,9 @@ public class ThirdPersonMovement : MonoBehaviour
         );
 
         AdjustByCamera(ref moveFinal);
+
+        FaceMovement(moveFinal);
+
         float jumpAmt = ProcJump();
         VRDebug.Monitor(3, jumpAmt);
 
@@ -73,6 +77,16 @@ public class ThirdPersonMovement : MonoBehaviour
         camRight.Normalize();
 
         moveFinal = camRight * moveFinal.x + camFrwd * moveFinal.z;
+    }
+
+    private void FaceMovement(Vector3 moveVector)
+    {
+        if (moveVector.sqrMagnitude == float.Epsilon)
+            return;
+
+        moveVector.Normalize();
+        Vector3 lookPoint = transform.position + moveVector;
+        transform.LookAt( lookPoint );
     }
 
     private float ProcJump()
