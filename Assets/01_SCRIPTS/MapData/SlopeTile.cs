@@ -4,6 +4,6 @@ public class SlopeTile : RotatableTile
 {
     public SlopeTile()
     {
-        base._id = TileType.Slope;
+        base._type = TileType.Slope;
     }
 }

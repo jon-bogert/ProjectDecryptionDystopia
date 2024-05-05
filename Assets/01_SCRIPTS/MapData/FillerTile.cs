@@ -4,7 +4,7 @@ public class FillerTile : TileBase
 {
     public FillerTile()
     {
-        base._id = TileType.Filler;
+        base._type = TileType.Filler;
     }
 
     TileBase _association = null;

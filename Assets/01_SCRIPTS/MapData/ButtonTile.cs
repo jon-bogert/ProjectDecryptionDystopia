@@ -11,6 +11,6 @@ public class ButtonTile : RotatableTile
 
     public ButtonTile()
     {
-        base._id = TileType.Button;
+        base._type = TileType.Button;
     }
 }

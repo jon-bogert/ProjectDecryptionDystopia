@@ -4,6 +4,6 @@ public class BlockTile : TileBase
 {
     public BlockTile()
     {
-        base._id = TileType.Block;
+        base._type = TileType.Block;
     }
 }

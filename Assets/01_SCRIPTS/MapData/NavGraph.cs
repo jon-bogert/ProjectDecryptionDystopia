@@ -12,27 +12,113 @@ public class NavNode
     public NavNode west = null;
     public bool visited = false;
 
-    internal void RecursiveProbe(TileMap3D map)
+    public Vector3Int coord { get { return tile.gridCoord; } }
+
+    internal void RecursiveProbe(TileMap3D map, NavGraph graph)
     {
         Vector3Int coord = tile.gridCoord;
-        ProbeDir(map, north, coord + Vector3Int.forward, TileRotation.North);
-        ProbeDir(map, east, coord + Vector3Int.right, TileRotation.East);
-        ProbeDir(map, south, coord + Vector3Int.back, TileRotation.South);
-        ProbeDir(map, west, coord + Vector3Int.left, TileRotation.West);
+        ProbeDir(map, graph, north, coord + Vector3Int.forward, TileRotation.North);
+        ProbeDir(map, graph, east, coord + Vector3Int.right, TileRotation.East);
+        ProbeDir(map, graph, south, coord + Vector3Int.back, TileRotation.South);
+        ProbeDir(map, graph, west, coord + Vector3Int.left, TileRotation.West);
     }
 
-    void ProbeDir(TileMap3D map, NavNode node, Vector3Int coord, TileRotation rot)
+    void ProbeDir(TileMap3D map, NavGraph graph, NavNode node, Vector3Int coord, TileRotation rot)
     {
-        if (node.tile.id == TileType.Block)
+        TileBase checkTile = map.TileAt(coord);
+        if (checkTile.type == TileType.Block)
         {
-            
+            //Check block above
+            TileBase tileAbove = map.TileAt(coord + Vector3Int.up);
+            if (tileAbove.type != TileType.Slope && tileAbove.type != TileType.Space)
+            {
+                //Blocked path
+                return;
+            }
+
+            //Check that slope is in correct direction
+            if (tileAbove.type == TileType.Slope)
+            {
+                //Check one more above
+                if (map.TileAt(coord + Vector3Int.up * 2).type != TileType.Space)
+                    return;
+
+                RotatableTile rt = tileAbove as RotatableTile;
+                if (rt.Rotation != rot)
+                {
+                    //Wrong Direction
+                    return;
+                }
+                //Check if Node already exists
+                if (graph.nodes.ContainsKey(tileAbove.gridCoord))
+                {
+                    node = graph.nodes[tileAbove.gridCoord];
+                }
+                else
+                {
+                    node = new NavNode();
+                    node.tile = tileAbove;
+                    graph.nodes[node.coord] = node;
+                    node.RecursiveProbe(map, graph);
+                }
+                return;
+            }
+
+            //Space above Normal spot
+            if (graph.nodes.ContainsKey(checkTile.gridCoord))
+            {
+                node = graph.nodes[checkTile.gridCoord];
+            }
+            else
+            {
+                node = new NavNode();
+                node.tile = checkTile;
+                graph.nodes[node.coord] = node;
+                node.RecursiveProbe(map, graph);
+            }
+        }
+        //Check space
+        else if (checkTile.type == TileType.Space)
+        {
+            //Check block below
+            TileBase tileBelow = map.TileAt(coord + Vector3Int.down);
+            if (tileBelow.type != TileType.Slope)
+            {
+                //Blocked path
+                return;
+            }
+
+            //Check that slope is in correct direction
+            if (tileBelow.type == TileType.Slope)
+            {
+
+                RotatableTile rt = tileBelow as RotatableTile;
+                if (rt.Rotation != (rot + 2 % 4))
+                {
+                    //Wrong Direction
+                    return;
+                }
+                //Check if Node already exists
+                if (graph.nodes.ContainsKey(tileBelow.gridCoord))
+                {
+                    node = graph.nodes[tileBelow.gridCoord];
+                }
+                else
+                {
+                    node = new NavNode();
+                    node.tile = tileBelow;
+                    graph.nodes[node.coord] = node;
+                    node.RecursiveProbe(map, graph);
+                }
+                return;
+            }
         }
     }
 }
 
 public class NavGraph : MonoBehaviour
 {
-    SortedDictionary<Vector3Int, NavNode> nodes;
+    public SortedDictionary<Vector3Int, NavNode> nodes;
 
     public void ResetVisitFlags()
     {
@@ -49,12 +135,11 @@ public class NavGraph : MonoBehaviour
         Vector3Int startCoord = playerTile.gridCoord;
         startCoord.y -= 1;
         TileBase startTile = tileMap.TileAt(startCoord);
-        if (startTile != null && startTile.id == TileType.Block)
+        if (startTile != null && startTile.type == TileType.Block)
         {
             NavNode startNode = nodes[startCoord] = new NavNode();
             startNode.tile = startTile;
-            startNode.visited = true;
-            startNode.RecursiveProbe(tileMap);
+            startNode.RecursiveProbe(tileMap, this);
         }
 
     }

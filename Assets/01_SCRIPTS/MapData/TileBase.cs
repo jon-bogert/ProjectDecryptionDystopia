@@ -21,11 +21,12 @@ public enum TileRotation // the opposite face of the tile when you approach it
     West
 }
 
-public class TileBase : MonoBehaviour
+public class TileBase
 {
-    protected TileType _id = TileType.Space;
+    protected TileType _type = TileType.Space;
     protected Vector3Int _gridCoord = Vector3Int.zero;
-    public TileType id { get { return _id; } }
+    public TileType type { get { return _type; }
+        internal set { _type = value; } }
     public Vector3Int gridCoord { get { return _gridCoord; }
         internal set { _gridCoord = value; } }
 

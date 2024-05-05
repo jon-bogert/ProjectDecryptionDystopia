@@ -11,6 +11,6 @@ public class DoorTile : RotatableTile
 
     public DoorTile()
     {
-        base._id = TileType.Door;
+        base._type = TileType.Door;
     }
 }
