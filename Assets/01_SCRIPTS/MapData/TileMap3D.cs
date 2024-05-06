@@ -56,6 +56,19 @@ public class TileMap3D
             + coord.x;
     }
 
+    public void CreateEmpty(Vector3Int dimensions)
+    {
+        _dimensions = dimensions;
+        int length = _dimensions.x * _dimensions.y * _dimensions.z;
+        _tiles = new TileBase[length];
+        for (int i = 0; i < length; ++i)
+        {
+            _tiles[i] = new TileBase();
+            _tiles[i].type = TileType.Space;
+            _tiles[i].gridCoord = GetCoordFromIndex(i);
+        }
+    }
+
     public void LoadFromFile(string file)
     {
         if (!File.Exists(file))
