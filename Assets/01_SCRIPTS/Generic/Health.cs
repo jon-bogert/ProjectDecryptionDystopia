@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     [SerializeField] float _maxHealth = 1f;
+    [SerializeField] Transform _targetPoint = null;
     [SerializeField] UnityEvent onDeath;
 
     [Header("Debug")]
@@ -15,6 +16,16 @@ public class Health : MonoBehaviour
     public float health { get { return _health; } }
     public float maxHealth { get { return _maxHealth; } }
     public bool isDead { get { return _isDead;} }
+
+    public Vector3 targetPoint
+    {
+        get
+        {
+            if (_targetPoint == null)
+                return transform.position;
+            return _targetPoint.position;
+        }
+    }
 
     private void Awake()
     {

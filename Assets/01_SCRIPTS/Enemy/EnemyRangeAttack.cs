@@ -1,4 +1,5 @@
 using UnityEngine;
+using XephTools;
 
 public class EnemyRangeAttack : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class EnemyRangeAttack : MonoBehaviour
     [SerializeField] Transform _firePoint;
 
     ProjectilePool _pool;
-    ThirdPersonMovement _player;
+    Health _playerHealth;
     float _time = 0f;
     float _timer = 0f;
 
@@ -26,8 +27,9 @@ public class EnemyRangeAttack : MonoBehaviour
             Debug.LogError("Could not find projecile pool in scene");
         }
 
-        _player = FindObjectOfType<ThirdPersonMovement>();
-        if (_player == null )
+        _playerHealth = FindObjectOfType<ThirdPersonMovement>().GetComponent<Health>();
+
+        if (_playerHealth == null )
         {
             Debug.LogError("Could not find player in scene");
         }
@@ -37,14 +39,14 @@ public class EnemyRangeAttack : MonoBehaviour
 
     private void Update()
     {
+        VRDebug.Monitor(4, _timer);
         if (_timer <= 0f)
         {
             RestartTimer();
-            Vector3 direction = (_firePoint.position - _player.transform.position).normalized;
+            Vector3 direction = (_playerHealth.targetPoint - _firePoint.position).normalized;
             _pool.FireNext(_firePoint.position, direction);
         }
-
-        _timer += Time.deltaTime;
+        _timer -= Time.deltaTime;
     }
 
     float Remap(int input, int inMin, int inMax, float outMin, float outMax)
@@ -55,7 +57,7 @@ public class EnemyRangeAttack : MonoBehaviour
     void RestartTimer()
     {
         int rand = Random.Range(0, _shotTimeResolution);
-        _time = Remap(rand, 0, _shotTimeResolution, _shotTimeMin, _shotTimeMax);
+        _timer = Remap(rand, 0, _shotTimeResolution, _shotTimeMin, _shotTimeMax);
     }
 
 
