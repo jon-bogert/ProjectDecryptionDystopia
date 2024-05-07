@@ -1,0 +1,94 @@
+{
+    "name": "EditorInput",
+    "maps": [
+        {
+            "name": "Editor",
+            "id": "4ece5b19-f19d-4d9e-8784-df6867dd7296",
+            "actions": [
+                {
+                    "name": "Place",
+                    "type": "Button",
+                    "id": "87d04e11-0dac-4320-9409-2184fa7a364a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Erase",
+                    "type": "Button",
+                    "id": "6a4f194b-a95a-4ff4-a4a4-31734aeab8c9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleFrwd",
+                    "type": "Button",
+                    "id": "764a6968-3ca0-456b-b849-83567ab3f4ee",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleBack",
+                    "type": "Button",
+                    "id": "cc48f1b4-fbc9-4ee5-b723-705debe65fa6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9c5a41ed-e1cc-4174-9163-637718d76f5b",
+                    "path": "<XRController>{RightHand}/triggerButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Place",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "86b53bec-e307-4507-a706-81e26d5d1ef4",
+                    "path": "<XRController>{RightHand}/gripButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Erase",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4f9a53cb-ef2a-4ffc-8aa6-2a961ce114f5",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleFrwd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "64f078b2-f7db-4e01-83b0-c264ae5f82e9",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleBack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

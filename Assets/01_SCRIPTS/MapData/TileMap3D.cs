@@ -41,6 +41,24 @@ public class TileMap3D
         return _tiles[index];
     }
 
+    //Only for use in Tilemap Editor
+    internal void SetTileAt(Vector3Int coord, TileBase tile)
+    {
+        if (coord.x < 0 || coord.y < 0 || coord.z < 0
+            || coord.x >= _dimensions.x || coord.y >= _dimensions.y || coord.z >= _dimensions.z)
+        {
+            Debug.LogError("TileAt coordinates outside of tilemap");
+            return;
+        }
+
+        int index = coord.z * _dimensions.y * _dimensions.x
+            + coord.y * _dimensions.x
+            + coord.x;
+
+        tile.gridCoord = coord;
+        _tiles[index] = tile;
+    }
+
     Vector3Int GetCoordFromIndex(int index)
     {
         return new Vector3Int(
