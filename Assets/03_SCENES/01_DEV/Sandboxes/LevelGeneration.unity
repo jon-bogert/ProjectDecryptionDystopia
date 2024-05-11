@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d866593281e22294fb1264cde9463df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _filename: map.yaml
+  _filename: output.yaml
   _blockPrefab: {fileID: 521786116986242441, guid: 23daeaa66d140ad4d8b24c0abde9cfe0,
     type: 3}
   _slopePrefab: {fileID: 3084212057026480508, guid: 18df527807fc5e74e82989fb46ab1689,
