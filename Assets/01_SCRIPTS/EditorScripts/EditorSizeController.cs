@@ -3,16 +3,22 @@ using UnityEngine;
 
 public class EditorSizeController : MonoBehaviour
 {
+    [Header("Parameters")]
+    [SerializeField] string saveFilename = "output.yaml";
+
     Vector3Int _size = Vector3Int.one;
+    [Header("References")]
     [SerializeField] TMP_Text xText;
     [SerializeField] TMP_Text yText;
     [SerializeField] TMP_Text zText;
+    [SerializeField] TMP_Text filenameText;
 
     [SerializeField] EditorLevelSpace _levelSpace;
 
     private void Start()
     {
         UpdX(); UpdY(); UpdZ();
+        filenameText.text = saveFilename;
     }
 
     public void IncrX()
@@ -81,5 +87,13 @@ public class EditorSizeController : MonoBehaviour
         tileMap.CreateEmpty(_size);
 
         _levelSpace.SetTilemap(tileMap);
+    }
+
+    public void Save()
+    {
+        if (_levelSpace.tilemap == null)
+            return;
+
+        _levelSpace.tilemap.SaveToFile(saveFilename);
     }
 }

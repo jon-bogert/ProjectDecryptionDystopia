@@ -1,8 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using XephTools;
 
 public class EditorBlockPlacer : MonoBehaviour
 {
+    [Header("Parameters")]
+    [SerializeField] float _rotateUpTreshold = 0.8f;
+    [SerializeField] float _rotateDownTreshold = 0.5f;
+
     [Header("References")]
     [SerializeField] Transform _controllerPoint;
     [Space]
@@ -14,10 +19,14 @@ public class EditorBlockPlacer : MonoBehaviour
     [SerializeField] InputActionReference _eraseInput;
     [SerializeField] InputActionReference _nextInput;
     [SerializeField] InputActionReference _prevInput;
+    [SerializeField] InputActionReference _rotateInput;
 
     TileType _tileType = TileType.Block;
     EditorLevelSpace _levelSpace;
     TileRotation _rotation;
+
+    enum Rotate { None, CW, CCW }
+    Rotate _rotate = Rotate.None;
 
     private void Awake()
     {
@@ -42,12 +51,40 @@ public class EditorBlockPlacer : MonoBehaviour
         {
             _levelSpace.Erase();
         }
+
+        CheckRotation();
+        
     }
 
     private void OnDestroy()
     {
         _prevInput.action.performed -= PrevInput;
         _nextInput.action.performed -= NextInput;
+    }
+
+    private void CheckRotation()
+    {
+        float rotateAxis = _rotateInput.action.ReadValue<Vector2>().x;
+        VRDebug.Monitor(2, rotateAxis.ToString("F2"));
+
+        if (_rotate != Rotate.CW && rotateAxis >= _rotateUpTreshold)
+        {
+            _rotate = Rotate.CW;
+            _rotation = (TileRotation)((int)(_rotation + 1)%4);
+            UpdateVisual();
+        }
+        else if (_rotate != Rotate.CCW && rotateAxis <= -_rotateUpTreshold)
+        {
+            _rotate = Rotate.CCW;
+            _rotation = (TileRotation)((int)(_rotation + 3) % 4);
+            UpdateVisual();
+        }
+        else if (_rotate != Rotate.None &&
+            rotateAxis <= _rotateDownTreshold &&
+            rotateAxis >= -_rotateDownTreshold)
+        {
+            _rotate = Rotate.None;
+        }
     }
 
     void UpdateVisual()
@@ -58,9 +95,11 @@ public class EditorBlockPlacer : MonoBehaviour
         switch (_tileType)
         {
             case TileType.Block:
+                _blockObj.transform.localRotation = Quaternion.identity;
                 _blockObj.SetActive(true);
                 break;
             case TileType.Slope:
+                _slopeObj.transform.localRotation = Quaternion.Euler(0f, (float)_rotation * 90f, 0f);
                 _slopeObj.SetActive(true);
                 break;
             default:

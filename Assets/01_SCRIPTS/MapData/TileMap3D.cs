@@ -156,4 +156,67 @@ public class TileMap3D
         }
 
     }
+
+    //Only for use in Tilemap Editor
+    public void SaveToFile(string filename)
+    {
+        using (StreamWriter file = File.CreateText(filename))
+        {
+            file.Write(SaveToString());
+        }
+    }
+
+    //Only for use in Tilemap Editor
+    public string SaveToString()
+    {
+        YamlMappingNode root = new();
+
+        YamlMappingNode dims = new()
+        {
+            { "x", _dimensions.x.ToString() },
+            { "y", _dimensions.y.ToString() },
+            { "z", _dimensions.z.ToString() }
+        };
+
+        root.Add("dimensions", dims);
+
+        YamlSequenceNode tiles = new();
+        foreach (TileBase tileData in _tiles)
+        {
+            if (tileData.type == TileType.Space ||
+                tileData.type == TileType.Filler)
+                continue;
+
+            YamlMappingNode tileNode = new();
+            tileNode.Add("type", tileData.type.ToString());
+            YamlMappingNode coord = new()
+            {
+                { "x", tileData.gridCoord.x.ToString() },
+                { "y", tileData.gridCoord.y.ToString() },
+                { "z", tileData.gridCoord.z.ToString() }
+            };
+            tileNode.Add("coord", coord);
+            if (tileData.type == TileType.Slope ||
+                tileData.type == TileType.Door ||
+                tileData.type == TileType.Button)
+            {
+                RotatableTile rt = tileData as RotatableTile;
+                tileNode.Add("rotation", rt.Rotation.ToString());
+            }
+            tiles.Add(tileNode);
+        }
+        root.Add("tiles", tiles);
+
+        string result = "";
+        YamlStream yaml = new();
+        yaml.Add(new YamlDocument(root));
+        using (StringWriter writer = new())
+        {
+            yaml.Save(writer, false);
+            result = writer.ToString();
+            result = result.Substring(0, result.Length - 5); // removing the "..." at end of document
+        }
+
+        return result;
+    }
 }
