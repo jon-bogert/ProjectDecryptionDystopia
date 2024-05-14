@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class NavNode
@@ -17,42 +16,76 @@ public class NavNode
     internal void RecursiveProbe(TileMap3D map, NavGraph graph)
     {
         Vector3Int coord = tile.gridCoord;
-        ProbeDir(map, graph, north, coord + Vector3Int.forward, TileRotation.North);
-        ProbeDir(map, graph, east, coord + Vector3Int.right, TileRotation.East);
-        ProbeDir(map, graph, south, coord + Vector3Int.back, TileRotation.South);
-        ProbeDir(map, graph, west, coord + Vector3Int.left, TileRotation.West);
+
+        if (tile.type == TileType.Slope)
+        {
+            RotatableTile rt = tile as RotatableTile;
+            switch (rt.Rotation)
+            {
+                case TileRotation.North:
+                    north = ProbeDirection(map, graph, north, coord + Vector3Int.forward, TileRotation.North);
+                    south = ProbeDirection(map, graph, south, coord + Vector3Int.back + Vector3Int.down, TileRotation.South);
+                    break;
+                case TileRotation.East:
+                    east = ProbeDirection(map, graph, east, coord + Vector3Int.right, TileRotation.East);
+                    west = ProbeDirection(map, graph, west, coord + Vector3Int.left + Vector3Int.down, TileRotation.West);
+                    break;
+                case TileRotation.South:
+                    south = ProbeDirection(map, graph, south, coord + Vector3Int.back, TileRotation.South);
+                    north = ProbeDirection(map, graph, north, coord + Vector3Int.forward + Vector3Int.down, TileRotation.North);
+                    break;
+                default:
+                    west = ProbeDirection(map, graph, west, coord + Vector3Int.left, TileRotation.West);
+                    east = ProbeDirection(map, graph, east, coord + Vector3Int.right + Vector3Int.down, TileRotation.East);
+                    break;
+            }
+            return;
+        }
+
+        north = ProbeDirection(map, graph, north, coord + Vector3Int.forward, TileRotation.North);
+        east = ProbeDirection(map, graph, east, coord + Vector3Int.right, TileRotation.East);
+        south = ProbeDirection(map, graph, south, coord + Vector3Int.back, TileRotation.South);
+        west = ProbeDirection(map, graph, west, coord + Vector3Int.left, TileRotation.West);
     }
 
-    void ProbeDir(TileMap3D map, NavGraph graph, NavNode node, Vector3Int coord, TileRotation rot)
+    NavNode ProbeDirection(TileMap3D map, NavGraph graph, NavNode node, Vector3Int coord, TileRotation rot)
     {
         TileBase checkTile = map.TileAt(coord);
+        if (checkTile == null) // Not in Map
+            return null;
+
         if (checkTile.type == TileType.Block)
         {
             //Check block above
             TileBase tileAbove = map.TileAt(coord + Vector3Int.up);
-            if (tileAbove.type != TileType.Slope && tileAbove.type != TileType.Space)
+            if (tileAbove.type != TileType.Slope &&
+                tileAbove.type != TileType.Space &&
+                tileAbove.type != TileType.PlayerStart)
             {
                 //Blocked path
-                return;
+                return null;
             }
 
             //Check that slope is in correct direction
             if (tileAbove.type == TileType.Slope)
             {
                 //Check one more above
-                if (map.TileAt(coord + Vector3Int.up * 2).type != TileType.Space)
-                    return;
+                TileBase anotherTileAbove = map.TileAt(coord + Vector3Int.up * 2);
+                if (anotherTileAbove.type != TileType.Space &&
+                    anotherTileAbove.type != TileType.PlayerStart)
+                    return null;
 
                 RotatableTile rt = tileAbove as RotatableTile;
                 if (rt.Rotation != rot)
                 {
                     //Wrong Direction
-                    return;
+                    return null;
                 }
                 //Check if Node already exists
                 if (graph.nodes.ContainsKey(tileAbove.gridCoord))
                 {
                     node = graph.nodes[tileAbove.gridCoord];
+                    return node;
                 }
                 else
                 {
@@ -61,7 +94,7 @@ public class NavNode
                     graph.nodes[node.coord] = node;
                     node.RecursiveProbe(map, graph);
                 }
-                return;
+                return node;
             }
 
             //Space above Normal spot
@@ -76,49 +109,48 @@ public class NavNode
                 graph.nodes[node.coord] = node;
                 node.RecursiveProbe(map, graph);
             }
+            return node;
         }
         //Check space
-        else if (checkTile.type == TileType.Space)
+        else if (checkTile.type == TileType.Slope)
         {
-            //Check block below
-            TileBase tileBelow = map.TileAt(coord + Vector3Int.down);
-            if (tileBelow.type != TileType.Slope)
+            if (checkTile.type != TileType.Slope)
             {
                 //Blocked path
-                return;
+                return null;
             }
 
             //Check that slope is in correct direction
-            if (tileBelow.type == TileType.Slope)
+            if (checkTile.type == TileType.Slope)
             {
-
-                RotatableTile rt = tileBelow as RotatableTile;
-                if (rt.Rotation != (rot + 2 % 4))
+                RotatableTile rt = checkTile as RotatableTile;
+                TileRotation desiredDir = (TileRotation)(((int)rot + 2) % 4);
+                if (rt.Rotation != desiredDir)
                 {
                     //Wrong Direction
-                    return;
+                    return null;
                 }
                 //Check if Node already exists
-                if (graph.nodes.ContainsKey(tileBelow.gridCoord))
+                if (graph.nodes.ContainsKey(checkTile.gridCoord))
                 {
-                    node = graph.nodes[tileBelow.gridCoord];
+                    node = graph.nodes[checkTile.gridCoord];
                 }
                 else
                 {
                     node = new NavNode();
-                    node.tile = tileBelow;
+                    node.tile = checkTile;
                     graph.nodes[node.coord] = node;
                     node.RecursiveProbe(map, graph);
                 }
-                return;
             }
         }
+        return node;
     }
 }
 
 public class NavGraph : MonoBehaviour
 {
-    public SortedDictionary<Vector3Int, NavNode> nodes;
+    public Dictionary<Vector3Int, NavNode> nodes;
 
     public void ResetVisitFlags()
     {
@@ -128,19 +160,65 @@ public class NavGraph : MonoBehaviour
         }
     }
 
+
     public void GenerateGraph(TileMap3D tileMap)
     {
+        nodes = new Dictionary<Vector3Int, NavNode>();
         ResetVisitFlags();
-        TileBase playerTile = tileMap.playerStart;
-        Vector3Int startCoord = playerTile.gridCoord;
-        startCoord.y -= 1;
-        TileBase startTile = tileMap.TileAt(startCoord);
-        if (startTile != null && startTile.type == TileType.Block)
+        //TileBase playerTile = tileMap.playerStart;
+        //Vector3Int startCoord = playerTile.gridCoord;
+        //startCoord.y -= 1;
+        tileMap.ForEach((TileBase tile) =>
         {
-            NavNode startNode = nodes[startCoord] = new NavNode();
-            startNode.tile = startTile;
+            TileBase tileAbove = tileMap.TileAt(tile.gridCoord + Vector3Int.up);
+            if (tile.type != TileType.Block || tileAbove.type != TileType.Space)
+                return;
+
+            if (nodes.ContainsKey(tile.gridCoord))
+                return;
+            NavNode startNode = nodes[tile.gridCoord] = new NavNode();
+            startNode.tile = tile;
             startNode.RecursiveProbe(tileMap, this);
-        }
+        });
 
     }
+
+#if UNITY_EDITOR
+    const float OFFSET_AMT = 0.05f;
+    private void DrawBranch(NavNode node, Vector3 startPos, Vector3 offsetDir)
+    {
+        Vector3 endPos = node.tile.gameObject.transform.position;
+        endPos.y += .5f;
+        Vector3 offset = offsetDir * OFFSET_AMT;
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(startPos + offset, endPos + offset);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (nodes == null)
+            return;
+
+        foreach (var nodePair in nodes)
+        {
+            NavNode node = nodePair.Value;
+            Vector3 pos = node.tile.gameObject.transform.position;
+            pos.y += .5f;
+
+            Gizmos.color = new Color32(113, 96, 232, 255);
+            //Gizmos.color = Color.magenta;
+            Gizmos.DrawSphere(pos, 0.1f);
+
+            if (node.north != null)
+                DrawBranch(node.north, pos, Vector3.right);
+            if (node.west != null)
+                DrawBranch(node.west, pos, Vector3.back);
+            if (node.south != null)
+                DrawBranch(node.south, pos, Vector3.left);
+            if (node.east != null)
+                DrawBranch(node.east, pos, Vector3.forward);
+        }
+    }
+#endif // UNITY_EDITOR
 }

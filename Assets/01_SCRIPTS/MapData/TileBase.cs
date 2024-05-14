@@ -30,5 +30,9 @@ public class TileBase
     public Vector3Int gridCoord { get { return _gridCoord; }
         internal set { _gridCoord = value; } }
 
+#if UNITY_EDITOR
+    public GameObject gameObject = null;
+#endif // UNITY_EDITOR
+
 }
 

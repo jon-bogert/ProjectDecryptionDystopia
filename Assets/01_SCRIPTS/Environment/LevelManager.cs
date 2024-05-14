@@ -9,12 +9,15 @@ public class LevelManager : MonoBehaviour
 
     TileMap3D _tileMap = new TileMap3D();
 
+    public TileMap3D tileMap { get { return _tileMap; } }
+
     private void Awake()
     {
         _tileMap.LoadFromFile(_filename);
         Vector3 offset = ((Vector3)_tileMap.dimensions) * 0.5f;
         transform.position -= offset;
         _tileMap.ForEach(Generate);
+        FindObjectOfType<NavGraph>().GenerateGraph(_tileMap);
     }
 
     private void Generate(TileBase tile)
@@ -25,6 +28,7 @@ public class LevelManager : MonoBehaviour
         switch (tile.type)
         {
             case TileType.Space:
+            case TileType.PlayerStart:
                 return;
             case TileType.Block:
                 offset = tile.gridCoord;
@@ -39,6 +43,9 @@ public class LevelManager : MonoBehaviour
                 Debug.LogError("Unimplemented enum type");
                 return;
         }
-        Instantiate(prefab, transform.position + offset, Quaternion.Euler(0f, rotation, 0f), this.transform);
+        GameObject go = Instantiate(prefab, transform.position + offset, Quaternion.Euler(0f, rotation, 0f), this.transform);
+#if UNITY_EDITOR
+        tile.gameObject = go;
+#endif // UNITY_EDITOR
     }
 }

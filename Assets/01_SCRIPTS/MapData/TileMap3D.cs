@@ -31,9 +31,10 @@ public class TileMap3D
         if (x < 0 || y < 0 || z < 0
             || x >= _dimensions.x || y >= _dimensions.y || z >= _dimensions.z)
         {
-            Debug.LogError("TileAt coordinates outside of tilemap");
+            //Coordinates are outside of the map;
             return null;
         }
+
         int index = z * _dimensions.y * _dimensions.x
             + y * _dimensions.x
             + x;
@@ -140,6 +141,12 @@ public class TileMap3D
 
             if (type == TileType.Block)
                 currTile.type = type;
+
+            else if (type == TileType.PlayerStart)
+            {
+                currTile.type = type;
+                _playerStart = currTile;
+            }
 
             else if (type == TileType.Slope)
             {
