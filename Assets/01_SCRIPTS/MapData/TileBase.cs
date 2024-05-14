@@ -2,13 +2,13 @@ using UnityEngine;
 
 public enum TileType
 {
-    Filler = -2,
-    PlayerStart = -1,
+    Filler = -1,
     Space = 0,
     Block = 1,
     Slope,
     Door,
     Button,
+    PlayerStart,
     SelfMovable,
     UserMovable,
 }

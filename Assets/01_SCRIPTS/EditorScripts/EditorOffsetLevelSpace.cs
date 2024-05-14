@@ -9,6 +9,7 @@ public class EditorOffsetLevelSpace : MonoBehaviour
     [Header("References")]
     [SerializeField] GameObject _blockPrefab;
     [SerializeField] GameObject _slopePrefab;
+    [SerializeField] GameObject _playerStartPrefab;
 
     GameObject[] _visuals = null;
 
@@ -124,6 +125,13 @@ public class EditorOffsetLevelSpace : MonoBehaviour
             _visuals[index] = Instantiate(_slopePrefab,
                 transform.TransformPoint(coord),
                 Quaternion.Euler(0f, ((float)rt.Rotation) * 90f, 0f),
+                transform);
+        }
+        else if (tile.type == TileType.PlayerStart)
+        {
+            _visuals[index] = Instantiate(_playerStartPrefab,
+                transform.TransformPoint(coord),
+                Quaternion.identity,
                 transform);
         }
 

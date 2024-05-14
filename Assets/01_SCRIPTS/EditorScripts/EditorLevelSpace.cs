@@ -79,6 +79,12 @@ public class EditorLevelSpace : MonoBehaviour
             tile.Rotation = rotation;
             _tilemap.SetTileAt(cursorPosition, tile);
         }
+        else if (tileType == TileType.PlayerStart)
+        {
+            TileBase tile = new TileBase();
+            tile.type = tileType;
+            _tilemap.SetTileAt(cursorPosition, tile);
+        }
         else
         {
             Debug.LogError("Unimplemented Enum");
