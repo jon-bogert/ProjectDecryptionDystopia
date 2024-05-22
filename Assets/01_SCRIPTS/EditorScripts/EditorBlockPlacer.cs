@@ -14,6 +14,8 @@ public class EditorBlockPlacer : MonoBehaviour
     [SerializeField] GameObject _blockObj;
     [SerializeField] GameObject _slopeObj;
     [SerializeField] GameObject _playerStartObj;
+    [SerializeField] GameObject _enemyMeleeObj;
+    [SerializeField] GameObject _enemyRangedObj;
 
     [Header("Inputs")]
     [SerializeField] InputActionReference _placeInput;
@@ -93,6 +95,8 @@ public class EditorBlockPlacer : MonoBehaviour
         _blockObj.SetActive(false);
         _slopeObj.SetActive(false);
         _playerStartObj.SetActive(false);
+        _enemyMeleeObj.SetActive(false);
+        _enemyRangedObj.SetActive(false);
 
         switch (_tileType)
         {
@@ -108,6 +112,14 @@ public class EditorBlockPlacer : MonoBehaviour
                 _playerStartObj.transform.localRotation = Quaternion.identity;
                 _playerStartObj.SetActive(true);
                 break;
+            case TileType.EnemyMelee:
+                _enemyMeleeObj.transform.localRotation = Quaternion.Euler(0f, (float)_rotation * 90f, 0f);
+                _enemyMeleeObj.SetActive(true);
+                break;
+            case TileType.EnemyRanged:
+                _enemyRangedObj.transform.localRotation = Quaternion.Euler(0f, (float)_rotation * 90f, 0f);
+                _enemyRangedObj.SetActive(true);
+                break;
             default:
                 Debug.LogError("Unimplemented Enum");
                 break;
@@ -117,7 +129,7 @@ public class EditorBlockPlacer : MonoBehaviour
     private void PrevInput(InputAction.CallbackContext ctx)
     {
         if (_tileType == TileType.Block)
-            _tileType = TileType.PlayerStart;
+            _tileType = TileType.EnemyRanged;
         else
             _tileType--;
 
@@ -126,7 +138,7 @@ public class EditorBlockPlacer : MonoBehaviour
 
     private void NextInput(InputAction.CallbackContext ctx)
     {
-        if (_tileType == TileType.PlayerStart)
+        if (_tileType == TileType.EnemyRanged)
             _tileType = TileType.Block;
         else
             _tileType++;

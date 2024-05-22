@@ -6,6 +6,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] string _filename = "";
     [SerializeField] GameObject _blockPrefab;
     [SerializeField] GameObject _slopePrefab;
+    [SerializeField] GameObject _playerPrefab;
+    [SerializeField] GameObject _enemyMeleePrefab;
+    [SerializeField] GameObject _enemyRangedPrefab;
 
     TileMap3D _tileMap = new TileMap3D();
 
@@ -28,7 +31,7 @@ public class LevelManager : MonoBehaviour
         switch (tile.type)
         {
             case TileType.Space:
-            case TileType.PlayerStart:
+            case TileType.Filler:
                 return;
             case TileType.Block:
                 offset = tile.gridCoord;
@@ -38,6 +41,20 @@ public class LevelManager : MonoBehaviour
                 offset = tile.gridCoord;
                 rotation = ((int)((RotatableTile)tile).Rotation) * 90f;
                 prefab = _slopePrefab;
+                break;
+            case TileType.PlayerStart:
+                offset = tile.gridCoord;
+                prefab = _playerPrefab;
+                break;
+            case TileType.EnemyMelee:
+                offset = tile.gridCoord;
+                rotation = ((int)((RotatableTile)tile).Rotation) * 90f;
+                prefab = _enemyMeleePrefab;
+                break;
+            case TileType.EnemyRanged:
+                offset = tile.gridCoord;
+                rotation = ((int)((RotatableTile)tile).Rotation) * 90f;
+                prefab = _enemyRangedPrefab;
                 break;
             default:
                 Debug.LogError("Unimplemented enum type");

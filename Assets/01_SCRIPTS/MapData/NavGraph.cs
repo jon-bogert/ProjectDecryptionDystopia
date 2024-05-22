@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using XephTools;
 
 public class NavNode
 {
@@ -60,6 +61,8 @@ public class NavNode
             TileBase tileAbove = map.TileAt(coord + Vector3Int.up);
             if (tileAbove.type != TileType.Slope &&
                 tileAbove.type != TileType.Space &&
+                tileAbove.type != TileType.EnemyMelee &&
+                tileAbove.type != TileType.EnemyRanged &&
                 tileAbove.type != TileType.PlayerStart)
             {
                 //Blocked path
@@ -72,6 +75,8 @@ public class NavNode
                 //Check one more above
                 TileBase anotherTileAbove = map.TileAt(coord + Vector3Int.up * 2);
                 if (anotherTileAbove.type != TileType.Space &&
+                    anotherTileAbove.type != TileType.EnemyMelee &&
+                    anotherTileAbove.type != TileType.EnemyRanged &&
                     anotherTileAbove.type != TileType.PlayerStart)
                     return null;
 
@@ -171,7 +176,7 @@ public class NavGraph : MonoBehaviour
         tileMap.ForEach((TileBase tile) =>
         {
             TileBase tileAbove = tileMap.TileAt(tile.gridCoord + Vector3Int.up);
-            if (tile.type != TileType.Block || tileAbove.type != TileType.Space)
+            if (tile.type != TileType.Block || tileAbove == null || tileAbove.type != TileType.Space)
                 return;
 
             if (nodes.ContainsKey(tile.gridCoord))
@@ -221,4 +226,83 @@ public class NavGraph : MonoBehaviour
         }
     }
 #endif // UNITY_EDITOR
+
+    public List<NavNode> Dijkstra(NavNode start, NavNode end)
+    {
+        ResetVisitFlags();
+        PriorityQueue<NavNode> openSet = new ();
+        Dictionary<Vector3Int, bool> closedSet = new();
+        Dictionary<Vector3Int, NavNode> cameFrom = new();
+        Dictionary<Vector3Int, float> gScore = new();
+
+        openSet.Enqueue(start, 0);
+        gScore[start.tile.gridCoord] = 0;
+
+        while (!openSet.IsEmpty)
+        {
+            NavNode current = openSet.Dequeue();
+
+            if (current.tile.gridCoord == end.tile.gridCoord)
+            {
+                return ReconstructPath(cameFrom, current);
+            }
+
+            closedSet[current.tile.gridCoord] = true;
+
+            foreach (NavNode neighbor in GetNeighbors(current))
+            {
+                if (closedSet.ContainsKey(neighbor.tile.gridCoord))
+                {
+                    continue;
+                }
+
+                float tentativeGScore = gScore[current.tile.gridCoord] + DistanceBetween(current, neighbor);
+
+                if (!openSet.Contains(neighbor) || tentativeGScore < gScore[neighbor.tile.gridCoord])
+                {
+                    cameFrom[neighbor.tile.gridCoord] = current;
+                    gScore[neighbor.tile.gridCoord] = tentativeGScore;
+
+                    if (!openSet.Contains(neighbor))
+                    {
+                        openSet.Enqueue(neighbor, gScore[neighbor.tile.gridCoord]);
+                    }
+                }
+            }
+        }
+
+        return null; // Path not found
+    }
+
+    private float DistanceBetween(NavNode a, NavNode b)
+    {
+        return Vector3Int.Distance(a.tile.gridCoord, b.tile.gridCoord);
+    }
+
+    private List<NavNode> GetNeighbors(NavNode node)
+    {
+        var neighbors = new List<NavNode>();
+
+        if (node.north != null) neighbors.Add(node.north);
+        if (node.east != null) neighbors.Add(node.east);
+        if (node.south != null) neighbors.Add(node.south);
+        if (node.west != null) neighbors.Add(node.west);
+
+        return neighbors;
+    }
+
+    private List<NavNode> ReconstructPath(Dictionary<Vector3Int, NavNode> cameFrom, NavNode current)
+    {
+        var path = new List<NavNode>();
+        path.Add(current);
+
+        while (cameFrom.ContainsKey(current.tile.gridCoord))
+        {
+            current = cameFrom[current.tile.gridCoord];
+            path.Add(current);
+        }
+
+        path.Reverse();
+        return path;
+    }
 }

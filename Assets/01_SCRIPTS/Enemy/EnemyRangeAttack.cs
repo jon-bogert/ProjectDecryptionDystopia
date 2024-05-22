@@ -8,11 +8,14 @@ public class EnemyRangeAttack : MonoBehaviour
     [Tooltip("How many integral notches between min and max")]
     [SerializeField] int _shotTimeResolution = 4;
     [SerializeField] Transform _firePoint;
+    [SerializeField] float _stunTime = 5f;
 
     ProjectilePool _pool;
     Health _playerHealth;
     float _time = 0f;
     float _timer = 0f;
+    TimeIt _stunTimer = new();
+    bool _isStunned = false;
 
     private void Awake()
     {
@@ -39,6 +42,9 @@ public class EnemyRangeAttack : MonoBehaviour
 
     private void Update()
     {
+        if (_isStunned)
+            return;
+
         VRDebug.Monitor(4, _timer);
         if (_timer <= 0f)
         {
@@ -47,6 +53,20 @@ public class EnemyRangeAttack : MonoBehaviour
             _pool.FireNext(_firePoint.position, direction);
         }
         _timer -= Time.deltaTime;
+    }
+
+    public void Stun()
+    {
+        _isStunned = true;
+
+        if (_stunTimer.isExpired)
+        {
+            _stunTimer.OnComplete(() => { _isStunned = false; }).SetDuration(_stunTime).Start();
+        }
+        else
+        {
+            _stunTimer.SetDuration(_stunTime);
+        }
     }
 
     float Remap(int input, int inMin, int inMax, float outMin, float outMax)

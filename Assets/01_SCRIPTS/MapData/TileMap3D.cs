@@ -148,10 +148,12 @@ public class TileMap3D
                 _playerStart = currTile;
             }
 
-            else if (type == TileType.Slope)
+            else if (type == TileType.Slope || 
+                type == TileType.EnemyMelee ||
+                type == TileType.EnemyRanged)
             {
                 currTile = _tiles[GetIndexFromCoord(coord)] = new RotatableTile();
-                currTile.type = TileType.Slope;
+                currTile.type = type;
                 currTile.gridCoord = coord;
                 RotatableTile rt = currTile as RotatableTile;
                 rt.Rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
@@ -205,7 +207,9 @@ public class TileMap3D
             tileNode.Add("coord", coord);
             if (tileData.type == TileType.Slope ||
                 tileData.type == TileType.Door ||
-                tileData.type == TileType.Button)
+                tileData.type == TileType.Button ||
+                tileData.type == TileType.EnemyMelee ||
+                tileData.type == TileType.EnemyRanged)
             {
                 RotatableTile rt = tileData as RotatableTile;
                 tileNode.Add("rotation", rt.Rotation.ToString());

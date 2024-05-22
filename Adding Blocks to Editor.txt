@@ -1,0 +1,14 @@
+=== ADDING BLOCKS TO EDITOR ===
+
+- Add and assign prefab to LevelOffsetSpace
+    - Add if-else implementation -> GenerateVisual
+- Add visual to hand in scene (XR Origin > Camera Offset > Right Controller > InteractionPoint)
+- Add and assign objects to Editor Block Placer (on XR Origin)
+    - Add disable of object at top and implement switch case -> Update Visual
+    - Check PrevInput and NextInput if enums have changed
+- Implement if-else tree Place -> EditorLevelSpace
+- Implement Rotatable or special types in SaveToString -> TileMap3D
+- Implement if-else tree in LoadFromString -> TileMap3D
+- Add and assign prefab -> LevelManager
+    - implement switch-case in Generate
+- If non-solid type, Add to if checks in ProbeDirection -> NavNode

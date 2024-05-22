@@ -10,6 +10,8 @@ public class EditorOffsetLevelSpace : MonoBehaviour
     [SerializeField] GameObject _blockPrefab;
     [SerializeField] GameObject _slopePrefab;
     [SerializeField] GameObject _playerStartPrefab;
+    [SerializeField] GameObject _enemyMeleePrefab;
+    [SerializeField] GameObject _enemyRangedPrefab;
 
     GameObject[] _visuals = null;
 
@@ -132,6 +134,22 @@ public class EditorOffsetLevelSpace : MonoBehaviour
             _visuals[index] = Instantiate(_playerStartPrefab,
                 transform.TransformPoint(coord),
                 Quaternion.identity,
+                transform);
+        }
+        else if (tile.type == TileType.EnemyMelee)
+        {
+            RotatableTile rt = (RotatableTile)tile;
+            _visuals[index] = Instantiate(_enemyMeleePrefab,
+                transform.TransformPoint(coord),
+                Quaternion.Euler(0f, ((float)rt.Rotation) * 90f, 0f),
+                transform);
+        }
+        else if (tile.type == TileType.EnemyRanged)
+        {
+            RotatableTile rt = (RotatableTile)tile;
+            _visuals[index] = Instantiate(_enemyRangedPrefab,
+                transform.TransformPoint(coord),
+                Quaternion.Euler(0f, ((float)rt.Rotation) * 90f, 0f),
                 transform);
         }
 

@@ -6,9 +6,9 @@ using XephTools;
 public class ThirdPersonMovement : MonoBehaviour
 {
     [Header("Parameters")]
-    [SerializeField] float _moveSpeed = 0.01f;
-    [SerializeField] float _gravityAmount = 0.1f;
-    [SerializeField] float _jumpAmount = 0.1f;
+    [SerializeField] float _moveSpeed = 3f;
+    [SerializeField] float _gravityAmount = 10f;
+    [SerializeField] float _jumpAmount = 5f;
 
     [Header("Settings")]
     [SerializeField] bool _doCameraAdjust = true;

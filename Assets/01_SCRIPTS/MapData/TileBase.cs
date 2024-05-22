@@ -9,6 +9,8 @@ public enum TileType
     Door,
     Button,
     PlayerStart,
+    EnemyMelee,
+    EnemyRanged,
     SelfMovable,
     UserMovable,
 }

@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,6 +5,7 @@ public class EnemyDetect : MonoBehaviour
 {
     [SerializeField] float _rangeRadius = 5f;
     [SerializeField] UnityEvent _onAttack;
+    [SerializeField] UnityEvent _onIdle;
 
     ThirdPersonMovement _player;
 
