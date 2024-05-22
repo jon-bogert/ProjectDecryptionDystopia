@@ -16,6 +16,8 @@ public class EditorBlockPlacer : MonoBehaviour
     [SerializeField] GameObject _playerStartObj;
     [SerializeField] GameObject _enemyMeleeObj;
     [SerializeField] GameObject _enemyRangedObj;
+    [SerializeField] GameObject _doorObj;
+    [SerializeField] GameObject _keyObj;
 
     [Header("Inputs")]
     [SerializeField] InputActionReference _placeInput;
@@ -97,6 +99,8 @@ public class EditorBlockPlacer : MonoBehaviour
         _playerStartObj.SetActive(false);
         _enemyMeleeObj.SetActive(false);
         _enemyRangedObj.SetActive(false);
+        _doorObj.SetActive(false);
+        _keyObj.SetActive(false);
 
         switch (_tileType)
         {
@@ -119,6 +123,14 @@ public class EditorBlockPlacer : MonoBehaviour
             case TileType.EnemyRanged:
                 _enemyRangedObj.transform.localRotation = Quaternion.Euler(0f, (float)_rotation * 90f, 0f);
                 _enemyRangedObj.SetActive(true);
+                break;
+            case TileType.Door:
+                _doorObj.transform.localRotation = Quaternion.Euler(0f, (float)_rotation * 90f, 0f);
+                _doorObj.SetActive(true);
+                break;
+            case TileType.Key:
+                _keyObj.transform.localRotation = Quaternion.identity;
+                _keyObj.SetActive(true);
                 break;
             default:
                 Debug.LogError("Unimplemented Enum");

@@ -1323,7 +1323,7 @@ PrefabInstance:
     - target: {fileID: 847809855388394855, guid: 89c4ce796e25cf844a0625cea70182b1,
         type: 3}
       propertyPath: _filename
-      value: seektest.yaml
+      value: doortest.yaml
       objectReference: {fileID: 0}
     - target: {fileID: 2876977644408620944, guid: 89c4ce796e25cf844a0625cea70182b1,
         type: 3}

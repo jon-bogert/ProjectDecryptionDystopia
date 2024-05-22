@@ -1,14 +1,22 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LevelManager : MonoBehaviour
 {
     [Header("Parameters")]
     [SerializeField] string _filename = "";
+
+    [Header("Prefabs")]
     [SerializeField] GameObject _blockPrefab;
     [SerializeField] GameObject _slopePrefab;
     [SerializeField] GameObject _playerPrefab;
     [SerializeField] GameObject _enemyMeleePrefab;
     [SerializeField] GameObject _enemyRangedPrefab;
+    [SerializeField] GameObject _doorPrefab;
+    [SerializeField] GameObject _keyPrefab;
+
+    [Header("Events")]
+    [SerializeField] UnityEvent onLevelComplete;
 
     TileMap3D _tileMap = new TileMap3D();
 
@@ -56,6 +64,15 @@ public class LevelManager : MonoBehaviour
                 rotation = ((int)((RotatableTile)tile).Rotation) * 90f;
                 prefab = _enemyRangedPrefab;
                 break;
+            case TileType.Door:
+                offset = tile.gridCoord;
+                rotation = ((int)((RotatableTile)tile).Rotation) * 90f;
+                prefab = _doorPrefab;
+                break;
+            case TileType.Key:
+                offset = tile.gridCoord;
+                prefab = _keyPrefab;
+                break;
             default:
                 Debug.LogError("Unimplemented enum type");
                 return;
@@ -64,5 +81,11 @@ public class LevelManager : MonoBehaviour
 #if UNITY_EDITOR
         tile.gameObject = go;
 #endif // UNITY_EDITOR
+    }
+
+    public void LevelComplete()
+    {
+        Debug.Log("<color=green>Level Complete!");
+        onLevelComplete?.Invoke();
     }
 }

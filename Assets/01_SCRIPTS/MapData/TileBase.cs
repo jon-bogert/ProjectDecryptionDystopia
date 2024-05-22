@@ -7,6 +7,7 @@ public enum TileType
     Block = 1,
     Slope,
     Door,
+    Key,
     Button,
     PlayerStart,
     EnemyMelee,

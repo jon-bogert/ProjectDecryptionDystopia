@@ -92,6 +92,20 @@ public class EditorLevelSpace : MonoBehaviour
             tile.Rotation = rotation;
             _tilemap.SetTileAt(cursorPosition, tile);
         }
+        else if (tileType == TileType.Key)
+        {
+            TileBase tile = new TileBase();
+            tile.type = tileType;
+            _tilemap.SetTileAt(cursorPosition, tile);
+        }
+        else if (tileType == TileType.Door)
+        {
+            DoorTile tile = new DoorTile();
+            tile.type = tileType;
+            tile.gridCoord = cursorPosition;
+            tile.Rotation = rotation;
+            tile.SetupTilemap(_tilemap);
+        }
         else
         {
             Debug.LogError("Unimplemented Enum");
@@ -107,10 +121,16 @@ public class EditorLevelSpace : MonoBehaviour
 
         TileBase tile = _tilemap.TileAt(cursorPosition);
         TileType currType = tile.type;
-        if (currType == TileType.Space)
+        if (currType == TileType.Space || currType == TileType.Filler)
             return;
 
-        // TODO - Apply special cases with multiple blocks here
+        if (currType == TileType.Door)
+        {
+            DoorTile door = tile as DoorTile;
+            door.EraseTileMap(_tilemap);
+            _offsetSpace.GenerateVisual();
+            return;
+        }
 
         tile = new TileBase();
         tile.type = TileType.Space;

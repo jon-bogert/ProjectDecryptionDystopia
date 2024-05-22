@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &847809855388394855
 MonoBehaviour:
@@ -55,3 +55,10 @@ MonoBehaviour:
     type: 3}
   _enemyRangedPrefab: {fileID: 8216723073893650447, guid: 39bba5f9b17d39b45bd4f7768a908db4,
     type: 3}
+  _doorPrefab: {fileID: 4734450039532918926, guid: 30dddbaee7fa8b64085c1af734c69d3e,
+    type: 3}
+  _keyPrefab: {fileID: 8208375861272521549, guid: 3868085a1f469044aa5c56c70f546f69,
+    type: 3}
+  onLevelComplete:
+    m_PersistentCalls:
+      m_Calls: []

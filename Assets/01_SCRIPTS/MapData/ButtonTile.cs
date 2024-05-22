@@ -2,8 +2,8 @@
 
 public class ButtonTile : RotatableTile
 {
-    FillerTile _fillerTile = null;
-    public FillerTile FillerTile
+    TileBase _fillerTile = null;
+    public TileBase FillerTile
     {
         get { return _fillerTile; }
         internal set { _fillerTile = value; }

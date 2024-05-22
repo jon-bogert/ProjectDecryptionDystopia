@@ -63,7 +63,8 @@ public class NavNode
                 tileAbove.type != TileType.Space &&
                 tileAbove.type != TileType.EnemyMelee &&
                 tileAbove.type != TileType.EnemyRanged &&
-                tileAbove.type != TileType.PlayerStart)
+                tileAbove.type != TileType.PlayerStart &&
+                tileAbove.type != TileType.Key)
             {
                 //Blocked path
                 return null;
@@ -77,7 +78,8 @@ public class NavNode
                 if (anotherTileAbove.type != TileType.Space &&
                     anotherTileAbove.type != TileType.EnemyMelee &&
                     anotherTileAbove.type != TileType.EnemyRanged &&
-                    anotherTileAbove.type != TileType.PlayerStart)
+                    anotherTileAbove.type != TileType.PlayerStart &&
+                    tileAbove.type != TileType.Key)
                     return null;
 
                 RotatableTile rt = tileAbove as RotatableTile;

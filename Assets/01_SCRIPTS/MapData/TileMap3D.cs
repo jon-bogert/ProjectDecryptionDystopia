@@ -139,8 +139,11 @@ public class TileMap3D
                 continue;
             }
 
-            if (type == TileType.Block)
+            if (type == TileType.Block ||
+                type == TileType.Key)
+            {
                 currTile.type = type;
+            }
 
             else if (type == TileType.PlayerStart)
             {
@@ -148,7 +151,7 @@ public class TileMap3D
                 _playerStart = currTile;
             }
 
-            else if (type == TileType.Slope || 
+            else if (type == TileType.Slope ||
                 type == TileType.EnemyMelee ||
                 type == TileType.EnemyRanged)
             {
@@ -158,6 +161,17 @@ public class TileMap3D
                 RotatableTile rt = currTile as RotatableTile;
                 rt.Rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
             }
+
+            else if (type == TileType.Door)
+            {
+                currTile = _tiles[GetIndexFromCoord(coord)] = new DoorTile();
+                DoorTile door = currTile as DoorTile;
+                door.type = type;
+                door.gridCoord = coord;
+                door.Rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
+                door.SetupTilemap(this);
+            }
+
             else
             {
                 Debug.LogWarning("Unimplemented enum type");
