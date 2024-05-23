@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
@@ -12,6 +13,9 @@ public class InteractionPoint : MonoBehaviour
 
     public Vector3 delta { get { return _delta; } }
 
+    public Action onPress;
+    public Action onRelease;
+
     private void Start()
     {
         _controller = GetComponentInParent<HapticImpulsePlayer>();
@@ -21,6 +25,11 @@ public class InteractionPoint : MonoBehaviour
     {
         _delta = transform.position - _prevPosition;
         _prevPosition = transform.position;
+
+        if (_interactInput.action.WasPressedThisFrame())
+            onPress?.Invoke();
+        if (_interactInput.action.WasReleasedThisFrame())
+            onRelease?.Invoke();
     }
 
     public bool isPressed { get { return _interactInput.action.IsPressed(); } }
