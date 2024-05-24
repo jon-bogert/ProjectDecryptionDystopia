@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MoveableGrid_2x2_MAT
+  m_Name: SelfMoveableGrid_2x2x1_MAT
   m_Shader: {fileID: -6465566751694194690, guid: d41b8b69c4e01814dbcf8e6e342b750f,
     type: 3}
   m_Parent: {fileID: 0}
@@ -59,9 +59,10 @@ Material:
     - _SpeedFactor: 0.1
     - _Thickness: 0.025
     - _TilingAmount: 2
-    - _Transition: -1.63
+    - _Transition: 0
     m_Colors:
     - _BaseColor: {r: 0.0627451, g: 0.0627451, b: 0.0627451, a: 0}
-    - _LineColor: {r: 0.6655123, g: 1.905228, b: 4.237095, a: 1}
+    - _LineColor: {r: 2, g: 2, b: 2, a: 1}
     - _Thickness: {r: 0.025, g: 0.025, b: 0, a: 0}
+    - _Tiling: {r: 8, g: 8, b: 0, a: 0}
   m_BuildTextureStacks: []

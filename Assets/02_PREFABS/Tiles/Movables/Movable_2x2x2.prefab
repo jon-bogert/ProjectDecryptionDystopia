@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 25977186461877672}
   - component: {fileID: 301858693584517125}
   - component: {fileID: 300824968605946007}
-  m_Layer: 0
-  m_Name: Movable_2x2
+  m_Layer: 13
+  m_Name: Movable_2x2x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,6 +48,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveAmount: {x: 0, y: 0, z: 0}
+  DEBUG_callAwake: 0
+  _playerCheckCenter: {x: 0.5, y: 1.6, z: 0.5}
+  _playerCheckExtends: {x: 2, y: 0.25, z: 2}
+  _playerCheckMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _pulsePhysicalDistance: 0.5
+  _pulseIntensity: 0.75
+  _pulseDuration: 0.05
+  fillerDirections: 0500000000000000020000000000000006000000000000000300000000000000050000000000000001000000000000000600000000000000
 --- !u!65 &301858693584517125
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -108,7 +118,8 @@ GameObject:
   - component: {fileID: 4418587739837657956}
   - component: {fileID: 6865323019745328547}
   - component: {fileID: 7964279878415295327}
-  m_Layer: 0
+  - component: {fileID: 4322738903709119698}
+  m_Layer: 13
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +169,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b34e25d91dc745949a5dedfdb5bb6b9b, type: 2}
+  - {fileID: 2100000, guid: dbbe78b94e489f947b71aa718bf7c181, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -201,3 +212,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4322738903709119698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7977872104080737476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 095c2b27933de9a40ade66f767749e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lerpTime: 0.25

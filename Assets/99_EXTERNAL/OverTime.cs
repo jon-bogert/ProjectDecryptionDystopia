@@ -20,7 +20,7 @@ namespace XephTools
 
         public abstract class ModuleBase
         {
-            public float Progress { get; private set; }
+            public float Progress { get; set; }
 
             private Action competeAction;
             private DateTime startTime;

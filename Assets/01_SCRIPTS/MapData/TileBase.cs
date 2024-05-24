@@ -13,7 +13,7 @@ public enum TileType
     EnemyMelee,
     EnemyRanged,
     SelfMovable,
-    UserMovable,
+    PlayerMovable,
 }
 
 public enum TileRotation // the opposite face of the tile when you approach it

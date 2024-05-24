@@ -896,3 +896,14 @@ tiles:
     x: 9
     y: 3
     z: 9
+- type: PlayerMovable
+  coord:
+    x: 2
+    y: 1
+    z: 0
+  rotation: North
+  key: 2x2
+  move-amount:
+    x: 4
+    y: 0
+    z: 0

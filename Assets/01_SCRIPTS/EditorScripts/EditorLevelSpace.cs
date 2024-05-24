@@ -76,7 +76,7 @@ public class EditorLevelSpace : MonoBehaviour
         {
             RotatableTile tile = new RotatableTile();
             tile.type = tileType;
-            tile.Rotation = rotation;
+            tile.rotation = rotation;
             _tilemap.SetTileAt(cursorPosition, tile);
         }
         else if (tileType == TileType.PlayerStart)
@@ -89,7 +89,7 @@ public class EditorLevelSpace : MonoBehaviour
         {
             RotatableTile tile = new RotatableTile();
             tile.type = tileType;
-            tile.Rotation = rotation;
+            tile.rotation = rotation;
             _tilemap.SetTileAt(cursorPosition, tile);
         }
         else if (tileType == TileType.Key)
@@ -103,7 +103,7 @@ public class EditorLevelSpace : MonoBehaviour
             DoorTile tile = new DoorTile();
             tile.type = tileType;
             tile.gridCoord = cursorPosition;
-            tile.Rotation = rotation;
+            tile.rotation = rotation;
             tile.SetupTilemap(_tilemap);
         }
         else

@@ -27,7 +27,7 @@ public class DoorTile : RotatableTile
 
         _fillerTiles[0].gridCoord = gridCoord + Vector3Int.up;
         Vector3Int side = new();
-        switch (Rotation)
+        switch (rotation)
         {
             case TileRotation.North:
                 side = Vector3Int.right;

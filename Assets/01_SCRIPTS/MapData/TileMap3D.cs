@@ -159,7 +159,7 @@ public class TileMap3D
                 currTile.type = type;
                 currTile.gridCoord = coord;
                 RotatableTile rt = currTile as RotatableTile;
-                rt.Rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
+                rt.rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
             }
 
             else if (type == TileType.Door)
@@ -168,8 +168,24 @@ public class TileMap3D
                 DoorTile door = currTile as DoorTile;
                 door.type = type;
                 door.gridCoord = coord;
-                door.Rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
+                door.rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
                 door.SetupTilemap(this);
+            }
+
+            else if (type == TileType.PlayerMovable)
+            {
+                currTile = _tiles[GetIndexFromCoord(coord)] = new PlayerMovableTile();
+                PlayerMovableTile movable = currTile as PlayerMovableTile;
+                movable.type = type;
+                movable.gridCoord = coord;
+                movable.rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
+                Vector3 moveAmount = new Vector3(
+                    float.Parse(tileData["move-amount"]["x"].ToString()),
+                    float.Parse(tileData["move-amount"]["y"].ToString()),
+                    float.Parse(tileData["move-amount"]["z"].ToString()));
+                movable.moveAmount = moveAmount;
+                string key = tileData["key"].ToString();
+                movable.SetupTilemap(key, this);
             }
 
             else
@@ -226,7 +242,7 @@ public class TileMap3D
                 tileData.type == TileType.EnemyRanged)
             {
                 RotatableTile rt = tileData as RotatableTile;
-                tileNode.Add("rotation", rt.Rotation.ToString());
+                tileNode.Add("rotation", rt.rotation.ToString());
             }
             tiles.Add(tileNode);
         }

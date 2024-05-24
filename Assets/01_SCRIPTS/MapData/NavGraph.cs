@@ -21,7 +21,7 @@ public class NavNode
         if (tile.type == TileType.Slope)
         {
             RotatableTile rt = tile as RotatableTile;
-            switch (rt.Rotation)
+            switch (rt.rotation)
             {
                 case TileRotation.North:
                     north = ProbeDirection(map, graph, north, coord + Vector3Int.forward, TileRotation.North);
@@ -83,7 +83,7 @@ public class NavNode
                     return null;
 
                 RotatableTile rt = tileAbove as RotatableTile;
-                if (rt.Rotation != rot)
+                if (rt.rotation != rot)
                 {
                     //Wrong Direction
                     return null;
@@ -132,7 +132,7 @@ public class NavNode
             {
                 RotatableTile rt = checkTile as RotatableTile;
                 TileRotation desiredDir = (TileRotation)(((int)rot + 2) % 4);
-                if (rt.Rotation != desiredDir)
+                if (rt.rotation != desiredDir)
                 {
                     //Wrong Direction
                     return null;

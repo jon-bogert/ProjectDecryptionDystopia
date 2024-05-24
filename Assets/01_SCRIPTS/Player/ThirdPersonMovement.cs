@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Transformation;
 using XephTools;
 
 [RequireComponent(typeof(CharacterController))]
@@ -100,5 +101,10 @@ public class ThirdPersonMovement : MonoBehaviour
 
         Debug.Log("Jump Pressed");
         return _jumpAmount;
+    }
+
+    public void Move(Vector3 amount)
+    {
+        _charController.Move(amount);
     }
 }

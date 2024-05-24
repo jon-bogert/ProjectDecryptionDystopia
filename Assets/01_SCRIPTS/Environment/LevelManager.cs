@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
                 break;
             case TileType.Slope:
                 offset = tile.gridCoord;
-                rotation = ((int)((RotatableTile)tile).Rotation) * 90f;
+                rotation = ((int)((RotatableTile)tile).rotation) * 90f;
                 prefab = _slopePrefab;
                 break;
             case TileType.PlayerStart:
@@ -56,28 +56,39 @@ public class LevelManager : MonoBehaviour
                 break;
             case TileType.EnemyMelee:
                 offset = tile.gridCoord;
-                rotation = ((int)((RotatableTile)tile).Rotation) * 90f;
+                rotation = ((int)((RotatableTile)tile).rotation) * 90f;
                 prefab = _enemyMeleePrefab;
                 break;
             case TileType.EnemyRanged:
                 offset = tile.gridCoord;
-                rotation = ((int)((RotatableTile)tile).Rotation) * 90f;
+                rotation = ((int)((RotatableTile)tile).rotation) * 90f;
                 prefab = _enemyRangedPrefab;
                 break;
             case TileType.Door:
                 offset = tile.gridCoord;
-                rotation = ((int)((RotatableTile)tile).Rotation) * 90f;
+                rotation = ((int)((RotatableTile)tile).rotation) * 90f;
                 prefab = _doorPrefab;
                 break;
             case TileType.Key:
                 offset = tile.gridCoord;
                 prefab = _keyPrefab;
                 break;
+            case TileType.PlayerMovable:
+                offset = tile.gridCoord;
+                prefab = MovableDictionary.GetPlayerMovable(((PlayerMovableTile)tile).key);
+                rotation = ((int)((RotatableTile)tile).rotation) * 90f;
+                break;
             default:
                 Debug.LogError("Unimplemented enum type");
                 return;
         }
         GameObject go = Instantiate(prefab, transform.position + offset, Quaternion.Euler(0f, rotation, 0f), this.transform);
+
+        if (tile.type == TileType.PlayerMovable)
+        {
+            go.GetComponent<PlayerMovable>().Init((PlayerMovableTile)tile);
+        }
+
 #if UNITY_EDITOR
         tile.gameObject = go;
 #endif // UNITY_EDITOR

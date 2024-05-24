@@ -128,7 +128,7 @@ public class EditorOffsetLevelSpace : MonoBehaviour
             RotatableTile rt = (RotatableTile)tile;
             _visuals[index] = Instantiate(_slopePrefab,
                 transform.TransformPoint(coord),
-                Quaternion.Euler(0f, ((float)rt.Rotation) * 90f, 0f),
+                Quaternion.Euler(0f, ((float)rt.rotation) * 90f, 0f),
                 transform);
         }
         else if (tile.type == TileType.PlayerStart)
@@ -143,7 +143,7 @@ public class EditorOffsetLevelSpace : MonoBehaviour
             RotatableTile rt = (RotatableTile)tile;
             _visuals[index] = Instantiate(_enemyMeleePrefab,
                 transform.TransformPoint(coord),
-                Quaternion.Euler(0f, ((float)rt.Rotation) * 90f, 0f),
+                Quaternion.Euler(0f, ((float)rt.rotation) * 90f, 0f),
                 transform);
         }
         else if (tile.type == TileType.EnemyRanged)
@@ -151,7 +151,7 @@ public class EditorOffsetLevelSpace : MonoBehaviour
             RotatableTile rt = (RotatableTile)tile;
             _visuals[index] = Instantiate(_enemyRangedPrefab,
                 transform.TransformPoint(coord),
-                Quaternion.Euler(0f, ((float)rt.Rotation) * 90f, 0f),
+                Quaternion.Euler(0f, ((float)rt.rotation) * 90f, 0f),
                 transform);
         }
         else if (tile.type == TileType.Door)
@@ -159,7 +159,7 @@ public class EditorOffsetLevelSpace : MonoBehaviour
             RotatableTile rt = (RotatableTile)tile;
             _visuals[index] = Instantiate(_doorPrefab,
                 transform.TransformPoint(coord),
-                Quaternion.Euler(0f, ((float)rt.Rotation) * 90f, 0f),
+                Quaternion.Euler(0f, ((float)rt.rotation) * 90f, 0f),
                 transform);
         }
         else if (tile.type == TileType.Key)
