@@ -598,6 +598,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelfMovable_2x2x1
       objectReference: {fileID: 0}
+    - target: {fileID: 7336238826081674375, guid: f575918674607c44ebcdc30169bac1f0,
+        type: 3}
+      propertyPath: _moveTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336238826081674375, guid: f575918674607c44ebcdc30169bac1f0,
+        type: 3}
+      propertyPath: _easeAmount
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
