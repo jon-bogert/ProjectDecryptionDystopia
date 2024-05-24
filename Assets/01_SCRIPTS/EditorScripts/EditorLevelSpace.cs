@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class EditorLevelSpace : MonoBehaviour
 {
@@ -106,6 +107,14 @@ public class EditorLevelSpace : MonoBehaviour
             tile.rotation = rotation;
             tile.SetupTilemap(_tilemap);
         }
+        else if (tileType == TileType.Button)
+        {
+            ButtonTile tile = new ButtonTile();
+            tile.type = tileType;
+            tile.gridCoord = cursorPosition;
+            tile.rotation = rotation;
+            tile.SetupTilemap(_tilemap);
+        }
         else
         {
             Debug.LogError("Unimplemented Enum");
@@ -128,6 +137,13 @@ public class EditorLevelSpace : MonoBehaviour
         {
             DoorTile door = tile as DoorTile;
             door.EraseTileMap(_tilemap);
+            _offsetSpace.GenerateVisual();
+            return;
+        }
+        else if (currType == TileType.Button)
+        {
+            ButtonTile button = tile as ButtonTile;
+            button.EraseTileMap(_tilemap);
             _offsetSpace.GenerateVisual();
             return;
         }

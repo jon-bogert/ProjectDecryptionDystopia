@@ -69,15 +69,12 @@ public class EnemyRangeAttack : MonoBehaviour
         }
     }
 
-    float Remap(int input, int inMin, int inMax, float outMin, float outMax)
-    {
-        return (input - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-    }
+    
 
     void RestartTimer()
     {
         int rand = Random.Range(0, _shotTimeResolution);
-        _timer = Remap(rand, 0, _shotTimeResolution, _shotTimeMin, _shotTimeMax);
+        _timer = XephMath.Remap(rand, 0, _shotTimeResolution, _shotTimeMin, _shotTimeMax);
     }
 
 

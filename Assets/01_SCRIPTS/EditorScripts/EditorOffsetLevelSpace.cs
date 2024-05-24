@@ -14,6 +14,7 @@ public class EditorOffsetLevelSpace : MonoBehaviour
     [SerializeField] GameObject _enemyRangedPrefab;
     [SerializeField] GameObject _doorPrefab;
     [SerializeField] GameObject _keyPrefab;
+    [SerializeField] GameObject _buttonPrefab;
 
     GameObject[] _visuals = null;
 
@@ -167,6 +168,14 @@ public class EditorOffsetLevelSpace : MonoBehaviour
             _visuals[index] = Instantiate(_keyPrefab,
                 transform.TransformPoint(coord),
                 Quaternion.identity,
+                transform);
+        }
+        else if (tile.type == TileType.Button)
+        {
+            RotatableTile rt = (RotatableTile)tile;
+            _visuals[index] = Instantiate(_buttonPrefab,
+                transform.TransformPoint(coord),
+                Quaternion.Euler(0f, ((float)rt.rotation) * 90f, 0f),
                 transform);
         }
     }

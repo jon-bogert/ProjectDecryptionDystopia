@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject _enemyRangedPrefab;
     [SerializeField] GameObject _doorPrefab;
     [SerializeField] GameObject _keyPrefab;
+    [SerializeField] GameObject _buttonPrefab;
 
     [Header("Events")]
     [SerializeField] UnityEvent onLevelComplete;
@@ -73,9 +74,19 @@ public class LevelManager : MonoBehaviour
                 offset = tile.gridCoord;
                 prefab = _keyPrefab;
                 break;
+            case TileType.Button:
+                offset = tile.gridCoord;
+                rotation = ((int)((RotatableTile)tile).rotation) * 90f;
+                prefab = _buttonPrefab;
+                break;
             case TileType.PlayerMovable:
                 offset = tile.gridCoord;
                 prefab = MovableDictionary.GetPlayerMovable(((PlayerMovableTile)tile).key);
+                rotation = ((int)((RotatableTile)tile).rotation) * 90f;
+                break;
+            case TileType.SelfMovable:
+                offset = tile.gridCoord;
+                prefab = MovableDictionary.GetSelfMovable(((SelfMovableTile)tile).key);
                 rotation = ((int)((RotatableTile)tile).rotation) * 90f;
                 break;
             default:
@@ -88,6 +99,15 @@ public class LevelManager : MonoBehaviour
         {
             go.GetComponent<PlayerMovable>().Init((PlayerMovableTile)tile);
         }
+        else if (tile.type == TileType.SelfMovable)
+        {
+            go.GetComponent<SelfMovable>().Init((SelfMovableTile)tile);
+        }
+        else if (tile.type == TileType.Button)
+        {
+            go.GetComponent<Button>().signalId = ((ButtonTile)tile).signalId;
+        }
+
 
 #if UNITY_EDITOR
         tile.gameObject = go;

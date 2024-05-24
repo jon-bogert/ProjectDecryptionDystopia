@@ -32,6 +32,12 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnHurt(Collider collision)
     {
+        Button button = collision.GetComponent<Button>();
+        if (button)
+        {
+            button.Insteract();
+            return;
+        }
         Health health = collision.GetComponent<Health>();
         if (health == null)
         {

@@ -1275,7 +1275,9 @@ MonoBehaviour:
   _playerMovables:
   - key: 2x2
     prefab: {fileID: 521786116986242441, guid: 724864c14d99f5b4488de6135bbd3dfe, type: 3}
-  _selfMovables: []
+  _selfMovables:
+  - key: 2x2x1
+    prefab: {fileID: 521786116986242441, guid: f575918674607c44ebcdc30169bac1f0, type: 3}
 --- !u!4 &1439558448
 Transform:
   m_ObjectHideFlags: 0
@@ -1573,7 +1575,7 @@ PrefabInstance:
     - target: {fileID: 847809855388394855, guid: 89c4ce796e25cf844a0625cea70182b1,
         type: 3}
       propertyPath: _filename
-      value: doortest.yaml
+      value: buttontest.yaml
       objectReference: {fileID: 0}
     - target: {fileID: 2876977644408620944, guid: 89c4ce796e25cf844a0625cea70182b1,
         type: 3}
@@ -3320,7 +3322,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 16375
+    m_Bits: 49143
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

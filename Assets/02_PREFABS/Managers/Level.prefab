@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3701062808554523737}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 11.624001, z: 10.149994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &847809855388394855
 MonoBehaviour:
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d866593281e22294fb1264cde9463df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _filename: testfile0.yaml
+  _filename: doortest.yaml
   _blockPrefab: {fileID: 521786116986242441, guid: 23daeaa66d140ad4d8b24c0abde9cfe0,
     type: 3}
   _slopePrefab: {fileID: 3084212057026480508, guid: 18df527807fc5e74e82989fb46ab1689,
@@ -58,6 +58,8 @@ MonoBehaviour:
   _doorPrefab: {fileID: 4734450039532918926, guid: 30dddbaee7fa8b64085c1af734c69d3e,
     type: 3}
   _keyPrefab: {fileID: 8208375861272521549, guid: 3868085a1f469044aa5c56c70f546f69,
+    type: 3}
+  _buttonPrefab: {fileID: 4638785655411332425, guid: c6966ba3a90f3d44486b8981929e7283,
     type: 3}
   onLevelComplete:
     m_PersistentCalls:

@@ -188,6 +188,37 @@ public class TileMap3D
                 movable.SetupTilemap(key, this);
             }
 
+            else if (type == TileType.SelfMovable)
+            {
+                currTile = _tiles[GetIndexFromCoord(coord)] = new SelfMovableTile();
+                SelfMovableTile movable = currTile as SelfMovableTile;
+                movable.type = type;
+                movable.gridCoord = coord;
+                movable.rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
+                Vector3 moveAmount = new Vector3(
+                    float.Parse(tileData["move-amount"]["x"].ToString()),
+                    float.Parse(tileData["move-amount"]["y"].ToString()),
+                    float.Parse(tileData["move-amount"]["z"].ToString()));
+                movable.moveAmount = moveAmount;
+                string key = tileData["key"].ToString();
+                movable.moveTime = float.Parse(tileData["move-time"].ToString());
+                movable.easeAmount = float.Parse(tileData["ease-amount"].ToString());
+                movable.isOscillating = bool.Parse(tileData["is-oscillating"].ToString());
+                movable.signalID = int.Parse(tileData["signal-id"].ToString());
+                movable.SetupTilemap(key, this);
+            }
+
+            else if (type == TileType.Button)
+            {
+                currTile = _tiles[GetIndexFromCoord(coord)] = new ButtonTile();
+                ButtonTile button = currTile as ButtonTile;
+                button.type = type;
+                button.gridCoord = coord;
+                button.rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
+                button.signalId = int.Parse(tileData["signal-id"].ToString());
+                button.SetupTilemap(this);
+            }
+
             else
             {
                 Debug.LogWarning("Unimplemented enum type");
@@ -243,6 +274,10 @@ public class TileMap3D
             {
                 RotatableTile rt = tileData as RotatableTile;
                 tileNode.Add("rotation", rt.rotation.ToString());
+            }
+            if (tileData.type == TileType.Button)
+            {
+                tileNode.Add("signal-id", "0");
             }
             tiles.Add(tileNode);
         }
