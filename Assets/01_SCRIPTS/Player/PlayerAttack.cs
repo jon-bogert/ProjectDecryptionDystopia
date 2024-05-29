@@ -6,22 +6,22 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float _damage = 0.25f;
     [Header("References")]
     [SerializeField] Hurtbox _hurtbox;
+    [SerializeField] Animator _armAnimator;
     [Header("Inputs")]
     [SerializeField] InputActionReference _attackInput;
 
     private void Start()
     {
         _hurtbox.onHurt += OnHurt;
+        if (_armAnimator == null)
+            Debug.LogWarning(name + ": Arm Animator not assigned in inspector");
     }
 
     private void Update()
     {
         if (_attackInput.action.WasPressedThisFrame() && !_hurtbox.isHurting)
         {
-            // TODO - Start Animation instead
-            //        and have animation call HurtStart and HurtEnd
-
-            _hurtbox.HurtStart(); // NOTE: Temp Hurtbox has length as non-zero
+            _armAnimator.SetTrigger("DoAttack");
         }
     }
 

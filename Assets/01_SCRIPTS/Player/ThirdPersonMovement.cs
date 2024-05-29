@@ -10,6 +10,10 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] float _moveSpeed = 3f;
     [SerializeField] float _gravityAmount = 10f;
     [SerializeField] float _jumpAmount = 5f;
+    [SerializeField] float _deadZone = 0.25f;
+
+    [Header("References")]
+    [SerializeField] Animator _legAnimator;
 
     [Header("Settings")]
     [SerializeField] bool _doCameraAdjust = true;
@@ -20,6 +24,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     float _verticalVelocity = 0f;
     bool _isGrounded = false;
+    bool _isJumping = false;
 
     CharacterController _charController;
     Transform _camera;
@@ -28,6 +33,9 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         _charController = GetComponent<CharacterController>();
         _camera = Camera.main.transform;
+
+        if (_legAnimator == null)
+            Debug.LogWarning(name + ": Leg Animator not assigned in inspector");
     }
 
     private void Update()
@@ -37,11 +45,16 @@ public class ThirdPersonMovement : MonoBehaviour
         VRDebug.Monitor(1, _isGrounded ? "t" : "f");
 
         Vector2 moveAxis = _moveInput.action.ReadValue<Vector2>();
+        if (moveAxis.sqrMagnitude < _deadZone)
+            moveAxis = Vector2.zero;
+
         Vector3 moveFinal = new Vector3(
             moveAxis.x,
             0f,
             moveAxis.y
         );
+
+        _legAnimator.SetFloat("WalkBlend", moveAxis.magnitude);
 
         AdjustByCamera(ref moveFinal);
 
@@ -51,9 +64,20 @@ public class ThirdPersonMovement : MonoBehaviour
         VRDebug.Monitor(3, jumpAmt);
 
         if (_isGrounded && jumpAmt == 0f)
+        {
             _verticalVelocity = 0f;
+            if (_isJumping)
+            {
+                _isJumping = false;
+                _legAnimator.SetBool("IsJumping", false);
+            }
+        }
         else if (jumpAmt > 0)
+        {
             _verticalVelocity = jumpAmt;
+            _isJumping = true;
+            _legAnimator.SetBool("IsJumping", true);
+        }
 
         _verticalVelocity -= _gravityAmount * Time.deltaTime;
 
