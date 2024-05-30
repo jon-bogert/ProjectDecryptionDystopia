@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using XephTools;
 
 public class LevelManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] UnityEvent onLevelComplete;
 
     TileMap3D _tileMap = new TileMap3D();
+    OccludeCamera _cameraOccluder;
 
     public TileMap3D tileMap { get { return _tileMap; } }
 
@@ -30,6 +32,10 @@ public class LevelManager : MonoBehaviour
         transform.position -= offset;
         _tileMap.ForEach(Generate);
         FindObjectOfType<NavGraph>().GenerateGraph(_tileMap);
+
+        _cameraOccluder = FindObjectOfType<OccludeCamera>();
+        TimeIt _startTimer = new();
+        _startTimer.SetDuration(2f).OnComplete(() => _cameraOccluder.UnBlock()).Start();
     }
 
     private void Generate(TileBase tile)

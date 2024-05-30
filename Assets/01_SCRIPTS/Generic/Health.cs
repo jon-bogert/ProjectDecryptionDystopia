@@ -49,6 +49,15 @@ public class Health : MonoBehaviour
         _invMaxHealth = 1f / _maxHealth;
     }
 
+    private void Start()
+    {
+        if (GetComponent<ThirdPersonMovement>() != null) // is the player
+        {
+            LevelEndManager levelEnd = FindObjectOfType<LevelEndManager>();
+            onDeath.AddListener(levelEnd.OnDeath);
+        }
+    }
+
     public void UnDead()
     {
         _health = _maxHealth;
