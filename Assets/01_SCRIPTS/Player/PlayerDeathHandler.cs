@@ -7,6 +7,9 @@ public class PlayerDeathHandler : MonoBehaviour
 
     public void Invoke()
     {
+        _legAnimator.speed = 1f;
+        _armAnimator.speed = 1f;
+
         _legAnimator.SetTrigger("OnDeath");
         _armAnimator.SetTrigger("OnDeath");
     }

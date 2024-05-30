@@ -71,7 +71,6 @@ public class EditorBlockPlacer : MonoBehaviour
     private void CheckRotation()
     {
         float rotateAxis = _rotateInput.action.ReadValue<Vector2>().x;
-        VRDebug.Monitor(2, rotateAxis.ToString("F2"));
 
         if (_rotate != Rotate.CW && rotateAxis >= _rotateUpTreshold)
         {

@@ -5,6 +5,7 @@ public class AttackAnimationEvents : MonoBehaviour
 {
     [SerializeField] UnityEvent damageStart;
     [SerializeField] UnityEvent damageEnd;
+    [SerializeField] UnityEvent rangedAttack;
 
     public void DamageStart()
     {
@@ -14,5 +15,10 @@ public class AttackAnimationEvents : MonoBehaviour
     public void DamageEnd()
     {
         damageEnd?.Invoke();
+    }
+
+    public void RangedAttack()
+    {
+        rangedAttack?.Invoke();
     }
 }

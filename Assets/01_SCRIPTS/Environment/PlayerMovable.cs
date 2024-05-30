@@ -86,7 +86,6 @@ public class PlayerMovable : MonoBehaviour
     private void Update()
     {
         CheckPlayer();
-        VRDebug.Monitor(5, (_player != null));
         if (_interactors.Count <= 0)
             return;
 
@@ -145,7 +144,6 @@ public class PlayerMovable : MonoBehaviour
         if (_player != null)
         {
             Vector3 delta = destination - transform.position;
-            VRDebug.Monitor(6, delta);
             _player.Move(delta);
         }
         transform.position = destination;

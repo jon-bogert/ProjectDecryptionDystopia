@@ -7,8 +7,10 @@ public class EnemyRangeAttack : MonoBehaviour
     [SerializeField] float _shotTimeMax = 2f;
     [Tooltip("How many integral notches between min and max")]
     [SerializeField] int _shotTimeResolution = 4;
-    [SerializeField] Transform _firePoint;
     [SerializeField] float _stunTime = 5f;
+    [Header("References")]
+    [SerializeField] Transform _firePoint;
+    [SerializeField] Animator _armAnimator;
 
     ProjectilePool _pool;
     Health _playerHealth;
@@ -37,6 +39,9 @@ public class EnemyRangeAttack : MonoBehaviour
             Debug.LogError("Could not find player in scene");
         }
 
+        if (_armAnimator == null)
+            Debug.LogError(name + ": Arm Animator not assigned in inspector");
+
         enabled = false;
     }
 
@@ -48,10 +53,16 @@ public class EnemyRangeAttack : MonoBehaviour
         if (_timer <= 0f)
         {
             RestartTimer();
-            Vector3 direction = (_playerHealth.targetPoint - _firePoint.position).normalized;
-            _pool.FireNext(_firePoint.position, direction);
+            transform.LookAt(new Vector3(_playerHealth.targetPoint.x, transform.position.y, _playerHealth.targetPoint.z));
+            _armAnimator.SetTrigger("DoAttackRanged");
         }
         _timer -= Time.deltaTime;
+    }
+
+    public void ThrowProjectile()
+    {
+        Vector3 direction = (_playerHealth.targetPoint - _firePoint.position).normalized;
+        _pool.FireNext(_firePoint.position, direction);
     }
 
     public void Stun()

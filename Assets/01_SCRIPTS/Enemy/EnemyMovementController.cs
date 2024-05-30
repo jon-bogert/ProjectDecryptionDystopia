@@ -10,6 +10,9 @@ public class EnemyMovementController : MonoBehaviour
     [SerializeField] float _stunTime = 5f;
     [Header("References")]
     [SerializeField] Animator _legAnimator;
+    [Space]
+    [Header("Debug")]
+    [SerializeField] bool _showDebug = false;
 
     ThirdPersonMovement _player;
     EnemySeek _seek;
@@ -61,7 +64,9 @@ public class EnemyMovementController : MonoBehaviour
         else
         {
             _legAnimator.SetFloat("WalkBlend", 0f);
-            Debug.Log("Arrived");
+            Vector3 direction3D = new Vector3(direction2D.x, 0f, direction2D.y);
+            FaceMovement(direction3D);
+            if (_showDebug) Debug.Log("Arrived");
         }
     }
 
@@ -71,7 +76,8 @@ public class EnemyMovementController : MonoBehaviour
 
         if (_stunTimer.isExpired)
         {
-            _stunTimer.OnComplete(() => { _isStunned = false; }).SetDuration(_stunTime).Start();
+            _legAnimator.speed = 0f;
+            _stunTimer.OnComplete(() => { _isStunned = false; _legAnimator.speed = 1f; }).SetDuration(_stunTime).Start();
         }
         else
         {

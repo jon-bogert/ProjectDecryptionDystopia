@@ -45,7 +45,6 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         //_isGrounded = _groundChecker.CheckGround();
         _isGrounded = _charController.isGrounded;
-        VRDebug.Monitor(1, _isGrounded ? "t" : "f");
 
         Vector2 moveAxis = _moveInput.action.ReadValue<Vector2>();
         if (moveAxis.sqrMagnitude < _deadZone)
@@ -70,7 +69,6 @@ public class ThirdPersonMovement : MonoBehaviour
         FaceMovement(moveFinal);
 
         float jumpAmt = ProcJump();
-        VRDebug.Monitor(3, jumpAmt);
 
         if (_isGrounded && jumpAmt == 0f)
         {
@@ -139,7 +137,6 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private float ProcJump()
     {
-        VRDebug.Monitor(2, _jumpInput.action.ReadValue<float>());
         if (!_isGrounded)
             return 0f;
 

@@ -49,7 +49,6 @@ public class EditorOffsetLevelSpace : MonoBehaviour
     private void Update()
     {
         Vector3 cur = _cursor.transform.position;
-        VRDebug.Monitor(5, Vec3Str(cur));
 
         if (!_parentSpace.hasValidTilemap)
             return;
@@ -58,8 +57,6 @@ public class EditorOffsetLevelSpace : MonoBehaviour
         handRelative.x = Mathf.Round(handRelative.x);
         handRelative.y = Mathf.Round(handRelative.y);
         handRelative.z = Mathf.Round(handRelative.z);
-
-        VRDebug.Monitor(1, Vec3Str(handRelative));
 
         bool isOutBounds =
             (handRelative.x < 0 || handRelative.x >= _parentSpace.dimensions.x
