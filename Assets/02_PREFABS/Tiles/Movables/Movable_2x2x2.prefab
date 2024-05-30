@@ -49,8 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveAmount: {x: 0, y: 0, z: 0}
   DEBUG_callAwake: 0
-  _playerCheckCenter: {x: 0.5, y: 1.6, z: 0.5}
-  _playerCheckExtends: {x: 2, y: 0.25, z: 2}
+  _playerCheckCenter: {x: 0.5, y: 1.56, z: 0.5}
+  _playerCheckExtends: {x: 2, y: 0.5, z: 2}
   _playerCheckMask:
     serializedVersion: 2
     m_Bits: 64

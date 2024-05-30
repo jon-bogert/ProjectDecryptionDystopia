@@ -29,6 +29,9 @@ public class ThirdPersonMovement : MonoBehaviour
     CharacterController _charController;
     Transform _camera;
 
+    Vector3 _moveDelta = Vector3.zero;
+    bool _usePhysicsMove = true;
+
     private void Awake()
     {
         _charController = GetComponent<CharacterController>();
@@ -53,6 +56,12 @@ public class ThirdPersonMovement : MonoBehaviour
             0f,
             moveAxis.y
         );
+
+        if (_moveDelta != Vector3.zero)
+        {
+            _legAnimator.SetFloat("WalkBlend", 0);
+            return;
+        }
 
         _legAnimator.SetFloat("WalkBlend", moveAxis.magnitude);
 
@@ -84,7 +93,22 @@ public class ThirdPersonMovement : MonoBehaviour
         moveFinal *= _moveSpeed;
         moveFinal.y = _verticalVelocity;
 
-        _charController.Move( moveFinal * Time.deltaTime );
+        //_charController.Move( moveFinal * Time.deltaTime );
+        _moveDelta += moveFinal * Time.deltaTime;
+    }
+
+    private void LateUpdate()
+    {
+        if ( _usePhysicsMove)
+        {
+            _charController.Move(_moveDelta);
+        }
+        else
+        {
+            transform.Translate(_moveDelta);
+        }
+        _moveDelta = Vector3.zero;
+        _usePhysicsMove = true;
     }
 
     private void AdjustByCamera(ref Vector3 moveFinal)
@@ -129,6 +153,9 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public void Move(Vector3 amount)
     {
-        _charController.Move(amount);
+        //_charController.Move(amount);
+        //transform.Translate(amount);
+        _usePhysicsMove = false;
+        _moveDelta = amount;
     }
 }

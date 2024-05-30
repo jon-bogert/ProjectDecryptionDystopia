@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9148647862857106465}
   - component: {fileID: 7941834786026198720}
   - component: {fileID: 3840353060928488654}
+  - component: {fileID: 6526037811561034715}
   m_Layer: 8
   m_Name: EnemyMelee
   m_TagString: Untagged
@@ -66,6 +67,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6526037811561034715}
+        m_TargetAssemblyTypeName: EnemyMeleeAttack, Assembly-CSharp
+        m_MethodName: StartAttacking
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onIdle:
     m_PersistentCalls:
       m_Calls: []
@@ -84,6 +97,7 @@ MonoBehaviour:
   _moveSpeed: 3
   _gravityAmount: 10
   _stunTime: 5
+  _legAnimator: {fileID: 0}
 --- !u!114 &9148647862857106465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,8 +165,40 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6526037811561034715}
+        m_TargetAssemblyTypeName: EnemyMeleeAttack, Assembly-CSharp
+        m_MethodName: Stun
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _hapticIntensity: 0.7
   _hapticDuration: 0.01
+--- !u!114 &6526037811561034715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630743359089722412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9904f5fa1da67347a2542a583efd36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectSize: {x: 0.5, y: 1, z: 0.5}
+  _detectCenter: {x: 0, y: 0.5, z: -0.5}
+  _playerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _attackCooldown: 1
+  _stunTime: 5
+  _armAnimator: {fileID: 1279199550165902297}
 --- !u!1 &5665260544118207879
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +230,55 @@ Transform:
   m_Father: {fileID: 1149626217608439169}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6537070702665518545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8503638593360232073}
+  - component: {fileID: 5899161135166035014}
+  m_Layer: 0
+  m_Name: Hurtbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8503638593360232073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537070702665518545}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0, z: 0.145}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2354661231877202038}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5899161135166035014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537070702665518545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3b15fbc4e7cff54daad5b8526538627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collisionLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  _dimensions: {x: 0.1, y: 0.1, z: 0.3}
+  _length: 0
 --- !u!1001 &1675804608827019674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -284,9 +379,25 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 4c357e82fa5ed814a874993dc286d658, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4029816233744691692, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8503638593360232073}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46cdeda2257902344a6dc1c0ed525998, type: 3}
+--- !u!95 &1279199550165902297 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 468662841690468931, guid: 46cdeda2257902344a6dc1c0ed525998,
+    type: 3}
+  m_PrefabInstance: {fileID: 1675804608827019674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2354661231877202038 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4029816233744691692, guid: 46cdeda2257902344a6dc1c0ed525998,
+    type: 3}
+  m_PrefabInstance: {fileID: 1675804608827019674}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5325229825441822273 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6820318071096256475, guid: 46cdeda2257902344a6dc1c0ed525998,

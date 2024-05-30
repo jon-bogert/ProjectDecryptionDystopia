@@ -45,7 +45,6 @@ public class EnemyRangeAttack : MonoBehaviour
         if (_isStunned)
             return;
 
-        VRDebug.Monitor(4, _timer);
         if (_timer <= 0f)
         {
             RestartTimer();

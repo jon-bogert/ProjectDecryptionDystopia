@@ -8,6 +8,8 @@ public class EnemyMovementController : MonoBehaviour
     [SerializeField] float _moveSpeed = 3f;
     [SerializeField] float _gravityAmount = 10f;
     [SerializeField] float _stunTime = 5f;
+    [Header("References")]
+    [SerializeField] Animator _legAnimator;
 
     ThirdPersonMovement _player;
     EnemySeek _seek;
@@ -44,6 +46,8 @@ public class EnemyMovementController : MonoBehaviour
             _verticalVelocity -= _gravityAmount * Time.deltaTime;
             _charController.Move(Vector3.up * _verticalVelocity * Time.deltaTime);
 
+            _legAnimator.SetFloat("WalkBlend", 0f);
+
             return;
         }
 
@@ -52,9 +56,11 @@ public class EnemyMovementController : MonoBehaviour
         {
             Vector3 direction3D = new Vector3(direction2D.x, 0f, direction2D.y);
             Move(direction3D);
+            _legAnimator.SetFloat("WalkBlend", direction3D.magnitude);
         }
         else
         {
+            _legAnimator.SetFloat("WalkBlend", 0f);
             Debug.Log("Arrived");
         }
     }
