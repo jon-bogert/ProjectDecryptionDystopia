@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2940646321237174131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.425, z: 0.037}
-  m_LocalScale: {x: 0.64, y: 1, z: 0.75}
+  m_LocalPosition: {x: 0, y: -0.427, z: 0.037}
+  m_LocalScale: {x: 0.91155195, y: 1.4243, z: 1.0682249}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6820318071096256475}
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2940646321237174131}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -5495902117074765545, guid: 3dcc0a56c47da9e45be35ef0d5e73212, type: 3}
 --- !u!23 &3377346597886179024
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -590,5 +590,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   damageEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  rangedAttack:
     m_PersistentCalls:
       m_Calls: []
