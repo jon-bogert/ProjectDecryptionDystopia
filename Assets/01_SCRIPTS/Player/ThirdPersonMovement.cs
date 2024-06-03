@@ -28,6 +28,8 @@ public class ThirdPersonMovement : MonoBehaviour
 
     CharacterController _charController;
     Transform _camera;
+    StepsAudioPlayer _stepAudio;
+    SoundPlayer3D _soundPlayer;
 
     Vector3 _moveDelta = Vector3.zero;
     bool _usePhysicsMove = true;
@@ -41,9 +43,24 @@ public class ThirdPersonMovement : MonoBehaviour
             Debug.LogWarning(name + ": Leg Animator not assigned in inspector");
     }
 
+    private void Start()
+    {
+        _stepAudio = GetComponentInChildren<StepsAudioPlayer>();
+        if (_stepAudio == null)
+            Debug.LogError("ThirdPersonMovement:Could not find StepsAudioPlayer");
+
+        _soundPlayer = FindObjectOfType<SoundPlayer3D>();
+        if (_soundPlayer == null)
+            Debug.LogError("Could not find Sound Player in Scene");
+    }
+
     private void Update()
     {
-        //_isGrounded = _groundChecker.CheckGround();
+        //Just Landed
+        if(_charController.isGrounded && !_isGrounded)
+        {
+            _stepAudio.Play();
+        }
         _isGrounded = _charController.isGrounded;
 
         Vector2 moveAxis = _moveInput.action.ReadValue<Vector2>();
@@ -144,7 +161,7 @@ public class ThirdPersonMovement : MonoBehaviour
         if (!jumpPressed)
             return 0f;
 
-        Debug.Log("Jump Pressed");
+        _soundPlayer?.Play("jump", transform.position, SoundPlayer3D.Bank.Single);
         return _jumpAmount;
     }
 

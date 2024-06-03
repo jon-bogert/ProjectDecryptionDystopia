@@ -388,7 +388,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300556977}
   m_LocalRotation: {x: -0, y: -0, z: -1, w: -0.00000035762784}
-  m_LocalPosition: {x: -0, y: 60, z: 0}
+  m_LocalPosition: {x: -0, y: 100, z: 0}
   m_LocalScale: {x: 400, y: 1, z: -400}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -853,7 +853,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595157594}
   m_LocalRotation: {x: -0, y: -0, z: -1, w: -0.00000035762784}
-  m_LocalPosition: {x: -0, y: 50, z: 0}
+  m_LocalPosition: {x: -0, y: 70, z: 0}
   m_LocalScale: {x: 400, y: 1, z: -400}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1921,7 +1921,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1371140811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -20, z: 0}
+  m_LocalPosition: {x: 0, y: -40, z: 0}
   m_LocalScale: {x: 400, y: 1, z: 400}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2060,7 +2060,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613277297}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -30, z: 0}
+  m_LocalPosition: {x: 0, y: -70, z: 0}
   m_LocalScale: {x: 400, y: 1, z: 400}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2111,8 +2111,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83931f03144cf6a468bf947eee192a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singleSoundBank: []
-  multiSoundBank: []
+  _headsetActive: {fileID: -473310864551405847, guid: 3d7f3d66cde618544850ace30be3a86e,
+    type: 3}
+  singleSoundBank:
+  - key: jump
+    clip: {fileID: 8300000, guid: 50d5f97aea2a71c42be1361df7545ebc, type: 3}
+    volume: 0.75
+  - key: key-collect
+    clip: {fileID: 8300000, guid: 4e9074e24a56654469f98837aa510575, type: 3}
+    volume: 0.75
+  - key: door-open
+    clip: {fileID: 8300000, guid: c23a35f825de87e4fbe9d547fea51e24, type: 3}
+    volume: 0.75
+  - key: button-press
+    clip: {fileID: 8300000, guid: cbf9727597a06d34bba96e41c33c4024, type: 3}
+    volume: 0.75
+  - key: decon-up
+    clip: {fileID: 8300000, guid: 4498af897b125cf4185ae2705af907f1, type: 3}
+    volume: 1
+  - key: decon-down
+    clip: {fileID: 8300000, guid: f871d57de56e38c4997da2a86dfbed0b, type: 3}
+    volume: 1
+  - key: ranged-hit
+    clip: {fileID: 8300000, guid: 6dbd44192bbdb4444beceb164ba8244a, type: 3}
+    volume: 1
+  - key: melee-hit-player
+    clip: {fileID: 8300000, guid: 22fffc28280fe1447abf9b2934b5dbcb, type: 3}
+    volume: 0.75
+  - key: melee-hit-enemy
+    clip: {fileID: 8300000, guid: beea8c4f0527b224291703313a260a6f, type: 3}
+    volume: 0.75
+  - key: death
+    clip: {fileID: 8300000, guid: e8b8f46d673023d4ab987ed2e8d2742c, type: 3}
+    volume: 0.75
+  - key: user-movable-end
+    clip: {fileID: 8300000, guid: 43dd5c688cf58db43b6413c78ecfebc2, type: 3}
+    volume: 1
+  multiSoundBank:
+  - key: melee-attack
+    bank:
+      bank:
+      - {fileID: 8300000, guid: a9698b263545cee4c8a8e81f8738982b, type: 3}
+      - {fileID: 8300000, guid: c9ce51f37c70d1f4b8feea60a0e30138, type: 3}
+      - {fileID: 8300000, guid: 8200c79aedc3e144481b54e7caf0ff96, type: 3}
+      - {fileID: 8300000, guid: 9324a1f2f073bd742ad39a157db9bb8c, type: 3}
+      volume: 0.75
+  - key: ranged-shoot
+    bank:
+      bank:
+      - {fileID: 8300000, guid: 0ccbfff3fe2054f4c859ffa60651c216, type: 3}
+      - {fileID: 8300000, guid: a28edb4272da76c419944de509f1a800, type: 3}
+      - {fileID: 8300000, guid: 484d883432919714e8e226cfe70cca61, type: 3}
+      volume: 0.75
   _poolSize: 10
 --- !u!4 &1762025795 stripped
 Transform:
@@ -2390,7 +2440,7 @@ PrefabInstance:
     - target: {fileID: 847809855388394855, guid: 89c4ce796e25cf844a0625cea70182b1,
         type: 3}
       propertyPath: _filename
-      value: doortest.yaml
+      value: seektest.yaml
       objectReference: {fileID: 0}
     - target: {fileID: 847809855388394855, guid: 89c4ce796e25cf844a0625cea70182b1,
         type: 3}
@@ -3814,7 +3864,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0

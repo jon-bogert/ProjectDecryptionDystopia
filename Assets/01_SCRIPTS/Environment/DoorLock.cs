@@ -10,9 +10,18 @@ public class DoorLock : MonoBehaviour
     List<DoorKey> _keys = new();
     DoorMovement _movement;
 
+    SoundPlayer3D _soundPlayer;
+
     private void Awake()
     {
         _movement = GetComponent<DoorMovement>();
+    }
+
+    private void Start()
+    {
+        _soundPlayer = FindObjectOfType<SoundPlayer3D>();
+        if (_soundPlayer == null)
+            Debug.LogError("Couldn't find Sound Player in Scene");
     }
 
     public void AddKey(DoorKey key)
@@ -33,6 +42,7 @@ public class DoorLock : MonoBehaviour
         UpdateText();
         if (_keys.Count <= 0)
         {
+            _soundPlayer.Play("door-open", transform.position, SoundPlayer3D.Bank.Single);
             _movement.OpenDoor();
         }
     }

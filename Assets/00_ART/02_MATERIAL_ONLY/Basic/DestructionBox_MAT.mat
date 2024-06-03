@@ -54,7 +54,7 @@ Material:
     - _LineThickness: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _TransitionA: 0.55
+    - _TransitionA: 0
     - _TransitionB: -0.1
     m_Colors:
     - _BaseColor: {r: 0.01960784, g: 0.01960784, b: 0.01960784, a: 0}

@@ -10,11 +10,17 @@ public class PlayerAttack : MonoBehaviour
     [Header("Inputs")]
     [SerializeField] InputActionReference _attackInput;
 
+    SoundPlayer3D _soundPlayer;
+
     private void Start()
     {
         _hurtbox.onHurt += OnHurt;
         if (_armAnimator == null)
             Debug.LogWarning(name + ": Arm Animator not assigned in inspector");
+
+        _soundPlayer = FindObjectOfType<SoundPlayer3D>();
+        if (_soundPlayer == null)
+            Debug.LogError("Couldn't find Sound Player in Scene");
     }
 
     private void Update()
@@ -45,6 +51,7 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
 
+        _soundPlayer.Play("melee-hit-player", transform.position, SoundPlayer3D.Bank.Single);
         health.TakeDamage(_damage);
     }
 }

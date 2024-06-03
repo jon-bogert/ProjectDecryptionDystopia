@@ -9,10 +9,18 @@ public class Projectile : MonoBehaviour
 
     float _timer = 0f;
     Rigidbody _rigidbody;
+    SoundPlayer3D _soundPlayer;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        _soundPlayer = FindObjectOfType<SoundPlayer3D>();
+        if (_soundPlayer == null)
+            Debug.LogError("Couldn't find Sound Player in Scene");
     }
 
 
@@ -49,6 +57,7 @@ public class Projectile : MonoBehaviour
         {
             health.TakeDamage(_damage);
         }
+        _soundPlayer.Play("ranged-hit", transform.position, SoundPlayer3D.Bank.Single);
         End();
     }
 }

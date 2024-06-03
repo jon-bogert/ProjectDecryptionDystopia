@@ -68,7 +68,6 @@ public class Hurtbox : MonoBehaviour
             Debug.LogError(name + " Hurtbox.HurtStart() -> must call HurtEnd() first");
             return;
         }
-        Debug.Log("Hurt Start");
         _isHurting = true;
 
         if (_length <= 0)
@@ -80,7 +79,6 @@ public class Hurtbox : MonoBehaviour
     //Call at the end of your attack animation
     public void HurtEnd()
     {
-        Debug.Log("HurtEnd");
         _isHurting = false;
         _colliderBuffer.Clear();
     }

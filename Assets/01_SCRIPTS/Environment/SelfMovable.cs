@@ -23,6 +23,8 @@ public class SelfMovable : MonoBehaviour
 
     SelfMovableTile _tile = null;
     MovableShaderController _shader;
+    PlayerMovableSound _moveSound;
+    SoundPlayer3D _soundPlayer;
 
     public SelfMovableTile tile { get { return _tile; } internal set { _tile = value; } }
 
@@ -31,6 +33,13 @@ public class SelfMovable : MonoBehaviour
     private void Start()
     {
         _startPoint = transform.position;
+        _moveSound = GetComponent<PlayerMovableSound>();
+        if (_moveSound == null)
+            Debug.LogError("Player Movable Sound component not found");
+
+        _soundPlayer = FindObjectOfType<SoundPlayer3D>();
+        if (_soundPlayer == null)
+            Debug.LogError("Couldn't find Sound Player in Scene");
     }
 
     private void Update()
@@ -82,8 +91,16 @@ public class SelfMovable : MonoBehaviour
         if (_isOscillating)
         {
             _isRunning = !_isRunning;
+
+            if (_isRunning)
+                _moveSound.On();
+            else
+                _moveSound.Off();
+
             return;
         }
+
+        _moveSound.On();
 
         float progress = 0f;
         if (_state == State.ToEnd || _state == State.ToStart)
@@ -102,7 +119,7 @@ public class SelfMovable : MonoBehaviour
                 (progress == 0f) ? _moveTime : _moveTime - ((1 - progress) * _moveTime),
                 (val) => { transform.position = val; }
                 );
-            lerp.OnComplete(() => _state = State.Start);
+            lerp.OnComplete(() => { _state = State.Start; _moveSound.Off(); });
             _lerpRef = OverTime.Add(lerp);
             return;
         }
@@ -115,7 +132,7 @@ public class SelfMovable : MonoBehaviour
             (progress == 0f) ? _moveTime : _moveTime - ((1 - progress) * _moveTime),
             (val) => { transform.position = val; }
             );
-        lerp2.OnComplete(() => _state = State.End);
+        lerp2.OnComplete(() => { _state = State.End; _moveSound.Off(); });
         _lerpRef = OverTime.Add(lerp2);
     }
 }

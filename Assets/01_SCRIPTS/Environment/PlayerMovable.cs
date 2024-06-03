@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using UnityEngine;
-using XephTools;
 
 public class PlayerMovable : MonoBehaviour
 {
@@ -34,11 +34,14 @@ public class PlayerMovable : MonoBehaviour
     Vector3 _startPoint = Vector3.zero;
     float _prevLocalPos = 0f;
     float _pulseDelta = 0f;
+    bool _atEnd = true;
 
     List<InteractionPoint> _interactors = new List<InteractionPoint>();
     ThirdPersonMovement _player = null;
     PlayerMovableTile _tile = null;
     MovableShaderController _shader;
+    SoundPlayer3D _soundPlayer;
+    PlayerMovableSound _moveSound;
 
     public PlayerMovableTile tile { get { return _tile; } internal set { _tile = value; } }
 
@@ -49,6 +52,10 @@ public class PlayerMovable : MonoBehaviour
             Debug.LogWarning(name + ": Player Check mask is set to 'None'");
         if (DEBUG_callAwake)
             _startPoint = transform.position;
+
+        _moveSound = GetComponent<PlayerMovableSound>();
+        if (_moveSound == null)
+            Debug.LogError("Player Movable Sound Component not added");
     }
 
     private void Start()
@@ -56,6 +63,10 @@ public class PlayerMovable : MonoBehaviour
         _shader = GetComponentInChildren<MovableShaderController>();
         if (_shader == null)
             Debug.LogError(name + ": could not find Shader Controller in children");
+
+        _soundPlayer = FindObjectOfType<SoundPlayer3D>();
+        if (_soundPlayer == null)
+            Debug.LogError("Couldn't find Sound Player in Scene");
     }
 
     private void OnDrawGizmosSelected()
@@ -87,7 +98,10 @@ public class PlayerMovable : MonoBehaviour
     {
         CheckPlayer();
         if (_interactors.Count <= 0)
+        {
+            _moveSound.Off();
             return;
+        }
 
         Vector3 controllerDelta = Vector3.zero;
         int count = 0;
@@ -101,7 +115,10 @@ public class PlayerMovable : MonoBehaviour
         }
 
         if (count == 0)
+        {
+            _moveSound.Off();
             return;
+        }
 
         controllerDelta /= count;
 
@@ -115,6 +132,17 @@ public class PlayerMovable : MonoBehaviour
         t = Mathf.Clamp01(t);
         Vector3 finalLocalPos = t * _moveAmount;
         Vector3 finalPos = _startPoint + finalLocalPos;
+
+        //MoveSound
+        _moveSound.On();
+
+        //End Sound
+        bool newEnd = (t == 1f || t == 0f);
+        if (newEnd && !_atEnd)
+        {
+            _soundPlayer.Play("user-movable-end", transform.position, SoundPlayer3D.Bank.Single);
+        }
+        _atEnd = newEnd;
 
         //Calculate Haptics
         float finalLocalMag = Vector3.Dot(finalLocalPos, _moveAmount.normalized);

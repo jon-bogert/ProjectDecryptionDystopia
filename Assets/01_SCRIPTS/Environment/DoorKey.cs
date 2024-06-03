@@ -3,6 +3,7 @@ using UnityEngine;
 public class DoorKey : MonoBehaviour
 {
     DoorLock _lock;
+    SoundPlayer3D _soundPlayer;
 
     private void Start()
     {
@@ -14,6 +15,10 @@ public class DoorKey : MonoBehaviour
         }
 
         _lock.AddKey(this);
+
+        _soundPlayer = FindObjectOfType<SoundPlayer3D>();
+        if (_soundPlayer == null)
+            Debug.LogError("Couldn't find Sound Player in Scene");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,6 +27,7 @@ public class DoorKey : MonoBehaviour
         if (player == null)
             return;
 
+        _soundPlayer.Play("key-collect", transform.position, SoundPlayer3D.Bank.Single);
         _lock.RemoveKey(this);
         gameObject.SetActive(false);
     }

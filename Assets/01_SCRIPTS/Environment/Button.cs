@@ -13,6 +13,8 @@ public class Button : MonoBehaviour
     OverTime.ModuleReference<OverTime.LerpModule> _lerpRef;
     Vector3 _startPos = Vector3.zero;
 
+    SoundPlayer3D _soundPlayer;
+
     private void Start()
     {
         SelfMovable[] movables = FindObjectsOfType<SelfMovable>();
@@ -28,12 +30,18 @@ public class Button : MonoBehaviour
             return;
         }
         _startPos = _buttonMesh.localPosition;
+
+        _soundPlayer = FindObjectOfType<SoundPlayer3D>();
+        if (_soundPlayer == null)
+            Debug.LogError("Couldn't find Sound Player in Scene");
     }
 
     public void Insteract()
     {
         if (_lerpRef != null && !_lerpRef.IsExpired())
             return;
+
+        _soundPlayer.Play("button-press", transform.position, SoundPlayer3D.Bank.Single);
 
         OverTime.LerpModule lerpDown = new(0, _pressAmount, _pressTime,
             (val) => _buttonMesh.localPosition = new Vector3(
@@ -57,7 +65,6 @@ public class Button : MonoBehaviour
 
     private void Activate()
     {
-        Debug.Log("Button Activate");
         foreach (SelfMovable movable in _movables)
         {
             movable.Toggle();

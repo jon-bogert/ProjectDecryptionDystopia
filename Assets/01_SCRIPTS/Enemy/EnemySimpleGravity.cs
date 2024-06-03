@@ -16,6 +16,9 @@ public class EnemySimpleGravity : MonoBehaviour
 
     private void Update()
     {
+        if (!_charController.enabled)
+            return;
+
         if (_charController.isGrounded)
         {
             _velocity = 0f;

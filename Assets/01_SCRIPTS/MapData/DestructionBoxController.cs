@@ -15,6 +15,8 @@ public class DestructionBoxController : MonoBehaviour
 
     bool _hasRun = false;
 
+    SoundPlayer3D _soundPlayer;
+
     private void Awake()
     {
         if (_rootObject == null)
@@ -26,11 +28,20 @@ public class DestructionBoxController : MonoBehaviour
         _material.SetFloat("_TransitionB", _bStart);
     }
 
+    private void Start()
+    {
+        _soundPlayer = FindObjectOfType<SoundPlayer3D>();
+        if (_soundPlayer == null)
+            Debug.LogError("Couldn't find Sound Player in Scene");
+    }
+
     public void Go()
     {
         if (_hasRun)
             return;
         _hasRun = true;
+
+        _soundPlayer.Play("decon-up", transform.position, SoundPlayer3D.Bank.Single);
 
         OverTime.LerpModule lerpA = new(_aStart, _aEnd, _time, (val) => { _material.SetFloat("_TransitionA", val); });
         lerpA.OnComplete(LaunchB);
@@ -39,6 +50,8 @@ public class DestructionBoxController : MonoBehaviour
 
     private void LaunchB()
     {
+        _soundPlayer.Play("decon-down", transform.position, SoundPlayer3D.Bank.Single);
+
         _rootObject.SetActive(false);
         OverTime.LerpModule lerpB = new(_bStart, _bEnd, _time, (val) => { _material.SetFloat("_TransitionB", val); });
         OverTime.Add(lerpB);

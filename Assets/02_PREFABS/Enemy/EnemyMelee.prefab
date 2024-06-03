@@ -269,6 +269,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _useRegen: 0
+  _regenDelay: 5
+  _fullRegenTime: 2
   _isInvincible: 0
   _doLog: 0
 --- !u!114 &7423680028814797941
@@ -409,6 +412,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4c357e82fa5ed814a874993dc286d658, type: 2}
+    - target: {fileID: 1182007388166537111, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1275422823098008116, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

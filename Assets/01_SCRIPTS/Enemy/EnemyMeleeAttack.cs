@@ -13,6 +13,7 @@ public class EnemyMeleeAttack : MonoBehaviour
     [SerializeField] Animator _armAnimator;
 
     Hurtbox _hurtbox;
+    SoundPlayer3D _soundPlayer;
 
     bool _canAttack = true;
     bool _isAttacking = false;
@@ -49,6 +50,10 @@ public class EnemyMeleeAttack : MonoBehaviour
             Debug.LogError(name + ": Could not fine hurtbox in children");
 
         _hurtbox.onHurt += OnHurt;
+
+        _soundPlayer = FindObjectOfType<SoundPlayer3D>();
+        if (_soundPlayer == null)
+            Debug.LogError("Couldn't find Sound Player in Scene");
     }
 
     private void Update()
@@ -96,19 +101,13 @@ public class EnemyMeleeAttack : MonoBehaviour
 
     private void OnHurt(Collider collision)
     {
-        Button button = collision.GetComponent<Button>();
-        if (button)
-        {
-            button.Insteract();
-            return;
-        }
         Health health = collision.GetComponent<Health>();
         if (health == null)
         {
             Debug.LogError(collision.name + " has no health component");
             return;
         }
-
+        _soundPlayer.Play("melee-hit-enemy", transform.position, SoundPlayer3D.Bank.Single);
         health.TakeDamage(_damage);
     }
 }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static SoundPlayer3D;
 
 
@@ -50,6 +52,8 @@ public class SoundPlayer3D : MonoBehaviour
 
     public enum Bank { Single, Multi };
 
+    [SerializeField] InputActionReference _headsetActive;
+
     [SerializeField] List<_AudioClip> singleSoundBank/* = new List<_AudioClip>()*/;
     [SerializeField] List<_MultiAudioClip> multiSoundBank = new List<_MultiAudioClip>();
 
@@ -73,6 +77,8 @@ public class SoundPlayer3D : MonoBehaviour
 
     private void Awake()
     {
+        _headsetActive.action.performed += HeadsetActive;
+
         _sources = new AudioSource[_poolSize];
         for (int i = 0; i < _poolSize; ++i)
         {
@@ -101,8 +107,17 @@ public class SoundPlayer3D : MonoBehaviour
         multiSoundBank.Clear();
     }
 
+    private void OnDestroy()
+    {
+        _headsetActive.action.performed -= HeadsetActive;
+    }
+
     public void Play(string key, Vector3 position)
     {
+        if (key == "")
+        {
+            Debug.Log("Break");
+        }
         AudioSource source = _nextSource;
         source.transform.position = position;
         if (_single.ContainsKey(key))
@@ -164,5 +179,12 @@ public class SoundPlayer3D : MonoBehaviour
         return 0f;
     }
 
-
+    private void HeadsetActive(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("BAM");
+        foreach (AudioSource source in _sources)
+        {
+            source.mute = ctx.ReadValue<float>() > 0.5f;
+        }
+    }
 }
