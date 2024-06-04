@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 3
-  _gravityAmount: 30
+  _gravityAmount: 35
   _jumpAmount: 8
   _deadZone: 0.25
   _legAnimator: {fileID: 6501917236125947736}

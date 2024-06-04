@@ -215,7 +215,21 @@ public class TileMap3D
                 button.type = type;
                 button.gridCoord = coord;
                 button.rotation = System.Enum.Parse<TileRotation>(tileData["rotation"].ToString());
-                button.signalId = int.Parse(tileData["signal-id"].ToString());
+                //button.signalId = int.Parse(tileData["signal-id"].ToString());
+                if (tileData["signal-id"].NodeType == YamlNodeType.Scalar)
+                {
+                    button.signalId[0] = int.Parse(tileData["signal-id"].ToString());
+                }
+                else
+                {
+                    YamlSequenceNode list = tileData["signal-id"] as YamlSequenceNode;
+                    button.signalId = new int[list.Children.Count];
+                    int count = 0;
+                    foreach (YamlScalarNode child in list.Children)
+                    {
+                        button.signalId[count++] = int.Parse(child.ToString());
+                    }
+                }
                 button.SetupTilemap(this);
             }
 

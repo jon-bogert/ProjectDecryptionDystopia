@@ -41,7 +41,7 @@ public class PlayerAttack : MonoBehaviour
         Button button = collision.GetComponent<Button>();
         if (button)
         {
-            button.Insteract();
+            button.Interact();
             return;
         }
         Health health = collision.GetComponent<Health>();

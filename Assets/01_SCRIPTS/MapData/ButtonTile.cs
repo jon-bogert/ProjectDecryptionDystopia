@@ -3,7 +3,7 @@
 public class ButtonTile : RotatableTile
 {
     TileBase _fillerTile = null;
-    public int signalId = 0;
+    public int[] signalId = new int[1] { 0 };
 
     public TileBase FillerTile
     {

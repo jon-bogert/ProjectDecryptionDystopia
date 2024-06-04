@@ -111,7 +111,10 @@ public class LevelManager : MonoBehaviour
         }
         else if (tile.type == TileType.Button)
         {
-            go.GetComponent<Button>().signalId = ((ButtonTile)tile).signalId;
+            int size = ((ButtonTile)tile).signalId.Length;
+            Button btn = go.GetComponent<Button>();
+            btn.signalId = new int[size];
+            System.Array.Copy(((ButtonTile)tile).signalId, btn.signalId, size);
         }
 
 

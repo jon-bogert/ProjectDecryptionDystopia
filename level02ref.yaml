@@ -1,0 +1,1227 @@
+dimensions:
+  x: 14
+  y: 7
+  z: 10
+tiles:
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 4
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 5
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 6
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 7
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 12
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 13
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 12
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 13
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 0
+    y: 2
+    z: 0
+- type: Block
+  coord:
+    x: 1
+    y: 2
+    z: 0
+- type: Block
+  coord:
+    x: 11
+    y: 2
+    z: 0
+- type: Block
+  coord:
+    x: 12
+    y: 2
+    z: 0
+- type: Block
+  coord:
+    x: 13
+    y: 2
+    z: 0
+- type: Block
+  coord:
+    x: 0
+    y: 3
+    z: 0
+- type: Block
+  coord:
+    x: 1
+    y: 3
+    z: 0
+- type: Block
+  coord:
+    x: 2
+    y: 3
+    z: 0
+- type: Block
+  coord:
+    x: 3
+    y: 3
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 3
+    z: 0
+- type: Block
+  coord:
+    x: 10
+    y: 3
+    z: 0
+- type: Block
+  coord:
+    x: 11
+    y: 3
+    z: 0
+- type: Block
+  coord:
+    x: 12
+    y: 3
+    z: 0
+- type: Block
+  coord:
+    x: 13
+    y: 3
+    z: 0
+- type: Button
+  coord:
+    x: 13
+    y: 4
+    z: 0
+  rotation: East
+  signal-id: 0
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 4
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 5
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 6
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 7
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 12
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 13
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 12
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 13
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 0
+    y: 2
+    z: 1
+- type: Block
+  coord:
+    x: 1
+    y: 2
+    z: 1
+- type: Block
+  coord:
+    x: 11
+    y: 2
+    z: 1
+- type: Block
+  coord:
+    x: 12
+    y: 2
+    z: 1
+- type: Block
+  coord:
+    x: 13
+    y: 2
+    z: 1
+- type: Block
+  coord:
+    x: 0
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 1
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 2
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 3
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 9
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 10
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 11
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 12
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 13
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 4
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 5
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 6
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 7
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 12
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 13
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 2
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 2
+- type: Block
+  coord:
+    x: 0
+    y: 2
+    z: 2
+- type: Block
+  coord:
+    x: 1
+    y: 2
+    z: 2
+- type: Slope
+  coord:
+    x: 0
+    y: 3
+    z: 2
+  rotation: South
+- type: Slope
+  coord:
+    x: 1
+    y: 3
+    z: 2
+  rotation: South
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 4
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 5
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 6
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 7
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 12
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 13
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 3
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 3
+- type: Slope
+  coord:
+    x: 0
+    y: 2
+    z: 3
+  rotation: South
+- type: Slope
+  coord:
+    x: 1
+    y: 2
+    z: 3
+  rotation: South
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 4
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 5
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 6
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 7
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 12
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 13
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 4
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 4
+- type: Slope
+  coord:
+    x: 2
+    y: 1
+    z: 4
+  rotation: West
+- type: Block
+  coord:
+    x: 6
+    y: 3
+    z: 4
+- type: Block
+  coord:
+    x: 7
+    y: 3
+    z: 4
+- type: Key
+  coord:
+    x: 7
+    y: 4
+    z: 4
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 4
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 5
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 6
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 7
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 12
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 13
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 5
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 5
+- type: Slope
+  coord:
+    x: 2
+    y: 1
+    z: 5
+  rotation: West
+- type: Block
+  coord:
+    x: 6
+    y: 3
+    z: 5
+- type: Block
+  coord:
+    x: 7
+    y: 3
+    z: 5
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 4
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 5
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 6
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 7
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 12
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 13
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 6
+    y: 1
+    z: 6
+- type: Block
+  coord:
+    x: 7
+    y: 1
+    z: 6
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 4
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 5
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 6
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 7
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 12
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 13
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 6
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 7
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 13
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 13
+    y: 2
+    z: 7
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 4
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 5
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 6
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 7
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 12
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 13
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 5
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 8
+- type: Slope
+  coord:
+    x: 10
+    y: 1
+    z: 8
+  rotation: West
+- type: Block
+  coord:
+    x: 12
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 0
+    y: 2
+    z: 8
+- type: Block
+  coord:
+    x: 5
+    y: 2
+    z: 8
+- type: Block
+  coord:
+    x: 8
+    y: 2
+    z: 8
+- type: Slope
+  coord:
+    x: 9
+    y: 2
+    z: 8
+  rotation: West
+- type: Block
+  coord:
+    x: 12
+    y: 2
+    z: 8
+- type: Slope
+  coord:
+    x: 5
+    y: 3
+    z: 8
+  rotation: East
+- type: Block
+  coord:
+    x: 6
+    y: 3
+    z: 8
+- type: Block
+  coord:
+    x: 7
+    y: 3
+    z: 8
+- type: Slope
+  coord:
+    x: 8
+    y: 3
+    z: 8
+  rotation: West
+- type: Block
+  coord:
+    x: 13
+    y: 3
+    z: 8
+- type: Block
+  coord:
+    x: 13
+    y: 4
+    z: 8
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 4
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 5
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 6
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 7
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 12
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 13
+    y: 0
+    z: 9
+- type: Button
+  coord:
+    x: 0
+    y: 1
+    z: 9
+  rotation: North
+  signal-id: 0
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 9
+- type: Block
+  coord:
+    x: 5
+    y: 1
+    z: 9
+- type: Door
+  coord:
+    x: 6
+    y: 1
+    z: 9
+  rotation: North
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 9
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 9
+- type: Key
+  coord:
+    x: 13
+    y: 1
+    z: 9
+- type: Block
+  coord:
+    x: 1
+    y: 2
+    z: 9
+- type: Block
+  coord:
+    x: 5
+    y: 2
+    z: 9
+- type: Block
+  coord:
+    x: 8
+    y: 2
+    z: 9
+- type: Block
+  coord:
+    x: 11
+    y: 2
+    z: 9
+- type: Block
+  coord:
+    x: 5
+    y: 3
+    z: 9
+- type: Block
+  coord:
+    x: 6
+    y: 3
+    z: 9
+- type: Block
+  coord:
+    x: 7
+    y: 3
+    z: 9
+- type: Block
+  coord:
+    x: 8
+    y: 3
+    z: 9
+- type: Block
+  coord:
+    x: 12
+    y: 3
+    z: 9
+- type: Button
+  coord:
+    x: 5
+    y: 4
+    z: 9
+  rotation: West
+  signal-id: 0
+- type: Block
+  coord:
+    x: 12
+    y: 4
+    z: 9

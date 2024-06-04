@@ -9,18 +9,28 @@ public class Button : MonoBehaviour
     [SerializeField] Transform _buttonMesh;
 
     List<SelfMovable> _movables = new();
-    public int signalId = 0;
+    public int[] signalId = new int[1] { 0 };
     OverTime.ModuleReference<OverTime.LerpModule> _lerpRef;
     Vector3 _startPos = Vector3.zero;
 
     SoundPlayer3D _soundPlayer;
+
+    bool CheckSignal(int id)
+    {
+        foreach (int i in signalId)
+        {
+            if (i == id)
+                return true;
+        }
+        return false;
+    }
 
     private void Start()
     {
         SelfMovable[] movables = FindObjectsOfType<SelfMovable>();
         foreach (SelfMovable movable in movables)
         {
-            if (movable.signalId == signalId)
+            if (CheckSignal(movable.signalId))
                 _movables.Add(movable);
         }
 
@@ -36,7 +46,7 @@ public class Button : MonoBehaviour
             Debug.LogError("Couldn't find Sound Player in Scene");
     }
 
-    public void Insteract()
+    public void Interact()
     {
         if (_lerpRef != null && !_lerpRef.IsExpired())
             return;

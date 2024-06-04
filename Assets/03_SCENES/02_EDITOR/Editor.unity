@@ -148,6 +148,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EditorEnemyRangedCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 3992280406546149358, guid: 0cfc9574842ce56498847c6d6306d435,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4588083725492272259, guid: 0cfc9574842ce56498847c6d6306d435,
         type: 3}
       propertyPath: m_RootOrder
@@ -469,9 +474,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 159110287}
   m_LocalRotation: {x: -1, y: -0, z: -0, w: -0.0000002533197}
-  m_LocalPosition: {x: 0, y: 30, z: 0}
-  m_LocalScale: {x: 40, y: 40, z: 40}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 60, z: 0}
+  m_LocalScale: {x: 80, y: 80, z: 80}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -840,7 +845,7 @@ PrefabInstance:
     - target: {fileID: 1217402977506038691, guid: c6966ba3a90f3d44486b8981929e7283,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.62
+      value: 6.06
       objectReference: {fileID: 0}
     - target: {fileID: 1217402977506038691, guid: c6966ba3a90f3d44486b8981929e7283,
         type: 3}
@@ -891,6 +896,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638785655411332425, guid: c6966ba3a90f3d44486b8981929e7283,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1090,6 +1100,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Slope
+      objectReference: {fileID: 0}
+    - target: {fileID: 3084212057026480508, guid: 18df527807fc5e74e82989fb46ab1689,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1463,6 +1478,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EditorPlayerCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992280406546149358, guid: ed8f43bea7d75c843af7c55c56af1712,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4588083725492272259, guid: ed8f43bea7d75c843af7c55c56af1712,
         type: 3}
@@ -2605,9 +2625,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050395137}
   m_LocalRotation: {x: -0, y: -0, z: -0.2588186, w: 0.965926}
-  m_LocalPosition: {x: -7.12, y: 11.7, z: 0.67}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -14.87, y: 18.28, z: 0.67}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 663565993}
   - {fileID: 511052214}
@@ -3787,6 +3807,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Key
       objectReference: {fileID: 0}
+    - target: {fileID: 8208375861272521549, guid: 3868085a1f469044aa5c56c70f546f69,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3958,7 +3983,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586646410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.624001, z: 10.149994}
+  m_LocalPosition: {x: 0, y: 22, z: 10.149994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4215,6 +4240,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 521786116986242441, guid: 23daeaa66d140ad4d8b24c0abde9cfe0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4492,6 +4522,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 4734450039532918926, guid: 30dddbaee7fa8b64085c1af734c69d3e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4716,6 +4751,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EditorEnemyMeleeCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992280406546149358, guid: ccc7ae315a15c1545befbf8ebe515d8a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4588083725492272259, guid: ccc7ae315a15c1545befbf8ebe515d8a,
         type: 3}
@@ -4951,7 +4991,7 @@ Transform:
   m_GameObject: {fileID: 4924577385670958216}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3975466404867228163}

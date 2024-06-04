@@ -120,7 +120,7 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         else
         {
-            transform.Translate(_moveDelta);
+            transform.Translate(_moveDelta, Space.World);
         }
         _moveDelta = Vector3.zero;
         _usePhysicsMove = true;
