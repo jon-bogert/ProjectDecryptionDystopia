@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using XephTools;
 
@@ -29,6 +28,11 @@ public class PlayerMovableSound : MonoBehaviour
         if (_state == State.On || _state == State.GoingUp)
             return;
 
+        if (_lerpRef != null && !_lerpRef.IsExpired())
+        {
+            _lerpRef.Get().End();
+        }
+
         if (_state == State.Off)
         {
             _state = State.GoingUp;
@@ -54,6 +58,11 @@ public class PlayerMovableSound : MonoBehaviour
     {
         if (_state == State.Off || _state == State.GoingDown)
             return;
+
+        if (_lerpRef != null && !_lerpRef.IsExpired())
+        {
+            _lerpRef.Get().End();
+        }
 
         if (_state == State.On)
         {

@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using XephTools;
 
 [RequireComponent(typeof(Health))]
+[RequireComponent(typeof(PlayerMovableSound))]
 public class EnemyStunner : MonoBehaviour
 {
     [SerializeField] UnityEvent _stunEvent;
@@ -18,6 +19,8 @@ public class EnemyStunner : MonoBehaviour
 
     List<InteractionPoint> _interactors = new List<InteractionPoint>();
     Health _health;
+    PlayerMovableSound _stunSound;
+    OverTime.ModuleReference<OverTime.LerpModule> _lerpRef = null;
 
     Color _hoverColor = Color.white;
     bool _isAnimating = false;
@@ -27,6 +30,7 @@ public class EnemyStunner : MonoBehaviour
         _hoverMesh.enabled = false;
         _health = GetComponent<Health>();
         _hoverColor = _hoverMesh.material.GetColor("_Color");
+        _stunSound = GetComponent<PlayerMovableSound>();
     }
 
     private void Update()
@@ -77,12 +81,18 @@ public class EnemyStunner : MonoBehaviour
     {
         _isAnimating = true;
 
+        if (_lerpRef != null && !_lerpRef.IsExpired())
+        {
+            _lerpRef.Get().End(_lerpRef.Get().Progress);
+        }
+
+        _stunSound.On();
         Color startColor = Color.white * _stunBrightness;
         _hoverMesh.material.SetColor("_Color", startColor);
         OverTime.LerpModule lerp = new(1f, 0f, _stunTime, (val) => _hoverMesh.material.SetFloat("_Brightness", val));
 
         lerp.OnComplete(ResetVals);
-        OverTime.Add(lerp);
+        _lerpRef = OverTime.Add(lerp);
     }
 
     private void ResetVals()
@@ -91,6 +101,7 @@ public class EnemyStunner : MonoBehaviour
         _hoverMesh.material.SetFloat("_Brightness", 1f);
         _isAnimating = false;
         _hoverMesh.enabled = false;
+        _stunSound.Off();
     }
 
 

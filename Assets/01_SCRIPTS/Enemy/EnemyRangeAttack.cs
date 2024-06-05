@@ -71,7 +71,8 @@ public class EnemyRangeAttack : MonoBehaviour
 
         if (_stunTimer.isExpired)
         {
-            _stunTimer.OnComplete(() => { _isStunned = false; }).SetDuration(_stunTime).Start();
+            _armAnimator.speed = 0f;
+            _stunTimer.OnComplete(() => { _isStunned = false; _armAnimator.speed = 1f; }).SetDuration(_stunTime).Start();
         }
         else
         {
