@@ -52,6 +52,11 @@ MonoBehaviour:
   _isOscillating: 0
   _moveTime: 1.5
   _easeAmount: 0.01
+  _playerCheckCenter: {x: 0.5, y: 1.75, z: 0}
+  _playerCheckExtends: {x: 2, y: 0.5, z: 1}
+  _playerCheckMask:
+    serializedVersion: 2
+    m_Bits: 64
   fillerDirections: 030000000000000002000000000000000400000000000000
 --- !u!65 &301858693584517125
 BoxCollider:

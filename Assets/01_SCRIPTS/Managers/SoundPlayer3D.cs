@@ -89,6 +89,7 @@ public class SoundPlayer3D : MonoBehaviour
             _sources[i].playOnAwake = false;
             _sources[i].loop = false;
             _sources[i].spatialBlend = 1f;
+            _sources[i].minDistance = 25f;
         }
 
         foreach (_AudioClip clip in singleSoundBank)
@@ -181,7 +182,6 @@ public class SoundPlayer3D : MonoBehaviour
 
     private void HeadsetActive(InputAction.CallbackContext ctx)
     {
-        Debug.Log("BAM");
         foreach (AudioSource source in _sources)
         {
             source.mute = ctx.ReadValue<float>() > 0.5f;

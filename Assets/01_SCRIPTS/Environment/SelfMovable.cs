@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using XephTools;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SelfMovable : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class SelfMovable : MonoBehaviour
     [SerializeField] bool _isOscillating = false;
     [SerializeField] float _moveTime = 1.5f;
     [SerializeField] float _easeAmount = 0.01f;
+
+    [Header("Player Check")]
+    [SerializeField] Vector3 _playerCheckCenter = Vector3.zero;
+    [SerializeField] Vector3 _playerCheckExtends = Vector3.one;
+    [SerializeField] LayerMask _playerCheckMask = 0;
 
     [Space]
     public List<PlayerMovable.FillerDirections> fillerDirections = new();
@@ -23,8 +29,8 @@ public class SelfMovable : MonoBehaviour
 
     SelfMovableTile _tile = null;
     MovableShaderController _shader;
-    PlayerMovableSound _moveSound;
     SoundPlayer3D _soundPlayer;
+    ThirdPersonMovement _player = null;
 
     public SelfMovableTile tile { get { return _tile; } internal set { _tile = value; } }
 
@@ -33,9 +39,6 @@ public class SelfMovable : MonoBehaviour
     private void Start()
     {
         _startPoint = transform.position;
-        _moveSound = GetComponent<PlayerMovableSound>();
-        if (_moveSound == null)
-            Debug.LogError("Player Movable Sound component not found");
 
         _soundPlayer = FindObjectOfType<SoundPlayer3D>();
         if (_soundPlayer == null)
@@ -44,13 +47,17 @@ public class SelfMovable : MonoBehaviour
 
     private void Update()
     {
+        CheckPlayer();
+
         if (!_isRunning)
             return;
 
         float piTimer = (_oscTimer / _moveTime) * Mathf.PI * 2f;
         float t = (-Mathf.Cos(piTimer) * 0.5f) + 0.5f; // 0 -> 1
 
-        transform.position = _startPoint + (t * _moveAmount);
+        Vector3 newPos  = _startPoint + (t * _moveAmount);
+        MovePlayer(newPos - transform.position);
+        transform.position = newPos;
 
         _oscTimer += Time.deltaTime;
         while (_oscTimer >= _moveTime)
@@ -59,8 +66,8 @@ public class SelfMovable : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        //Gizmos.color = Color.green;
-        //Gizmos.DrawCube(transform.position + _playerCheckCenter, _playerCheckExtends);
+        Gizmos.color = Color.green;
+        Gizmos.DrawCube(transform.position + _playerCheckCenter, _playerCheckExtends);
 
         if (_tile == null)
             return;
@@ -91,16 +98,9 @@ public class SelfMovable : MonoBehaviour
         if (_isOscillating)
         {
             _isRunning = !_isRunning;
-
-            if (_isRunning)
-                _moveSound.On();
-            else
-                _moveSound.Off();
-
             return;
         }
 
-        _moveSound.On();
 
         float progress = 0f;
         if (_state == State.ToEnd || _state == State.ToStart)
@@ -117,9 +117,9 @@ public class SelfMovable : MonoBehaviour
                 (progress == 0f) ? _startPoint + _moveAmount * (1f - _easeAmount) : startPos,
                 _startPoint + _moveAmount * _easeAmount,
                 (progress == 0f) ? _moveTime : _moveTime - ((1 - progress) * _moveTime),
-                (val) => { transform.position = val; }
+                (val) => { MovePlayer(val - transform.position); transform.position = val; }
                 );
-            lerp.OnComplete(() => { _state = State.Start; _moveSound.Off(); });
+            lerp.OnComplete(() => { _state = State.Start; });
             _lerpRef = OverTime.Add(lerp);
             return;
         }
@@ -130,9 +130,42 @@ public class SelfMovable : MonoBehaviour
             (progress == 0f) ? _startPoint + _moveAmount * _easeAmount : startPos2,
             _startPoint + _moveAmount * (1 - _easeAmount),
             (progress == 0f) ? _moveTime : _moveTime - ((1 - progress) * _moveTime),
-            (val) => { transform.position = val; }
+            (val) => { MovePlayer(val - transform.position); transform.position = val; }
             );
-        lerp2.OnComplete(() => { _state = State.End; _moveSound.Off(); });
+        lerp2.OnComplete(() => { _state = State.End; });
         _lerpRef = OverTime.Add(lerp2);
+    }
+
+    private void MovePlayer(Vector3 amt)
+    {
+        if (_player == null)
+            return;
+
+        _player.Move(amt);
+    }
+
+    private void CheckPlayer()
+    {
+        Collider[] collisions = Physics.OverlapBox(transform.position + _playerCheckCenter, _playerCheckExtends * 0.5f, Quaternion.identity, _playerCheckMask);
+        if (collisions.Length <= 0)
+        {
+            if (_player != null)
+            {
+                _player = null;
+            }
+            return;
+        }
+
+        if (_player != null)
+            return;
+
+        foreach (Collider collider in collisions)
+        {
+            _player = collider.GetComponent<ThirdPersonMovement>();
+            if (_player != null)
+            {
+                return;
+            }
+        }
     }
 }

@@ -1,12 +1,17 @@
 using UnityEngine;
+using XephTools;
 
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
     [SerializeField] bool _playOnAwake = true;
+    [SerializeField] float _volume = 0.25f;
+    [SerializeField] float _fadeTime = 1.0f;
 
     static MusicManager instance = null;
     AudioSource _source;
+
+    bool _defferedPlay = false;
 
     private void Awake()
     {
@@ -28,11 +33,22 @@ public class MusicManager : MonoBehaviour
             return;
 
         if (_playOnAwake)
-            _source.Play();
+            _defferedPlay=true;
+    }
+
+    private void Update()
+    {
+        if (_defferedPlay)
+        {
+            _defferedPlay = false;
+            Play();
+        }
     }
 
     public static void Play()
     {
+        OverTime.LerpModule lerp = new(0f, instance._volume, instance._fadeTime, (val) => instance._source.volume = val);
+        OverTime.Add(lerp);
         instance._source.Play();
     }
     public static void Pause()
@@ -47,6 +63,8 @@ public class MusicManager : MonoBehaviour
 
     public static void Stop()
     {
-        instance._source.Stop();
+        OverTime.LerpModule lerp = new( instance._volume, 0f, instance._fadeTime, (val) => instance._source.volume = val);
+        lerp.OnComplete(instance._source.Stop);
+        OverTime.Add(lerp);
     }
 }

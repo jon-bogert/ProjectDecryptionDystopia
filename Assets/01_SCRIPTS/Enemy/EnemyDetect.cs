@@ -52,7 +52,6 @@ public class EnemyDetect : MonoBehaviour
     {
         if (CheckRadius())
         {
-            Debug.Log("Attacking");
             _nextState = EnemyState.Attack;
             _onAttack?.Invoke();
         }

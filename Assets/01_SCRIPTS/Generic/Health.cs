@@ -78,9 +78,7 @@ public class Health : MonoBehaviour
 
         if (_health <= 0f)
         {
-            _isDead = true;
-            _health = 0f;
-            onDeath?.Invoke();
+            Kill();
             return;
         }
 
@@ -88,6 +86,13 @@ public class Health : MonoBehaviour
         {
             SetRegen();
         }
+    }
+
+    public void Kill()
+    {
+        _isDead = true;
+        _health = 0f;
+        onDeath?.Invoke();
     }
 
     public void Heal(float amt)

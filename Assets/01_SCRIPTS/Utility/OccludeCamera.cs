@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using XephTools;
 
@@ -9,6 +10,8 @@ public class OccludeCamera : MonoBehaviour
 
     Material _material;
 
+    public Action blockEnd;
+
     private void Awake()
     {
         _material = GetComponent<MeshRenderer>().material;
@@ -18,6 +21,7 @@ public class OccludeCamera : MonoBehaviour
     public void Block()
     {
         ColorLerp lerp = new ColorLerp(_endColor, _startColor, _fadeTime, (val) => { _material.color = val; });
+        lerp.OnComplete(() => blockEnd?.Invoke());
         OverTime.Add(lerp);
     }
 

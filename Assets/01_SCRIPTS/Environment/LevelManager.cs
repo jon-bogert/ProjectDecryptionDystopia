@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     [Header("Parameters")]
     [SerializeField] string _filename = "";
+    [SerializeField] float _occlusionDelay = 5f;
 
     [Header("Prefabs")]
     [SerializeField] GameObject _blockPrefab;
@@ -24,10 +25,21 @@ public class LevelManager : MonoBehaviour
     OccludeCamera _cameraOccluder;
 
     public TileMap3D tileMap { get { return _tileMap; } }
+    public string levelName { get { return _tileMap.levelName; } }
 
     private void Awake()
     {
-        _tileMap.LoadFromFile(_filename);
+        if (_filename != "")
+        {
+            _tileMap.LoadFromFile(_filename);
+        }
+        else
+        {
+            // Make sure SceneLoad is before LevelManager in execultion order
+            string filename = FindObjectOfType<SceneLoader>().GetLevelFile();
+            _tileMap.LoadFromFile(filename);
+        }
+
         Vector3 offset = ((Vector3)_tileMap.dimensions) * 0.5f;
         transform.position -= offset;
         _tileMap.ForEach(Generate);
@@ -35,7 +47,7 @@ public class LevelManager : MonoBehaviour
 
         _cameraOccluder = FindObjectOfType<OccludeCamera>();
         TimeIt _startTimer = new();
-        _startTimer.SetDuration(2f).OnComplete(() => _cameraOccluder.UnBlock()).Start();
+        _startTimer.SetDuration(_occlusionDelay).OnComplete(() => _cameraOccluder.UnBlock()).Start();
     }
 
     private void Generate(TileBase tile)
@@ -125,7 +137,6 @@ public class LevelManager : MonoBehaviour
 
     public void LevelComplete()
     {
-        Debug.Log("<color=green>Level Complete!");
         onLevelComplete?.Invoke();
     }
 }

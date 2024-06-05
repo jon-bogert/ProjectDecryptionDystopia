@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2361642032415388296}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Slope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 490810875069269328}
   - component: {fileID: 4206380971320723605}
   - component: {fileID: 4178713960186825712}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

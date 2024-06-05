@@ -80,7 +80,11 @@ MonoBehaviour:
   _moveSpeed: 3
   _gravityAmount: 35
   _jumpAmount: 8
-  _deadZone: 0.25
+  _deadZone: 0.35
+  _fallLength: 10
+  _fallMask:
+    serializedVersion: 2
+    m_Bits: 45696
   _legAnimator: {fileID: 6501917236125947736}
   _doCameraAdjust: 1
   _moveInput: {fileID: -6634257288004907100, guid: 3d7f3d66cde618544850ace30be3a86e,
@@ -199,6 +203,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f969b0df984804ba84b3ece1085dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _squishCenter: {x: 0, y: 1.48, z: 0}
+  _squishExtends: {x: 0.25, y: 0.01, z: 0.25}
+  _squishMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  _fallDeathHeight: 5
   _legAnimator: {fileID: 6501917236125947736}
   _armAnimator: {fileID: 752608010637214811}
 --- !u!1 &4390736762180373847

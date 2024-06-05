@@ -1,7 +1,6 @@
+using Unity.XR.CoreUtils.Datums;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Transformation;
-using XephTools;
 
 [RequireComponent(typeof(CharacterController))]
 public class ThirdPersonMovement : MonoBehaviour
@@ -11,6 +10,10 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] float _gravityAmount = 10f;
     [SerializeField] float _jumpAmount = 5f;
     [SerializeField] float _deadZone = 0.25f;
+
+    [Header("Fall Check")]
+    [SerializeField] float _fallLength = 10f;
+    [SerializeField] LayerMask _fallMask = 0;
 
     [Header("References")]
     [SerializeField] Animator _legAnimator;
@@ -32,7 +35,6 @@ public class ThirdPersonMovement : MonoBehaviour
     SoundPlayer3D _soundPlayer;
 
     Vector3 _moveDelta = Vector3.zero;
-    bool _usePhysicsMove = true;
 
     private void Awake()
     {
@@ -41,6 +43,9 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if (_legAnimator == null)
             Debug.LogWarning(name + ": Leg Animator not assigned in inspector");
+
+        if (_fallMask == 0)
+            Debug.LogWarning(name + ": Fall Mask is set to None");
     }
 
     private void Start()
@@ -57,10 +62,10 @@ public class ThirdPersonMovement : MonoBehaviour
     private void Update()
     {
         //Just Landed
-        if(_charController.isGrounded && !_isGrounded)
-        {
-            _stepAudio.Play();
-        }
+        //if(_charController.isGrounded && !_isGrounded)
+        //{
+        //    _stepAudio.Play();
+        //}
         _isGrounded = _charController.isGrounded;
 
         Vector2 moveAxis = _moveInput.action.ReadValue<Vector2>();
@@ -106,24 +111,30 @@ public class ThirdPersonMovement : MonoBehaviour
         _verticalVelocity -= _gravityAmount * Time.deltaTime;
 
         moveFinal *= _moveSpeed;
+
+        //Ledge Check
+        if (_isGrounded)
+        {
+            Vector3 newPos = transform.position + moveFinal * Time.deltaTime;
+            bool isHit = Physics.Raycast(newPos, Vector3.down, _fallLength, _fallMask);
+            if (!isHit)
+            {
+                moveFinal = Vector3.zero;
+            }
+        }
+
         moveFinal.y = _verticalVelocity;
 
-        //_charController.Move( moveFinal * Time.deltaTime );
         _moveDelta += moveFinal * Time.deltaTime;
     }
 
     private void LateUpdate()
     {
-        if ( _usePhysicsMove)
-        {
-            _charController.Move(_moveDelta);
-        }
-        else
-        {
-            transform.Translate(_moveDelta, Space.World);
-        }
+        if (_charController == null)
+            return;
+
+        _charController.Move(_moveDelta);
         _moveDelta = Vector3.zero;
-        _usePhysicsMove = true;
     }
 
     private void AdjustByCamera(ref Vector3 moveFinal)
@@ -167,9 +178,6 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public void Move(Vector3 amount)
     {
-        //_charController.Move(amount);
-        //transform.Translate(amount);
-        _usePhysicsMove = false;
-        _moveDelta = amount;
+        _moveDelta += amount;
     }
 }

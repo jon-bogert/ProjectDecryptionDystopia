@@ -10,8 +10,11 @@ public class TileMap3D
     TileBase[] _tiles = null; // X, then Y, Then Z
     TileBase _playerStart = null; // Set on load;
 
+    string _levelName = "";
+
     public TileBase playerStart { get { return _playerStart; } }
     public Vector3Int dimensions { get { return _dimensions; } }
+    public string levelName { get { return _levelName; } }
 
     public void ForEach(Visitor visitor)
     {
@@ -115,6 +118,8 @@ public class TileMap3D
         _dimensions.z = int.Parse(root["dimensions"]["z"].ToString());
 
         int length = _dimensions.x * _dimensions.y * _dimensions.z;
+
+        _levelName = root["name"].ToString();
 
         _tiles = new TileBase[length];
         for (int i = 0; i < length; ++i)

@@ -20,7 +20,6 @@ public class MovableDictionary : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("1");
         if (inst != null)
         {
             Destroy(gameObject);
@@ -46,7 +45,6 @@ public class MovableDictionary : MonoBehaviour
     }
     public static GameObject GetSelfMovable(string key)
     {
-        Debug.Log("2");
         return inst._selfMovablesHashed[key];
     }
 }

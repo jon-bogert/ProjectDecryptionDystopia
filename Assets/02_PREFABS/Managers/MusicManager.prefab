@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3822068733336726034
 MonoBehaviour:
@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfb4e9acfb2fc44284e941bdf2a8286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playOnAwake: 1
+  _playOnAwake: 0
+  _volume: 0.25
+  _fadeTime: 1
 --- !u!82 &6372639069451861962
 AudioSource:
   m_ObjectHideFlags: 0
@@ -56,9 +58,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8814ec8e4be4e484e8ba2bec1ce6d265, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7f33bafa1af016d4481aaa456cc6a186, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0

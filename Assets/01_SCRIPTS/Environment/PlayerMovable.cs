@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Net.Http.Headers;
 using UnityEngine;
 
 public class PlayerMovable : MonoBehaviour
@@ -16,7 +15,6 @@ public class PlayerMovable : MonoBehaviour
     }
 
     [SerializeField] Vector3 _moveAmount = Vector3.zero;
-    [SerializeField] bool DEBUG_callAwake = false;
 
     [Header("Player Check")]
     [SerializeField] Vector3 _playerCheckCenter = Vector3.zero;
@@ -45,13 +43,10 @@ public class PlayerMovable : MonoBehaviour
 
     public PlayerMovableTile tile { get { return _tile; } internal set { _tile = value; } }
 
-    // TODO - REMOVE
     public void Awake()
     {
         if (_playerCheckMask == 0)
             Debug.LogWarning(name + ": Player Check mask is set to 'None'");
-        if (DEBUG_callAwake)
-            _startPoint = transform.position;
 
         _moveSound = GetComponent<PlayerMovableSound>();
         if (_moveSound == null)
@@ -80,7 +75,7 @@ public class PlayerMovable : MonoBehaviour
         if (level == null)
             return;
 
-        foreach(TileBase filler in _tile.FillerTiles)
+        foreach (TileBase filler in _tile.FillerTiles)
         {
             Vector3 pos = level.transform.TransformPoint(filler.gridCoord);
             Gizmos.color = Color.red;
@@ -192,7 +187,9 @@ public class PlayerMovable : MonoBehaviour
         if (collisions.Length <= 0)
         {
             if (_player != null)
+            {
                 _player = null;
+            }
             return;
         }
 
@@ -203,7 +200,9 @@ public class PlayerMovable : MonoBehaviour
         {
             _player = collider.GetComponent<ThirdPersonMovement>();
             if (_player != null)
+            {
                 return;
+            }
         }
     }
 
