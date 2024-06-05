@@ -40,6 +40,7 @@ public class PlayerMovable : MonoBehaviour
     MovableShaderController _shader;
     SoundPlayer3D _soundPlayer;
     PlayerMovableSound _moveSound;
+    ValueMover _valueMover;
 
     public PlayerMovableTile tile { get { return _tile; } internal set { _tile = value; } }
 
@@ -62,6 +63,12 @@ public class PlayerMovable : MonoBehaviour
         _soundPlayer = FindObjectOfType<SoundPlayer3D>();
         if (_soundPlayer == null)
             Debug.LogError("Couldn't find Sound Player in Scene");
+
+        _valueMover = FindObjectOfType<ValueMover>();
+        if (_valueMover)
+        {
+            _valueMover.afterMoveEvent += MoveValues;
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -162,6 +169,14 @@ public class PlayerMovable : MonoBehaviour
         MoveTo(finalPos);
     }
 
+    private void OnDestroy()
+    {
+        if (_valueMover)
+        {
+            _valueMover.afterMoveEvent -= MoveValues;
+        }
+    }
+
     private void MoveTo(Vector3 destination)
     {
         if (_player != null)
@@ -230,5 +245,10 @@ public class PlayerMovable : MonoBehaviour
 
         if (_interactors.Count == 0)
             _shader.Down();
+    }
+
+    private void MoveValues(float amount)
+    {
+        _startPoint += Vector3.up * amount;
     }
 }

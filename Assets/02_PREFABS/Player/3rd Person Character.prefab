@@ -208,7 +208,7 @@ MonoBehaviour:
   _squishMask:
     serializedVersion: 2
     m_Bits: 8192
-  _fallDeathHeight: 5
+  _fallDeathHeight: 1
   _legAnimator: {fileID: 6501917236125947736}
   _armAnimator: {fileID: 752608010637214811}
 --- !u!1 &4390736762180373847

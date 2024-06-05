@@ -10,6 +10,8 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] bool _kioskMode = false;
     [SerializeField] int _level = -1;
     [SerializeField] SceneType _sceneType = SceneType.Generic;
+    [SerializeField] float _levelY = 23f;
+    [SerializeField] float _levelHeight = 12f;
 
     public enum SceneType
     {
@@ -23,6 +25,7 @@ public class SceneLoader : MonoBehaviour
     //string[] _customLevels = null;
 
     public int level { get { return _level; } }
+    public float levelY { get { return _levelY; } }
 
     private void Awake()
     {
@@ -103,5 +106,10 @@ public class SceneLoader : MonoBehaviour
         }
 
         return _coreLevels[_level];
+    }
+
+    public void MeasureLevelY()
+    {
+        _levelY = Camera.main.transform.position.y - _levelHeight;
     }
 }

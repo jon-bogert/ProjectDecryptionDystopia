@@ -10,11 +10,22 @@ public class KeyBob : MonoBehaviour
     float _t = 0f;
     float _rotation = 0f;
 
+    ValueMover _valueMover;
+
     private void Awake()
     {
         _startPos = transform.position;
         _t = Random.Range(0, Mathf.PI * 2f);
         _rotation = Random.Range(0f, 360f);
+    }
+
+    private void Start()
+    {
+        _valueMover = FindObjectOfType<ValueMover>();
+        if (_valueMover)
+        {
+            _valueMover.afterMoveEvent += MoveValues;
+        }
     }
 
     private void Update()
@@ -35,5 +46,18 @@ public class KeyBob : MonoBehaviour
         {
             _rotation -= 360f;
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (_valueMover)
+        {
+            _valueMover.afterMoveEvent -= MoveValues;
+        }
+    }
+
+    private void MoveValues(float amount)
+    {
+        _startPos += Vector3.up * amount;
     }
 }

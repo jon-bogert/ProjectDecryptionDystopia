@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using XephTools;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SelfMovable : MonoBehaviour
 {
@@ -31,6 +30,7 @@ public class SelfMovable : MonoBehaviour
     MovableShaderController _shader;
     SoundPlayer3D _soundPlayer;
     ThirdPersonMovement _player = null;
+    ValueMover _valueMover;
 
     public SelfMovableTile tile { get { return _tile; } internal set { _tile = value; } }
 
@@ -43,6 +43,12 @@ public class SelfMovable : MonoBehaviour
         _soundPlayer = FindObjectOfType<SoundPlayer3D>();
         if (_soundPlayer == null)
             Debug.LogError("Couldn't find Sound Player in Scene");
+
+        _valueMover = FindObjectOfType<ValueMover>();
+        if (_valueMover)
+        {
+            _valueMover.afterMoveEvent += MoveValues;
+        }
     }
 
     private void Update()
@@ -62,6 +68,14 @@ public class SelfMovable : MonoBehaviour
         _oscTimer += Time.deltaTime;
         while (_oscTimer >= _moveTime)
             _oscTimer -= _moveTime;
+    }
+
+    private void OnDestroy()
+    {
+        if (_valueMover)
+        {
+            _valueMover.afterMoveEvent -= MoveValues;
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -167,5 +181,10 @@ public class SelfMovable : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private void MoveValues(float amount)
+    {
+        _startPoint += Vector3.up * amount;
     }
 }

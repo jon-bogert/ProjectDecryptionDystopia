@@ -23,12 +23,20 @@ public class LevelManager : MonoBehaviour
 
     TileMap3D _tileMap = new TileMap3D();
     OccludeCamera _cameraOccluder;
+    ValueMover _valueMover;
+    SceneLoader _sceneLoader;
 
     public TileMap3D tileMap { get { return _tileMap; } }
     public string levelName { get { return _tileMap.levelName; } }
 
     private void Awake()
     {
+        _sceneLoader = FindObjectOfType<SceneLoader>();
+        if (_sceneLoader == null)
+        {
+            Debug.LogError("No Scene Loader in current Scene");
+        }
+
         if (_filename != "")
         {
             _tileMap.LoadFromFile(_filename);
@@ -36,18 +44,31 @@ public class LevelManager : MonoBehaviour
         else
         {
             // Make sure SceneLoad is before LevelManager in execultion order
-            string filename = FindObjectOfType<SceneLoader>().GetLevelFile();
+            string filename = _sceneLoader.GetLevelFile();
             _tileMap.LoadFromFile(filename);
         }
 
         Vector3 offset = ((Vector3)_tileMap.dimensions) * 0.5f;
         transform.position -= offset;
+
+        transform.position = new Vector3(
+            transform.position.x,
+            _sceneLoader.levelY,
+            transform.position.z);
+
         _tileMap.ForEach(Generate);
         FindObjectOfType<NavGraph>().GenerateGraph(_tileMap);
 
         _cameraOccluder = FindObjectOfType<OccludeCamera>();
         TimeIt _startTimer = new();
         _startTimer.SetDuration(_occlusionDelay).OnComplete(() => _cameraOccluder.UnBlock()).Start();
+    }
+
+    private void Start()
+    {
+        _valueMover = FindObjectOfType<ValueMover>();
+        if (_valueMover == null)
+            Debug.LogWarning("No Value Mover in Scene");
     }
 
     private void Generate(TileBase tile)
@@ -138,5 +159,30 @@ public class LevelManager : MonoBehaviour
     public void LevelComplete()
     {
         onLevelComplete?.Invoke();
+    }
+
+    public void SetHeight()
+    {
+        CharacterController[] controllers = FindObjectsOfType<CharacterController>();
+        foreach (CharacterController controller in controllers)
+        {
+            controller.enabled = false;
+        }
+
+        _sceneLoader.MeasureLevelY();
+
+        Vector3 newPos = new Vector3(
+            transform.position.x,
+            _sceneLoader.levelY,
+            transform.position.z);
+        float delta = newPos.y - transform.position.y;
+        transform.position = newPos;
+
+        _valueMover?.afterMoveEvent?.Invoke(delta);
+
+        foreach (CharacterController controller in controllers)
+        {
+            controller.enabled = true;
+        }
     }
 }

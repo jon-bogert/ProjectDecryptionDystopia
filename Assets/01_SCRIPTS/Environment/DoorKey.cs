@@ -4,7 +4,7 @@ public class DoorKey : MonoBehaviour
 {
     DoorLock _lock;
     SoundPlayer3D _soundPlayer;
-
+    ValueMover _valueMover;
     private void Start()
     {
         _lock = FindObjectOfType<DoorLock>();
