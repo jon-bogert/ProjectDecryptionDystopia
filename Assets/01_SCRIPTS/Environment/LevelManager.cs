@@ -51,9 +51,13 @@ public class LevelManager : MonoBehaviour
         Vector3 offset = ((Vector3)_tileMap.dimensions) * 0.5f;
         transform.position -= offset;
 
+        float y = _sceneLoader.levelY - _tileMap.dimensions.y * 0.5f;
+        if (y < 1)
+            y = 1;
+
         transform.position = new Vector3(
             transform.position.x,
-            _sceneLoader.levelY,
+            y,
             transform.position.z);
 
         _tileMap.ForEach(Generate);
@@ -171,10 +175,15 @@ public class LevelManager : MonoBehaviour
 
         _sceneLoader.MeasureLevelY();
 
+        float y = _sceneLoader.levelY - _tileMap.dimensions.y * 0.5f;
+        if (y < 1)
+            y = 1;
+
         Vector3 newPos = new Vector3(
             transform.position.x,
-            _sceneLoader.levelY,
+            y,
             transform.position.z);
+        
         float delta = newPos.y - transform.position.y;
         transform.position = newPos;
 

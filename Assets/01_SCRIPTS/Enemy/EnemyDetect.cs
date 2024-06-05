@@ -73,7 +73,8 @@ public class EnemyDetect : MonoBehaviour
 
     private bool CheckRadius()
     {
-        float offsetSqr = (transform.position - _player.transform.position).sqrMagnitude;
-        return (offsetSqr < Mathf.Pow(_rangeRadius, 2));
+        Vector2 offset = new Vector2(transform.position.x - _player.transform.position.x, transform.position.z - _player.transform.position.z);
+        float offsetSqrMag = offset.sqrMagnitude;
+        return (offsetSqrMag < Mathf.Pow(_rangeRadius, 2));
     }
 }

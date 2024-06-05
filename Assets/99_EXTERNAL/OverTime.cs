@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace XephTools
@@ -197,7 +198,15 @@ namespace XephTools
             {
                 ModuleBase module = instance.modules[id];
                 module.Tick(now);
-                module.Update();
+                try
+                {
+                    module.Update();
+                }
+                catch (Exception) // Accessing Destroyed Object
+                {
+                    instance.modules.Remove(id);
+                    instance.activeProcesses.Remove(id);
+                }
 
                 if (module.IsExpired())
                 {

@@ -1,18 +1,16 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HamburgerMenu : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] ButtonBounds _toggleButton;
-    [SerializeField] GameObject _menuContents;
+    [SerializeField] MenuBoundsAnimator _menuBounds;
 
-    bool _isPaused = false;
+    public bool isOpen { get { return _menuBounds.state == MenuBoundsAnimator.State.Open; } }
 
     private void Start()
     {
         _toggleButton.collisionEvent += OnToggle;
-        Hide();
     }
 
     private void OnDestroy()
@@ -23,21 +21,9 @@ public class HamburgerMenu : MonoBehaviour
 
     void OnToggle(Collider other)
     {
-        _isPaused = !_isPaused;
-
-        if (_isPaused)
-            Show();
+        if (_menuBounds.state == MenuBoundsAnimator.State.Open)
+            _menuBounds.Close();
         else
-            Hide();
-    }
-
-    private void Show()
-    {
-        _menuContents.SetActive(true);
-    }
-
-    private void Hide()
-    {
-        _menuContents.SetActive(false);
+            _menuBounds.Open();
     }
 }
