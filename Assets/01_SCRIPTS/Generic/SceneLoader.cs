@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Windows;
+using System.IO;
 
 public class SceneLoader : MonoBehaviour
 {
-    private static SceneLoader _inst = null;
+    public static SceneLoader inst = null;
 
     [Header("Debug Parameters")]
     [SerializeField] bool _kioskMode = false;
@@ -29,13 +29,13 @@ public class SceneLoader : MonoBehaviour
 
     private void Awake()
     {
-        if (_inst != null)
+        if (inst != null)
         {
             Destroy(gameObject);
             return;
         }
 
-        _inst = this;
+        inst = this;
         DontDestroyOnLoad(gameObject);
 
         if (!Directory.Exists("core"))
@@ -45,6 +45,12 @@ public class SceneLoader : MonoBehaviour
 
         _coreLevels = System.IO.Directory.GetFiles("core");
         //_customLevels = System.IO.Directory.GetFiles("custom");
+    }
+
+    public void StartGameplay()
+    {
+        _sceneType = SceneType.CoreLevel;
+        SceneManager.LoadScene("Gameplay");
     }
 
     public void Reload()

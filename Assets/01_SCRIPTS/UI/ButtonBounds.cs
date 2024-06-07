@@ -7,16 +7,26 @@ public class ButtonBounds : MonoBehaviour
     [SerializeField] bool _isFresnelShader = false;
     [SerializeField] float _fadeTime = 0.1f;
     [SerializeField] float _powerTarget = 0f;
+    [SerializeField] bool _isActive = true;
     [Space]
     public Action<Collider> collisionEvent;
 
     float _powerStart = 3f;
     Material _material;
     OverTime.ModuleReference<OverTime.LerpModule> _lerpRef;
+    SoundPlayerUI _sounds;
+
+    public bool isActive { get { return _isActive; } set { _isActive = value; } }
 
     private void Start()
     {
-        if (!_isFresnelShader)
+        _sounds = FindObjectOfType<SoundPlayerUI>();
+        if (_sounds == null)
+        {
+            Debug.LogWarning("UI Sounds Player wasn't found in current scene");
+        }
+
+        if (!_isFresnelShader) //---------------------------
             return;
 
         _material = GetComponent<MeshRenderer>().material;
@@ -25,11 +35,12 @@ public class ButtonBounds : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isActiveAndEnabled)
+        if (!isActiveAndEnabled || !_isActive)
             return;
 
         if (!_isFresnelShader)
         {
+            _sounds.Play("button-press");
             collisionEvent?.Invoke(other);
             return;
         }
@@ -42,6 +53,8 @@ public class ButtonBounds : MonoBehaviour
 
         lerpA.OnComplete(() => { _lerpRef = OverTime.Add(lerpB); });
         _lerpRef = OverTime.Add(lerpA);
+
+        _sounds?.Play("button-press");
 
         collisionEvent?.Invoke(other);
     }

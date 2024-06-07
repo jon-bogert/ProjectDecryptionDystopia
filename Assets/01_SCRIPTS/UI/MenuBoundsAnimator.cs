@@ -10,9 +10,14 @@ public class MenuBoundsAnimator : MonoBehaviour
     [SerializeField] float _pauseTime = 0.25f;
     [SerializeField] float _weightValue = 0.1f;
     [SerializeField] float _minVal = 0.001f;
+    [SerializeField] bool _closeOnLookAway = false;
+    [SerializeField] string _soundTag = "";
     [Space]
+    public UnityEvent openStarted;
     public UnityEvent openEnded;
     public UnityEvent closedStarted;
+    public UnityEvent closedEnded;
+    public UnityEvent closedEndedB;
 
     bool _isTransitioning = false;
     Vector3 _fullScale = Vector3.one;
@@ -27,17 +32,33 @@ public class MenuBoundsAnimator : MonoBehaviour
     Vector3 _stage2WA = Vector3.one;
     Vector3 _stage2WB = Vector3.one;
 
+    SoundPlayerUI _sounds;
+
     public State state { get { return _state; } }
 
     private void Start()
     {
         InitValues();
 
+        _sounds = FindObjectOfType<SoundPlayerUI>();
+        if (_sounds == null)
+        {
+            Debug.LogWarning("UI Sounds Player wasn't found in current scene");
+        }
+
         if (_state == State.Closed)
         {
             gameObject.SetActive(false);
             transform.localScale = Vector3.zero;
         }
+    }
+
+    private void Update()
+    {
+        if (!_closeOnLookAway || state != State.Open)
+            return;
+
+        CheckClose();
     }
 
     private void InitValues()
@@ -64,6 +85,10 @@ public class MenuBoundsAnimator : MonoBehaviour
 
         gameObject.SetActive(true);
         _isTransitioning = true;
+        openStarted?.Invoke();
+
+        if (_soundTag != "")
+            _sounds?.Play(_soundTag);
 
         //Vector3CubicLerp lerpA = new(_stage0, _stage1, _stage0WA, _stage0WB, _transitionTime, ScaleSetter);
         //Vector3CubicLerp lerpB = new(_stage1, _stage2, _stage1WA, _stage1WB, _transitionTime, ScaleSetter);
@@ -91,13 +116,15 @@ public class MenuBoundsAnimator : MonoBehaviour
         openEnded?.Invoke();
     }
 
-    public void Close()
+    public void Close(bool useEndB)
     {
         if (_isTransitioning || _state == State.Closed)
             return;
 
         _isTransitioning = true;
         closedStarted?.Invoke();
+        if (_soundTag != "")
+            _sounds?.Play(_soundTag);
 
         //Vector3CubicLerp lerpA = new( _fullScale, _stage2, _stage2WB, _stage2WA, _transitionTime, ScaleSetter );
         //Vector3CubicLerp lerpB = new( _stage2, _stage1, _stage1WB, _stage1WA, _transitionTime, ScaleSetter );
@@ -113,20 +140,34 @@ public class MenuBoundsAnimator : MonoBehaviour
 
         lerpA.OnComplete(() => timerA.Start());
         lerpB.OnComplete(() => timerB.Start());
-        lerpC.OnComplete(EndClose);
+        lerpC.OnComplete(() => EndClose(useEndB));
 
         OverTime.Add(lerpA);
     }
 
-    private void EndClose()
+    private void EndClose(bool useEndB)
     {
         _state = State.Closed;
         _isTransitioning = false;
         gameObject.SetActive(false);
+        if(useEndB)
+            closedEndedB?.Invoke();
+        else
+            closedEnded?.Invoke();
     }
 
     private void ScaleSetter(Vector3 value)
     {
         transform.localScale = value;
+    }
+
+    private void CheckClose()
+    {
+        Vector3 toCamera = (Camera.main.transform.position - transform.position).normalized;
+        float dot = Vector3.Dot(toCamera, transform.forward);
+        if (dot < 0)
+        {
+            Close(false);
+        }
     }
 }

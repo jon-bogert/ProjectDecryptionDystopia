@@ -6,11 +6,13 @@ public class LevelEndManager : MonoBehaviour
     [SerializeField] float _dealthDelay = 1f;
     OccludeCamera _cameraOccluder;
     SceneLoader _sceneLoader;
+    MenuBoundsAnimator _utilityMenu;
 
     private void Start()
     {
         _cameraOccluder = FindObjectOfType<OccludeCamera>();
         _sceneLoader = FindObjectOfType<SceneLoader>();
+        _utilityMenu = FindObjectOfType<MenuBoundsAnimator>();
     }
 
     public void OnDeath()
@@ -23,6 +25,14 @@ public class LevelEndManager : MonoBehaviour
     public void OnSuccess()
     {
         _cameraOccluder.blockEnd += LoadSuccess;
+        FadeOut();
+    }
+
+    public void MainMenu()
+    {
+        _utilityMenu.Close(false);
+        _cameraOccluder.blockEnd = () => { _sceneLoader.LoadMainMenu(); };
+        MusicManager.Stop();
         FadeOut();
     }
 

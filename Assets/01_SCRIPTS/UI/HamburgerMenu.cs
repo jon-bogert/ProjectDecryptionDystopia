@@ -22,7 +22,7 @@ public class HamburgerMenu : MonoBehaviour
     void OnToggle(Collider other)
     {
         if (_menuBounds.state == MenuBoundsAnimator.State.Open)
-            _menuBounds.Close();
+            _menuBounds.Close(false);
         else
             _menuBounds.Open();
     }

@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static SoundPlayer3D;
 
 
 [System.Serializable]

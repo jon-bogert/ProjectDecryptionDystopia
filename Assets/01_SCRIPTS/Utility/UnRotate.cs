@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UnRotate : MonoBehaviour
 {
-    private void Update()
+    private void LateUpdate()
     {
         transform.rotation = Quaternion.identity;
     }

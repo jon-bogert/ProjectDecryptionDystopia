@@ -35,8 +35,8 @@ public class PlayerMovableSound : MonoBehaviour
 
         if (_state == State.Off)
         {
-            _state = State.GoingUp;
             _source.Play();
+            _state = State.GoingUp;
             OverTime.LerpModule lerp0 = new(0f, _volume, _fadeTime, VolumeSetter);
             lerp0.OnComplete(() => _state = State.On);
             _lerpRef = OverTime.Add(lerp0);

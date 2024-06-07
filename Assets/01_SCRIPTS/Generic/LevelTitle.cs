@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using XephTools;
@@ -50,9 +51,17 @@ public class LevelTitle : MonoBehaviour
     private void LaunchB()
     {
         ColorLerp lerpDown = new(Color.white, whiteClear, _fadeTime, ColorSet);
-        lerpDown.OnComplete(() => gameObject.SetActive(false));
+        lerpDown.OnComplete(() =>
+        {
+            try
+            {
+                gameObject.SetActive(false);
+            }
+            catch (Exception) { } // Object may not exist
+        });
         TimeIt timer = new();
         timer.SetDuration(_holdTime).OnComplete(() => OverTime.Add(lerpDown)).Start();
+
     }
 
     private void ColorSet(Color color)

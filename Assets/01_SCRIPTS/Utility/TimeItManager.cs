@@ -35,7 +35,11 @@ namespace XephTools
             TimeItManager.RemoveTimer(this);
             if (callOnComplete)
             {
-                onComplete?.Invoke();
+                try
+                {
+                    onComplete?.Invoke();
+                }
+                catch (Exception) { } // GameObject no longer available
             }
         }
 
