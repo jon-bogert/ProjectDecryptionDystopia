@@ -2,6 +2,7 @@ dimensions:
   x: 10
   y: 5
   z: 10
+name: Init();
 tiles:
 - type: Block
   coord:
@@ -523,13 +524,13 @@ tiles:
     x: 1
     y: 2
     z: 7
-  rotation: North
+  rotation: South
 - type: EnemyMelee
   coord:
     x: 8
     y: 2
     z: 7
-  rotation: North
+  rotation: South
 - type: Block
   coord:
     x: 0
