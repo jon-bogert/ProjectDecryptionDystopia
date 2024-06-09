@@ -7,6 +7,9 @@ public class LevelManager : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] string _filename = "";
     [SerializeField] float _occlusionDelay = 5f;
+    [Space]
+    [Tooltip("This is for tutorials where levels are made in the scene")]
+    [SerializeField] bool _skipLoad = false;
 
     [Header("Prefabs")]
     [SerializeField] GameObject _blockPrefab;
@@ -35,6 +38,12 @@ public class LevelManager : MonoBehaviour
         if (_sceneLoader == null)
         {
             Debug.LogError("No Scene Loader in current Scene");
+        }
+
+        if (_skipLoad) // For Tutorial Levels
+        {
+            SkipLoadAwake();
+            return;
         }
 
         if (_filename != "")
@@ -73,6 +82,22 @@ public class LevelManager : MonoBehaviour
         _valueMover = FindObjectOfType<ValueMover>();
         if (_valueMover == null)
             Debug.LogWarning("No Value Mover in Scene");
+    }
+
+    private void SkipLoadAwake()
+    {
+        float y = _sceneLoader.levelY;
+        if (y < 1)
+            y = 1;
+
+        float delta = y - transform.position.y;
+
+        transform.position = new Vector3(
+            transform.position.x,
+            y,
+            transform.position.z);
+
+        _valueMover?.afterMoveEvent?.Invoke(delta);
     }
 
     private void Generate(TileBase tile)

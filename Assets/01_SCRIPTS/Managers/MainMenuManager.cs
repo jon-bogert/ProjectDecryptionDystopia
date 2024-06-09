@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
     {
         MusicManager.Play();
         _sceneLoader.MeasureLevelY();
-        _occluder.blockEnd = () => { _sceneLoader.StartGameplay(); };
+        _occluder.blockEnd = () => { _sceneLoader.StartTutorial(); };
         _occluder.Block();
     }
 

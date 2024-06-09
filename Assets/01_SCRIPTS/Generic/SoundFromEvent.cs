@@ -4,6 +4,9 @@ public class SoundFromEvent : MonoBehaviour
 {
     SoundPlayer3D _soundPlayer;
 
+    [Tooltip("For tutorial visuals")]
+    [SerializeField] bool _disableSounds = false;
+
     private void Start()
     {
         _soundPlayer = FindObjectOfType<SoundPlayer3D>();
@@ -13,6 +16,9 @@ public class SoundFromEvent : MonoBehaviour
 
     public void Play(string key)
     {
+        if (_disableSounds)
+            return;
+
         if (key == "")
             return;
 

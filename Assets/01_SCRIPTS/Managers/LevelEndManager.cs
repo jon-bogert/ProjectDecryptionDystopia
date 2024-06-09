@@ -3,7 +3,16 @@ using XephTools;
 
 public class LevelEndManager : MonoBehaviour
 {
+    public enum Next
+    {
+        LoadNext,
+        LoadNextTutorial,
+        StartGameplay,
+    }
+
     [SerializeField] float _dealthDelay = 1f;
+    [SerializeField] Next _whatsNext = Next.LoadNext;
+
     OccludeCamera _cameraOccluder;
     SceneLoader _sceneLoader;
     MenuBoundsAnimator _utilityMenu;
@@ -46,7 +55,18 @@ public class LevelEndManager : MonoBehaviour
         if (_sceneLoader == null)
             return;
 
-        _sceneLoader.LoadNext();
+        switch(_whatsNext)
+        {
+            case Next.LoadNext:
+                _sceneLoader.LoadNext();
+                break;
+            case Next.LoadNextTutorial:
+                _sceneLoader.LoadNextIndex();
+                break;
+            case Next.StartGameplay:
+                _sceneLoader.StartGameplay();
+                break;
+        }
     }
 
     private void LoadDeath()

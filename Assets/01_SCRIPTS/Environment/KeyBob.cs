@@ -12,15 +12,15 @@ public class KeyBob : MonoBehaviour
 
     ValueMover _valueMover;
 
-    private void Awake()
+    private void Start()
     {
         _startPos = transform.position;
         _t = Random.Range(0, Mathf.PI * 2f);
         _rotation = Random.Range(0f, 360f);
-    }
+    //}
 
-    private void Start()
-    {
+    //private void Start()
+    //{
         _valueMover = FindObjectOfType<ValueMover>();
         if (_valueMover)
         {

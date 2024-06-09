@@ -18,6 +18,7 @@ public class SceneLoader : MonoBehaviour
         Generic,
         CoreLevel,
         CustomLevel,
+        Tutorial,
     }
 
 
@@ -53,9 +54,20 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene("Gameplay");
     }
 
+    public void StartTutorial()
+    {
+        _sceneType = SceneType.Tutorial;
+        SceneManager.LoadScene("Tutorial_00");
+    }
+
     public void Reload()
     {
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void LoadNextIndex()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void LoadNext()

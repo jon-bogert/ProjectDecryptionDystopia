@@ -7,6 +7,9 @@ public class LevelTitle : MonoBehaviour
 {
     Transform _camera;
 
+    [Tooltip("This should be turned on for the tutorials")]
+    [SerializeField] bool _keepDefaultText = false;
+
     [Header("Timing")]
     [SerializeField] float _delayTime = 1f;
     [SerializeField] float _fadeTime = 2f;
@@ -35,10 +38,13 @@ public class LevelTitle : MonoBehaviour
         TimeIt timer = new();
         timer.SetDuration(_delayTime).OnComplete(() => OverTime.Add(lerpUp, _delayTime)).Start();
 
-        string levelName = FindObjectOfType<LevelManager>().levelName;
-        int levelNum = FindObjectOfType<SceneLoader>().level;
+        if (!_keepDefaultText)
+        {
+            string levelName = FindObjectOfType<LevelManager>().levelName;
+            int levelNum = FindObjectOfType<SceneLoader>().level;
 
-        InitText(levelNum, levelName);
+            InitText(levelNum, levelName);
+        }
     }
 
     private void Update()
