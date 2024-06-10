@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemySeek : MonoBehaviour
 {
     [SerializeField] float _arrivalDistance = 0.5f;
+    [SerializeField] bool _disableNav = false;
 
     [Space]
     [Header("Debug")]
@@ -16,7 +18,7 @@ public class EnemySeek : MonoBehaviour
     private void Start()
     {
         _navGraph = FindObjectOfType<NavGraph>();
-        if (_navGraph == null)
+        if (_navGraph == null && !_disableNav)
             Debug.LogError(name + " could not find NavGraph in current scene");
 
         _level = FindObjectOfType<LevelManager>();
@@ -64,7 +66,7 @@ public class EnemySeek : MonoBehaviour
     public bool Seek(Vector3 destination, out Vector2 direction)
     {
         direction = Vector2.zero;
-        if ((destination - transform.position).sqrMagnitude <= _arrivalDistance * _arrivalDistance)
+        if (_disableNav || (destination - transform.position).sqrMagnitude <= _arrivalDistance * _arrivalDistance)
         {
             direction = (destination - transform.position).normalized;
             _path = null;

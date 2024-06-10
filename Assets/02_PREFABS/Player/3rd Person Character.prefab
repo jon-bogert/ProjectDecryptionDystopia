@@ -81,6 +81,10 @@ MonoBehaviour:
   _gravityAmount: 35
   _jumpAmount: 8
   _deadZone: 0.35
+  _movableMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  _movableMinimum: 0.1
   _fallLength: 10
   _fallMask:
     serializedVersion: 2

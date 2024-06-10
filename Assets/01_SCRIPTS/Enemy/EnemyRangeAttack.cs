@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using XephTools;
 
 public class EnemyRangeAttack : MonoBehaviour
@@ -12,12 +13,17 @@ public class EnemyRangeAttack : MonoBehaviour
     [SerializeField] Transform _firePoint;
     [SerializeField] Animator _armAnimator;
 
+    [Space]
+    [Header("Tutorial")]
+    [SerializeField] UnityEvent onEndStunOnce;
+
     ProjectilePool _pool;
     Health _playerHealth;
     float _time = 0f;
     float _timer = 0f;
     TimeIt _stunTimer = new();
     bool _isStunned = false;
+    bool _hasStunnedOnce = false;
 
     private void Awake()
     {
@@ -72,7 +78,16 @@ public class EnemyRangeAttack : MonoBehaviour
         if (_stunTimer.isExpired)
         {
             _armAnimator.speed = 0f;
-            _stunTimer.OnComplete(() => { _isStunned = false; _armAnimator.speed = 1f; }).SetDuration(_stunTime).Start();
+            _stunTimer.OnComplete(() =>
+            {
+                _isStunned = false;
+                _armAnimator.speed = 1f;
+                if (!_hasStunnedOnce)
+                {
+                    _hasStunnedOnce = true;
+                    onEndStunOnce?.Invoke();
+                }
+            }).SetDuration(_stunTime).Start();
         }
         else
         {

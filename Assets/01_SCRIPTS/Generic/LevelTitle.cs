@@ -84,7 +84,7 @@ public class LevelTitle : MonoBehaviour
         }
         else
         {
-            _levelText.text = "LEVEL_" + levelNum.ToString("D2");
+            _levelText.text = "CIPHER_" + levelNum.ToString("D2");
         }
 
         _nameText.text = levelName;

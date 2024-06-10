@@ -58,7 +58,11 @@ namespace XephTools
 
             internal void InvokeCompleteAction()
             {
-                competeAction?.Invoke();
+                try
+                {
+                    competeAction?.Invoke();
+                }
+                catch(Exception) { } // GameObject has been destroyed
             }
 
             protected void Init(float length)

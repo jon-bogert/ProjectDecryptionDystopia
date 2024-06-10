@@ -10,6 +10,8 @@ public class SelfMovable : MonoBehaviour
     [SerializeField] bool _isOscillating = false;
     [SerializeField] float _moveTime = 1.5f;
     [SerializeField] float _easeAmount = 0.01f;
+    [SerializeField] bool _overrideSignalID = false;
+    [SerializeField] int _signalID = 0;
 
     [Header("Player Check")]
     [SerializeField] Vector3 _playerCheckCenter = Vector3.zero;
@@ -19,7 +21,7 @@ public class SelfMovable : MonoBehaviour
     [Space]
     public List<PlayerMovable.FillerDirections> fillerDirections = new();
 
-    public int signalId { get { return _tile.signalID; } }
+    public int signalId { get { return (_overrideSignalID) ? _signalID : _tile.signalID; } }
 
     State _state = State.Start;
     Vector3 _startPoint = Vector3.zero;

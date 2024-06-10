@@ -58,6 +58,9 @@ MonoBehaviour:
   - key: typing-1s
     clip: {fileID: 8300000, guid: 211cbc42439e1bd4784d18ba84f96db7, type: 3}
     volume: 0.75
+  - key: typing-5s
+    clip: {fileID: 8300000, guid: 39dd291839db86f4494ce5c7e711ad92, type: 3}
+    volume: 0.75
   - key: button-open
     clip: {fileID: 8300000, guid: 0cd93d616cf01da4e8b8aabaef6e0f16, type: 3}
     volume: 0.75

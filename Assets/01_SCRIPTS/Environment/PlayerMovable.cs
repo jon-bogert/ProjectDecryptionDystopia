@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovable : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PlayerMovable : MonoBehaviour
     }
 
     [SerializeField] Vector3 _moveAmount = Vector3.zero;
+    [Tooltip("For Tutorials where Movable is placed in scene")]
+    [SerializeField] bool _callInitOnStart = false;
 
     [Header("Player Check")]
     [SerializeField] Vector3 _playerCheckCenter = Vector3.zero;
@@ -27,12 +30,17 @@ public class PlayerMovable : MonoBehaviour
     [SerializeField] float _pulseDuration = .05f;
 
     [Space]
+    [Header("Tutorial")]
+    [SerializeField] UnityEvent onHitEdge;
+
+    [Space]
     public List<FillerDirections> fillerDirections = new();
 
     Vector3 _startPoint = Vector3.zero;
     float _prevLocalPos = 0f;
     float _pulseDelta = 0f;
     bool _atEnd = true;
+    bool _hasHitOnce = false;
 
     List<InteractionPoint> _interactors = new List<InteractionPoint>();
     ThirdPersonMovement _player = null;
@@ -69,6 +77,9 @@ public class PlayerMovable : MonoBehaviour
         {
             _valueMover.afterMoveEvent += MoveValues;
         }
+
+        if (_callInitOnStart)
+            Init(null);
     }
 
     private void OnDrawGizmosSelected()
@@ -92,7 +103,9 @@ public class PlayerMovable : MonoBehaviour
 
     public void Init(PlayerMovableTile tile)
     {
-        _moveAmount = tile.moveAmount;
+        if (tile != null)
+            _moveAmount = tile.moveAmount;
+
         _startPoint = transform.position;
     }
 
@@ -137,6 +150,12 @@ public class PlayerMovable : MonoBehaviour
 
         //MoveSound
         _moveSound.On();
+
+        if (t == 1 && !_hasHitOnce)
+        {
+            _hasHitOnce = true;
+            onHitEdge?.Invoke();
+        }
 
         //End Sound
         bool newEnd = (t == 1f || t == 0f);

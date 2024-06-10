@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using XephTools;
 
 [RequireComponent (typeof(EnemySeek))]
@@ -8,9 +9,12 @@ public class EnemyMovementController : MonoBehaviour
     [SerializeField] float _moveSpeed = 3f;
     [SerializeField] float _gravityAmount = 10f;
     [SerializeField] float _stunTime = 5f;
+    [SerializeField] bool _disableSeek = false;
     [Header("References")]
     [SerializeField] Animator _legAnimator;
     [Space]
+    [Header("Tutorial")]
+    [SerializeField] UnityEvent onEndStunOnce;
     [Header("Debug")]
     [SerializeField] bool _showDebug = false;
 
@@ -24,6 +28,7 @@ public class EnemyMovementController : MonoBehaviour
     float _verticalVelocity = 0f;
     bool _isAttacking = false;
     bool _isStunned = false;
+    bool _hasStunnedOnce = false;
 
     private void Awake()
     {
@@ -40,7 +45,7 @@ public class EnemyMovementController : MonoBehaviour
 
     private void Update()
     {
-        if (!_isAttacking || _isStunned)
+        if (_disableSeek || !_isAttacking || _isStunned)
         {
             _isGrounded = _charController.isGrounded;
             if (_isGrounded)
@@ -77,7 +82,16 @@ public class EnemyMovementController : MonoBehaviour
         if (_stunTimer.isExpired)
         {
             _legAnimator.speed = 0f;
-            _stunTimer.OnComplete(() => { _isStunned = false; _legAnimator.speed = 1f; }).SetDuration(_stunTime).Start();
+            _stunTimer.OnComplete(() =>
+            {
+                _isStunned = false;
+                _legAnimator.speed = 1f;
+                if (!_hasStunnedOnce)
+                {
+                    _hasStunnedOnce = true;
+                    onEndStunOnce?.Invoke();
+                }
+            }).SetDuration(_stunTime).Start();
         }
         else
         {

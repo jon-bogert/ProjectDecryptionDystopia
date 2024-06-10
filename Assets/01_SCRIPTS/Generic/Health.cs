@@ -66,7 +66,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float amt)
     {
-        if (_isDead || _isInvincible)
+        if (_isDead)
             return;
 
         _health -= amt;
@@ -90,8 +90,11 @@ public class Health : MonoBehaviour
 
     public void Kill()
     {
-        _isDead = true;
         _health = 0f;
+        if (_isInvincible)
+            return;
+
+        _isDead = true;
         onDeath?.Invoke();
     }
 

@@ -9,6 +9,8 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] float _gravityAmount = 10f;
     [SerializeField] float _jumpAmount = 5f;
     [SerializeField] float _deadZone = 0.25f;
+    [SerializeField] LayerMask _movableMask = 0;
+    [SerializeField] float _movableMinimum = 0.1f;
 
     [Header("Fall Check")]
     [SerializeField] float _fallLength = 10f;
@@ -34,6 +36,7 @@ public class ThirdPersonMovement : MonoBehaviour
     SoundPlayer3D _soundPlayer;
 
     Vector3 _moveDelta = Vector3.zero;
+    Vector3 _extMoveDelta = Vector3.zero;
 
     private void Awake()
     {
@@ -45,6 +48,9 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if (_fallMask == 0)
             Debug.LogWarning(name + ": Fall Mask is set to None");
+
+        if (_movableMask == 0)
+            Debug.LogWarning(name + ": Movable Mask is set to None");
     }
 
     private void Start()
@@ -77,13 +83,14 @@ public class ThirdPersonMovement : MonoBehaviour
             moveAxis.y
         );
 
-        if (_moveDelta != Vector3.zero)
+        if (moveFinal == Vector3.zero)
         {
             _legAnimator.SetFloat("WalkBlend", 0);
-            return;
         }
-
-        _legAnimator.SetFloat("WalkBlend", moveAxis.magnitude);
+        else
+        {
+            _legAnimator.SetFloat("WalkBlend", moveAxis.magnitude);
+        }
 
         AdjustByCamera(ref moveFinal);
 
@@ -132,8 +139,17 @@ public class ThirdPersonMovement : MonoBehaviour
         if (_charController == null)
             return;
 
-        _charController.Move(_moveDelta);
+        Vector3 finalMove = _moveDelta + _extMoveDelta;
+        if (_extMoveDelta.y > 0f)
+        {
+            bool isHit = Physics.Raycast(transform.position, Vector3.down, _movableMinimum, _movableMask);
+            float finalY = (isHit) ? _extMoveDelta.y : _moveDelta.y;
+            finalMove = new Vector3(finalMove.x, finalY, finalMove.z);
+        }  
+
+        _charController.Move(finalMove);
         _moveDelta = Vector3.zero;
+        _extMoveDelta = Vector3.zero;
     }
 
     private void AdjustByCamera(ref Vector3 moveFinal)
@@ -177,6 +193,6 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public void Move(Vector3 amount)
     {
-        _moveDelta += amount;
+        _extMoveDelta += amount;
     }
 }
