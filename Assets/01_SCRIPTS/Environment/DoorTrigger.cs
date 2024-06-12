@@ -3,6 +3,7 @@ using UnityEngine;
 public class DoorTrigger : MonoBehaviour
 {
     LevelManager _level;
+    bool _hasTriggered = false;
 
     private void Start()
     {
@@ -11,9 +12,14 @@ public class DoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_hasTriggered)
+            return;
+
         ThirdPersonMovement player = other.GetComponent<ThirdPersonMovement>();
         if (player == null)
             return;
+
+        _hasTriggered = true;
 
         _level.LevelComplete();
     }
