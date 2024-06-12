@@ -47,7 +47,12 @@ public class MusicManager : MonoBehaviour
 
     public static void Play()
     {
-        OverTime.LerpModule lerp = new(0f, instance._volume, instance._fadeTime, (val) => instance._source.volume = val);
+        OverTime.LerpModule lerp = new(
+            0f,
+            instance._volume * GameSettings.instance.musicVolume,
+            instance._fadeTime,
+            (val) => instance._source.volume = val);
+
         OverTime.Add(lerp);
         instance._source.Play();
     }

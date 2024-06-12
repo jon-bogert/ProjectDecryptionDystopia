@@ -48,7 +48,7 @@ public class SoundPlayerUI : MonoBehaviour
     {
         if (_single.ContainsKey(key))
         {
-            _source.PlayOneShot(_single[key].clip, _single[key].volume);
+            _source.PlayOneShot(_single[key].clip, _single[key].volume * GameSettings.instance.sfxVolume);
         }
         else
         {

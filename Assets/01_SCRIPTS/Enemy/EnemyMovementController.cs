@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 using XephTools;
 
 [RequireComponent (typeof(EnemySeek))]
@@ -10,11 +9,12 @@ public class EnemyMovementController : MonoBehaviour
     [SerializeField] float _gravityAmount = 10f;
     [SerializeField] float _stunTime = 5f;
     [SerializeField] bool _disableSeek = false;
+    [SerializeField] bool _facePlayerAlways = false;
     [Header("References")]
     [SerializeField] Animator _legAnimator;
     [Space]
     [Header("Tutorial")]
-    [SerializeField] UnityEvent onEndStunOnce;
+    [SerializeField] bool _contributeToTutCount = false;
     [Header("Debug")]
     [SerializeField] bool _showDebug = false;
 
@@ -45,6 +45,14 @@ public class EnemyMovementController : MonoBehaviour
 
     private void Update()
     {
+        if (_facePlayerAlways)
+        {
+            transform.LookAt(new Vector3(
+                _player.transform.position.x,
+                transform.position.y,
+                _player.transform.position.z));
+        }
+
         if (_disableSeek || !_isAttacking || _isStunned)
         {
             _isGrounded = _charController.isGrounded;
@@ -89,7 +97,8 @@ public class EnemyMovementController : MonoBehaviour
                 if (!_hasStunnedOnce)
                 {
                     _hasStunnedOnce = true;
-                    onEndStunOnce?.Invoke();
+                    if (_contributeToTutCount)
+                        FindObjectOfType<TutorialManager>().IncreaseEnemyCounter();
                 }
             }).SetDuration(_stunTime).Start();
         }

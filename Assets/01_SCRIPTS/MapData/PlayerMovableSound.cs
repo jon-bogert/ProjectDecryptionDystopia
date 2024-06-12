@@ -37,7 +37,7 @@ public class PlayerMovableSound : MonoBehaviour
         {
             _source.Play();
             _state = State.GoingUp;
-            OverTime.LerpModule lerp0 = new(0f, _volume, _fadeTime, VolumeSetter);
+            OverTime.LerpModule lerp0 = new(0f, _volume * GameSettings.instance.sfxVolume, _fadeTime, VolumeSetter);
             lerp0.OnComplete(() => _state = State.On);
             _lerpRef = OverTime.Add(lerp0);
             return;
@@ -46,10 +46,10 @@ public class PlayerMovableSound : MonoBehaviour
         // _state == State.GoingDown
         _state = State.GoingUp;
         float t = 1f - _lerpRef.Get().Progress;
-        float start = t * _volume;
+        float start = t * _volume * GameSettings.instance.sfxVolume;
         _lerpRef.Get().End(_lerpRef.Get().Progress);
 
-        OverTime.LerpModule lerp1 = new(start, _volume, _fadeTime - (t * _fadeTime), VolumeSetter);
+        OverTime.LerpModule lerp1 = new(start, _volume * GameSettings.instance.sfxVolume, _fadeTime - (t * _fadeTime), VolumeSetter);
         lerp1.OnComplete(() => _state = State.On);
         _lerpRef = OverTime.Add(lerp1);
     }
@@ -67,7 +67,7 @@ public class PlayerMovableSound : MonoBehaviour
         if (_state == State.On)
         {
             _state = State.GoingDown;
-            OverTime.LerpModule lerp0 = new(_volume, 0, _fadeTime, VolumeSetter);
+            OverTime.LerpModule lerp0 = new(_volume * GameSettings.instance.sfxVolume, 0, _fadeTime, VolumeSetter);
             lerp0.OnComplete(() => {_source.Stop(); _state = State.Off;});
             _lerpRef = OverTime.Add(lerp0);
             return;
@@ -76,7 +76,7 @@ public class PlayerMovableSound : MonoBehaviour
         // _state == State.GoingUp
         _state = State.GoingDown;
         float t = _lerpRef.Get().Progress;
-        float start = t * _volume;
+        float start = t * _volume * GameSettings.instance.sfxVolume;
         _lerpRef.Get().End(_lerpRef.Get().Progress);
 
         OverTime.LerpModule lerp1 = new(start, 0f, _fadeTime - ((1f - t) * _fadeTime), VolumeSetter);

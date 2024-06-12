@@ -83,7 +83,7 @@ public class SoundPlayer3D : MonoBehaviour
             GameObject go = new GameObject("AudioSource_" + i);
             _sources[i] = go.AddComponent<AudioSource>();
             _sources[i].transform.parent = transform;
-            _sources[i].volume = 0.5f;
+            _sources[i].volume = 0.5f * GameSettings.instance.sfxVolume;
             _sources[i].playOnAwake = false;
             _sources[i].loop = false;
             _sources[i].spatialBlend = 1f;
@@ -122,14 +122,14 @@ public class SoundPlayer3D : MonoBehaviour
         if (_single.ContainsKey(key))
         {
             source.clip = _single[key].clip;
-            source.volume = _single[key].volume;
+            source.volume = _single[key].volume * GameSettings.instance.sfxVolume;
             source.Play();
         }
         else if (_multi.ContainsKey(key))
         {
             AudioClip clip = _multi[key].GetRandomClip();
             source.clip = clip;
-            source.volume = _multi[key].volume;
+            source.volume = _multi[key].volume * GameSettings.instance.sfxVolume;
             source.Play();
         }
         else
@@ -145,7 +145,7 @@ public class SoundPlayer3D : MonoBehaviour
         if (bank == Bank.Single && _single.ContainsKey(key))
         {
             source.clip = _single[key].clip;
-            source.volume = _single[key].volume;
+            source.volume = _single[key].volume * GameSettings.instance.sfxVolume;
             source.Play();
             return;
         }
@@ -159,7 +159,7 @@ public class SoundPlayer3D : MonoBehaviour
         {
             AudioClip clip = _multi[key].GetRandomClip();
             source.clip = clip;
-            source.volume = _multi[key].volume;
+            source.volume = _multi[key].volume * GameSettings.instance.sfxVolume;
             source.Play();
         }
         else

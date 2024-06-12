@@ -16,6 +16,10 @@ public class OccludeCamera : MonoBehaviour
     {
         _material = GetComponent<MeshRenderer>().material;
         _startColor = _material.color;
+
+
+        //TODO - Remove 
+        //GetComponent<MeshRenderer>().enabled = false;
     }
 
     public void Block()

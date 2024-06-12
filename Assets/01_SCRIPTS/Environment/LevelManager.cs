@@ -98,6 +98,13 @@ public class LevelManager : MonoBehaviour
             transform.position.z);
 
         _valueMover?.afterMoveEvent?.Invoke(delta);
+        TutorialCharacterSpawn spawner = GetComponent<TutorialCharacterSpawn>();
+        if (spawner == null)
+        {
+            Debug.Log("TutorialCharacterSpawn component not found");
+            return;
+        }
+        spawner.DoSpawn(transform);
     }
 
     private void Generate(TileBase tile)

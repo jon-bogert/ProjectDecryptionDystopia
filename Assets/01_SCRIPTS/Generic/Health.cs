@@ -17,6 +17,9 @@ public class Health : MonoBehaviour
     [SerializeField] bool _isInvincible = false;
     [SerializeField] bool _doLog = false;
 
+    [Header("Tutorial")]
+    [SerializeField] bool _contributeToTutCount = false;
+
     public HealthCallback onHealthChange;
 
     OverTime.ModuleReference<OverTime.LerpModule> _regenModuleRef = null;
@@ -95,6 +98,10 @@ public class Health : MonoBehaviour
             return;
 
         _isDead = true;
+
+        if (_contributeToTutCount)
+            FindObjectOfType<TutorialManager>().IncreaseEnemyCounter();
+
         onDeath?.Invoke();
     }
 

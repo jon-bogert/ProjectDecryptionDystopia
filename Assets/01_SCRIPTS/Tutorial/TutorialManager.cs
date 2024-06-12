@@ -5,9 +5,11 @@ public class TutorialManager : MonoBehaviour
 {
     [SerializeField] float _levelStartDelay = 5f;
     [SerializeField] bool _levelEndsByCounter = false;
-    [SerializeField] int _levelEndCount = 1;
+    [SerializeField] int _levelEnemyCount = 1;
+    [SerializeField] int _levelPlatformCount = 1;
 
-    int _counter = 0;
+    int _enemyCounter = 0;
+    int _platformCounter = 0;
     UIEventSequencer _eventSequencer;
     OccludeCamera _occluder;
     LevelEndManager _endManager;
@@ -34,9 +36,21 @@ public class TutorialManager : MonoBehaviour
         _occluder.Block();
     }
 
-    public void IncreaseCounter()
+    public void IncreaseEnemyCounter()
     {
-        if (_levelEndsByCounter && ++_counter >= _levelEndCount)
+        ++_enemyCounter;
+        CheckEnd();
+    }
+
+    public void IncreasePlatformCounter()
+    {
+        ++_platformCounter;
+        CheckEnd();
+    }
+
+    private void CheckEnd()
+    {
+        if (_levelEndsByCounter && _enemyCounter >= _levelEnemyCount && _platformCounter >= _levelPlatformCount)
             FindObjectOfType<LevelEndManager>().OnSuccess();
     }
 }

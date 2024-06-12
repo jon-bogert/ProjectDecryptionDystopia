@@ -7,6 +7,7 @@ public class StepsAudioPlayer : MonoBehaviour
 
     AudioSource _source;
     int _last;
+    float _volume;
 
     private void Awake()
     {
@@ -19,6 +20,8 @@ public class StepsAudioPlayer : MonoBehaviour
         _source.playOnAwake = false;
         _source.loop = false;
         _source.spatialBlend = 1f;
+        _volume = _source.volume;
+        _source.volume = _volume * GameSettings.instance.sfxVolume;
     }
 
     public void Play()

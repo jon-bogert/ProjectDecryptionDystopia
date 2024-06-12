@@ -76,7 +76,8 @@ public class EnemyMeleeAttack : MonoBehaviour
 
     private void OnDestroy()
     {
-        _hurtbox.onHurt -= OnHurt;
+        if (_hurtbox != null)
+            _hurtbox.onHurt -= OnHurt;
     }
 
     public void StartAttacking()

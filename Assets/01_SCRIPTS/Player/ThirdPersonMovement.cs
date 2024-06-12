@@ -51,6 +51,8 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if (_movableMask == 0)
             Debug.LogWarning(name + ": Movable Mask is set to None");
+
+        _doCameraAdjust = GameSettings.instance.hmdRelativeMovement;
     }
 
     private void Start()
@@ -170,7 +172,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void FaceMovement(Vector3 moveVector)
     {
-        if (moveVector.sqrMagnitude == float.Epsilon)
+        if (moveVector.sqrMagnitude <= float.Epsilon)
             return;
 
         moveVector.Normalize();

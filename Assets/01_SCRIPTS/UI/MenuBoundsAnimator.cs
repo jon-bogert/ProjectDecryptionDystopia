@@ -11,6 +11,8 @@ public class MenuBoundsAnimator : MonoBehaviour
     [SerializeField] float _weightValue = 0.1f;
     [SerializeField] float _minVal = 0.001f;
     [SerializeField] bool _closeOnLookAway = false;
+    [SerializeField] float _timeBeforeAutoClose = 3f;
+    [SerializeField] float _facingCone = 0.3f;
     [SerializeField] string _soundTag = "";
     [Space]
     public UnityEvent openStarted;
@@ -33,6 +35,8 @@ public class MenuBoundsAnimator : MonoBehaviour
     Vector3 _stage2WB = Vector3.one;
 
     SoundPlayerUI _sounds;
+    bool _canAutoClose = false;
+    TimeIt _autoCloseTimer = new TimeIt();
 
     public State state { get { return _state; } }
 
@@ -55,7 +59,7 @@ public class MenuBoundsAnimator : MonoBehaviour
 
     private void Update()
     {
-        if (!_closeOnLookAway || state != State.Open)
+        if (!_closeOnLookAway || !_canAutoClose || state != State.Open)
             return;
 
         CheckClose();
@@ -83,6 +87,8 @@ public class MenuBoundsAnimator : MonoBehaviour
         if (_isTransitioning || _state == State.Open)
             return;
 
+        _canAutoClose = false;
+
         gameObject.SetActive(true);
         _isTransitioning = true;
         openStarted?.Invoke();
@@ -107,6 +113,11 @@ public class MenuBoundsAnimator : MonoBehaviour
         lerpC.OnComplete(EndOpen);
 
         OverTime.Add(lerpA);
+
+        if (!_autoCloseTimer.isExpired)
+            _autoCloseTimer.Abort();
+        _autoCloseTimer = new TimeIt();
+        _autoCloseTimer.SetDuration(_timeBeforeAutoClose).OnComplete(() => _canAutoClose = true).Start();
     }
 
     private void EndOpen()
@@ -165,7 +176,7 @@ public class MenuBoundsAnimator : MonoBehaviour
     {
         Vector3 toCamera = (Camera.main.transform.position - transform.position).normalized;
         float dot = Vector3.Dot(toCamera, transform.forward);
-        if (dot < 0)
+        if (dot < _facingCone)
         {
             Close(false);
         }

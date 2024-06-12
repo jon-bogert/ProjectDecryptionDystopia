@@ -15,7 +15,8 @@ public class EnemyRangeAttack : MonoBehaviour
 
     [Space]
     [Header("Tutorial")]
-    [SerializeField] UnityEvent onEndStunOnce;
+    [SerializeField] bool _contributeToTutCount = false;
+    [SerializeField] bool _attackAir = false;
 
     ProjectilePool _pool;
     Health _playerHealth;
@@ -56,10 +57,13 @@ public class EnemyRangeAttack : MonoBehaviour
         if (_isStunned)
             return;
 
+        Vector3 targetPoint = (_attackAir) ? transform.position + transform.forward : _playerHealth.targetPoint;
+
+        transform.LookAt(new Vector3(targetPoint.x, transform.position.y, targetPoint.z));
+
         if (_timer <= 0f)
         {
             RestartTimer();
-            transform.LookAt(new Vector3(_playerHealth.targetPoint.x, transform.position.y, _playerHealth.targetPoint.z));
             _armAnimator.SetTrigger("DoAttackRanged");
         }
         _timer -= Time.deltaTime;
@@ -67,7 +71,8 @@ public class EnemyRangeAttack : MonoBehaviour
 
     public void ThrowProjectile()
     {
-        Vector3 direction = (_playerHealth.targetPoint - _firePoint.position).normalized;
+        Vector3 targetPoint = (_attackAir) ? transform.position + transform.forward * 10 : _playerHealth.targetPoint;
+        Vector3 direction = (targetPoint - _firePoint.position).normalized;
         _pool.FireNext(_firePoint.position, direction);
     }
 
@@ -85,7 +90,8 @@ public class EnemyRangeAttack : MonoBehaviour
                 if (!_hasStunnedOnce)
                 {
                     _hasStunnedOnce = true;
-                    onEndStunOnce?.Invoke();
+                    if (_contributeToTutCount)
+                        FindObjectOfType<TutorialManager>().IncreaseEnemyCounter();
                 }
             }).SetDuration(_stunTime).Start();
         }

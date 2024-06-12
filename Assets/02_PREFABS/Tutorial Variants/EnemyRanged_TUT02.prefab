@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6248060279757373548
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3814207386525312737, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814207386525312737, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814207386525312737, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814207386525312737, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: IncreaseCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814207386525312737, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: TutorialManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814207386525312737, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912286860618678063, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: _attackAir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912286860618678063, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: _contributeToTutCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912286860618678063, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onEndStunOnce.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912286860618678063, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onEndStunOnce.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912286860618678063, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onEndStunOnce.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912286860618678063, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onEndStunOnce.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: IncreaseCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912286860618678063, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onEndStunOnce.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TutorialManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912286860618678063, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: onEndStunOnce.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.500004
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.01000309
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.00000058114523
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831863403164286153, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6496845600070162370, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: _rangeRadius
+      value: 10.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216723073893650447, guid: 39bba5f9b17d39b45bd4f7768a908db4,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemyRanged_TUT02
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 39bba5f9b17d39b45bd4f7768a908db4, type: 3}
