@@ -21,6 +21,7 @@ public class Health : MonoBehaviour
     [SerializeField] bool _contributeToTutCount = false;
 
     public HealthCallback onHealthChange;
+    HitFlash _hitFlash;
 
     OverTime.ModuleReference<OverTime.LerpModule> _regenModuleRef = null;
     TimeIt _regenDelayTimer = new();
@@ -59,6 +60,12 @@ public class Health : MonoBehaviour
             LevelEndManager levelEnd = FindObjectOfType<LevelEndManager>();
             onDeath.AddListener(levelEnd.OnDeath);
         }
+
+        _hitFlash = GetComponentInChildren<HitFlash>();
+        if (_hitFlash == null)
+        {
+            Debug.LogWarning(name + " Health could not find Hit Flash Component");
+        }
     }
 
     public void UnDead()
@@ -71,6 +78,8 @@ public class Health : MonoBehaviour
     {
         if (_isDead)
             return;
+
+        _hitFlash?.PlayHit();
 
         _health -= amt;
 

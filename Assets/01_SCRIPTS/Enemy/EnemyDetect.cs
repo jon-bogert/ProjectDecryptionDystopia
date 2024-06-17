@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class EnemyDetect : MonoBehaviour
 {
     [SerializeField] float _rangeRadius = 5f;
+    [SerializeField] float _ignoreRadius = 1.5f;
     [SerializeField] UnityEvent _onAttack;
     [SerializeField] UnityEvent _onIdle;
 
@@ -26,6 +27,9 @@ public class EnemyDetect : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, _rangeRadius);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _ignoreRadius);
     }
 
     private void Update()
@@ -75,6 +79,6 @@ public class EnemyDetect : MonoBehaviour
     {
         Vector2 offset = new Vector2(transform.position.x - _player.transform.position.x, transform.position.z - _player.transform.position.z);
         float offsetSqrMag = offset.sqrMagnitude;
-        return (offsetSqrMag < Mathf.Pow(_rangeRadius, 2));
+        return (offsetSqrMag < Mathf.Pow(_rangeRadius, 2) && offsetSqrMag > Mathf.Pow(_ignoreRadius, 2));
     }
 }

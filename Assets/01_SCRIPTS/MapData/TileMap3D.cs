@@ -51,7 +51,7 @@ public class TileMap3D
         if (coord.x < 0 || coord.y < 0 || coord.z < 0
             || coord.x >= _dimensions.x || coord.y >= _dimensions.y || coord.z >= _dimensions.z)
         {
-            Debug.LogError("TileAt coordinates outside of tilemap");
+            Debug.LogWarning("TileAt coordinates outside of tilemap");
             return;
         }
 

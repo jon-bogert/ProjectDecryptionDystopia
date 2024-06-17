@@ -2,7 +2,7 @@ dimensions:
   x: 12
   y: 12
   z: 12
-name: They Move Now?
+name: Across the Void
 tiles:
 - type: Block
   coord:

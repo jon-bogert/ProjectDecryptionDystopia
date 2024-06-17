@@ -14,6 +14,8 @@ public class TutorialManager : MonoBehaviour
     OccludeCamera _occluder;
     LevelEndManager _endManager;
 
+    bool _hasTriggered = false;
+
     private void Start()
     {
         _occluder = FindObjectOfType<OccludeCamera>();
@@ -50,7 +52,12 @@ public class TutorialManager : MonoBehaviour
 
     private void CheckEnd()
     {
+        if (_hasTriggered)
+            return;
         if (_levelEndsByCounter && _enemyCounter >= _levelEnemyCount && _platformCounter >= _levelPlatformCount)
+        {
+            _hasTriggered = true;
             FindObjectOfType<LevelEndManager>().OnSuccess();
+        }
     }
 }

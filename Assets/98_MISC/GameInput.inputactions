@@ -10,7 +10,7 @@
                     "type": "Value",
                     "id": "87f233c4-9033-47fd-b5b1-bc12047ffdc9",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "StickDeadzone",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -107,8 +107,30 @@
                 },
                 {
                     "name": "",
+                    "id": "b7766cc5-0c61-41c3-bb3b-6075620ce043",
+                    "path": "<XRController>{RightHand}/gripButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4287e5f1-6234-4186-8f97-33b2e022597c",
                     "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53c5fee4-497a-46c0-bffa-e6dd29689a48",
+                    "path": "<XRController>{LeftHand}/gripButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

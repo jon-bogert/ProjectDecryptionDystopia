@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rangeRadius: 3
+  _ignoreRadius: 1.5
   _onAttack:
     m_PersistentCalls:
       m_Calls:
@@ -103,7 +104,10 @@ MonoBehaviour:
   _moveSpeed: 3
   _gravityAmount: 10
   _stunTime: 5
+  _disableSeek: 0
+  _facePlayerAlways: 0
   _legAnimator: {fileID: 4722620755477115098}
+  _contributeToTutCount: 0
   _showDebug: 0
 --- !u!114 &9148647862857106465
 MonoBehaviour:
@@ -118,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arrivalDistance: 0.6
+  _disableNav: 0
   _showDebug: 0
 --- !u!143 &7941834786026198720
 CharacterController:
@@ -207,7 +212,7 @@ MonoBehaviour:
     m_Bits: 64
   _attackCooldown: 1
   _stunTime: 5
-  _damage: 0.25
+  _damage: 0.2
   _detectTransform: {fileID: 5835640407951759411}
   _armAnimator: {fileID: 1279199550165902297}
 --- !u!114 &4143337599333384124
@@ -280,6 +285,7 @@ MonoBehaviour:
   _fullRegenTime: 2
   _isInvincible: 0
   _doLog: 0
+  _contributeToTutCount: 0
 --- !u!114 &7423680028814797941
 MonoBehaviour:
   m_ObjectHideFlags: 0

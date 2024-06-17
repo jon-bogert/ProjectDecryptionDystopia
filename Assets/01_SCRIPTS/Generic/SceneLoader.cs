@@ -11,7 +11,9 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] int _level = -1;
     [SerializeField] SceneType _sceneType = SceneType.Generic;
     [SerializeField] float _levelY = 23f;
-    [SerializeField] float _levelHeight = 12f;
+    //[SerializeField] float _levelHeight = 12f;
+
+    float _levelHeight = 9f;
 
     public enum SceneType
     {

@@ -2,7 +2,7 @@ dimensions:
   x: 10
   y: 5
   z: 10
-name: Init();
+name: First Steps
 tiles:
 - type: Block
   coord:
