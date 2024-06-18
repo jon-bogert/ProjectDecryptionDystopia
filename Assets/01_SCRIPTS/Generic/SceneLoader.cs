@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.XR.OpenXR.NativeTypes;
+using UnityEngine.XR;
 
 public class SceneLoader : MonoBehaviour
 {

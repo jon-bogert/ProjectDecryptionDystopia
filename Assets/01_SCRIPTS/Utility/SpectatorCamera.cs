@@ -29,6 +29,11 @@ public class SpectatorCamera : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        
+    }
+
     private void OnEnable()
     {
         ResetPosition();
@@ -39,13 +44,19 @@ public class SpectatorCamera : MonoBehaviour
         if (_cameraTransform == null)
             return;
 
+        if ((transform.position - _cameraTransform.position).sqrMagnitude > 25)
+        {
+            ResetPosition();
+            return;
+        }
+
         transform.position = Vector3.Lerp(_cameraTransform.position, transform.position, _positionSmooth);
         transform.rotation = Quaternion.Slerp(_cameraTransform.rotation, transform.rotation, _rotationSmooth);
     }
 
     private void ResetPosition()
     {
-        if (transform == null)
+        if (_cameraTransform == null)
             return;
 
         transform.position = _cameraTransform.position;
