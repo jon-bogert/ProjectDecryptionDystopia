@@ -3495,7 +3495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _kioskMode: 0
-  _level: 0
+  _level: 2
   _sceneType: 1
   _levelY: 23
 --- !u!4 &1628325822

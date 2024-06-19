@@ -24,6 +24,10 @@ public class PlayerMovable : MonoBehaviour
     [SerializeField] Vector3 _playerCheckExtends = Vector3.one;
     [SerializeField] LayerMask _playerCheckMask = 0;
 
+    [Header("Move Line")]
+    [SerializeField] GameObject _linePrefab;
+    [SerializeField] Vector3 _lineOffset;
+
     [Header("Haptic Feedback")]
     [SerializeField] float _pulsePhysicalDistance = 0.1f;
     [SerializeField] float _pulseIntensity = .75f;
@@ -50,6 +54,8 @@ public class PlayerMovable : MonoBehaviour
     PlayerMovableSound _moveSound;
     ValueMover _valueMover;
 
+    LineRenderer _lineRenderer;
+
     public PlayerMovableTile tile { get { return _tile; } internal set { _tile = value; } }
 
     public void Awake()
@@ -60,6 +66,8 @@ public class PlayerMovable : MonoBehaviour
         _moveSound = GetComponent<PlayerMovableSound>();
         if (_moveSound == null)
             Debug.LogError("Player Movable Sound Component not added");
+
+        _lineRenderer = Instantiate(_linePrefab, transform.position, Quaternion.identity).GetComponent<LineRenderer>();
     }
 
     private void Start()
@@ -67,6 +75,8 @@ public class PlayerMovable : MonoBehaviour
         _shader = GetComponentInChildren<MovableShaderController>();
         if (_shader == null)
             Debug.LogError(name + ": could not find Shader Controller in children");
+
+        _shader?.SetLineMaterial(_lineRenderer.material);
 
         _soundPlayer = FindObjectOfType<SoundPlayer3D>();
         if (_soundPlayer == null)
@@ -107,6 +117,9 @@ public class PlayerMovable : MonoBehaviour
             _moveAmount = tile.moveAmount;
 
         _startPoint = transform.position;
+
+        _lineRenderer.SetPosition(0, _startPoint + _lineOffset);
+        _lineRenderer.SetPosition(1, _startPoint + _moveAmount + _lineOffset);
     }
 
     private void Update()

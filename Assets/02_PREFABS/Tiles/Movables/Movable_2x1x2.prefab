@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521786116986242441}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -50,14 +50,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveAmount: {x: 0, y: 0, z: 0}
+  _callInitOnStart: 0
   _playerCheckCenter: {x: 0.5, y: 0.7, z: 0.5}
   _playerCheckExtends: {x: 2, y: 0.5, z: 2}
   _playerCheckMask:
     serializedVersion: 2
     m_Bits: 64
+  _linePrefab: {fileID: 5555472483635502333, guid: 54879fa89ff811540b558e236650e938,
+    type: 3}
+  _lineOffset: {x: 0.5, y: 0, z: 0.5}
   _pulsePhysicalDistance: 0.5
   _pulseIntensity: 0.75
   _pulseDuration: 0.05
+  onHitEdge:
+    m_PersistentCalls:
+      m_Calls: []
   fillerDirections: 050000000000000002000000000000000600000000000000
 --- !u!65 &301858693584517125
 BoxCollider:

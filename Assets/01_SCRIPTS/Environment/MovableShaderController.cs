@@ -15,6 +15,7 @@ public class MovableShaderController : MonoBehaviour
     [SerializeField] float _lerpTime = 1f;
 
     Material _material;
+    Material _lineMaterial;
 
     private void Awake()
     {
@@ -27,7 +28,14 @@ public class MovableShaderController : MonoBehaviour
             return;
 
         _material.SetFloat("_Transition", _value);
+        _lineMaterial.SetFloat("_Alpha", _value);
         _appliedValue = _value;
+    }
+
+    public void SetLineMaterial(Material lineMat)
+    {
+        _lineMaterial = lineMat;
+        _lineMaterial.SetFloat("_Alpha", 0f);
     }
 
     public void Up()
