@@ -2653,7 +2653,6 @@ MonoBehaviour:
   _level: 0
   _sceneType: 0
   _levelY: 23
-  _levelHeight: 12
 --- !u!4 &1628325822
 Transform:
   m_ObjectHideFlags: 0
@@ -4945,6 +4944,7 @@ GameObject:
   - component: {fileID: 5126604938620550212}
   - component: {fileID: 2298705827937296336}
   - component: {fileID: 982203396462579336}
+  - component: {fileID: 5126604938620550213}
   m_Layer: 2
   m_Name: XR Origin (Empty)
   m_TagString: Untagged
@@ -5035,6 +5035,22 @@ MonoBehaviour:
   m_CameraFloorOffsetObject: {fileID: 3515455294127522700}
   m_RequestedTrackingOriginMode: 0
   m_CameraYOffset: 1.36144
+--- !u!114 &5126604938620550213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4924577385670958216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b71a714cb625c42905f271d6fc8b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _holdInput: {fileID: 956399004842790727, guid: 3d7f3d66cde618544850ace30be3a86e,
+    type: 3}
+  _keyboardInput: {fileID: -3387712083722933875, guid: 3d7f3d66cde618544850ace30be3a86e,
+    type: 3}
 --- !u!4 &5181518746763085107
 Transform:
   m_ObjectHideFlags: 0

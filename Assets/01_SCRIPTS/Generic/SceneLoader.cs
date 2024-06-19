@@ -15,6 +15,9 @@ public class SceneLoader : MonoBehaviour
 
     float _levelHeight = 9f;
 
+    public Vector3 originOffset { get; set; }
+    public Quaternion originRotation { get; set; }
+
     public enum SceneType
     {
         Generic,

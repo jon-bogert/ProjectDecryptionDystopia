@@ -58,6 +58,24 @@
                     "processors": "",
                     "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ReCenter (Hold)",
+                    "type": "Button",
+                    "id": "1de4251e-b6f9-4bb5-bc30-10a7fb53e8b2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReCenter (Keyboard)",
+                    "type": "Button",
+                    "id": "7ce5324c-6bb2-45f1-816a-31501dc8bb56",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -146,6 +164,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "HeadsetActive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4f69cada-3892-4c6c-a93a-eb8b5b95b1df",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReCenter (Hold)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "adef48ec-3685-4bac-82fc-bb1052728502",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReCenter (Keyboard)",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
