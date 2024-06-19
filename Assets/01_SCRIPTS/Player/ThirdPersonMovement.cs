@@ -144,12 +144,18 @@ public class ThirdPersonMovement : MonoBehaviour
         Vector3 finalMove = _moveDelta + _extMoveDelta;
         if (_extMoveDelta.y > 0f)
         {
-            bool isHit = Physics.Raycast(transform.position, Vector3.down, _movableMinimum, _movableMask);
-            float finalY = (isHit) ? _extMoveDelta.y : _moveDelta.y;
-            finalMove = new Vector3(finalMove.x, finalY, finalMove.z);
-        }  
+            _charController.enabled = false;
+            //bool isHit = Physics.Raycast(transform.position, Vector3.down, _movableMinimum, _movableMask);
+            //float finalY = (isHit) ? _extMoveDelta.y : _moveDelta.y;
+            finalMove = new Vector3(finalMove.x, _extMoveDelta.y, finalMove.z);
+            transform.position += finalMove;
+            _charController.enabled = true;
+        }
+        else
+        {
+            _charController.Move(finalMove);
+        }
 
-        _charController.Move(finalMove);
         _moveDelta = Vector3.zero;
         _extMoveDelta = Vector3.zero;
     }
