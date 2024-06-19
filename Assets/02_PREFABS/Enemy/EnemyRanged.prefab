@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rangeRadius: 8
+  _ignoreRadius: 1.5
   _onAttack:
     m_PersistentCalls:
       m_Calls:
@@ -218,6 +219,8 @@ MonoBehaviour:
   _stunTime: 5
   _firePoint: {fileID: 6012564838711178290}
   _armAnimator: {fileID: 2733526964666999357}
+  _contributeToTutCount: 0
+  _attackAir: 0
 --- !u!114 &7258856598414323982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +350,7 @@ MonoBehaviour:
   _fullRegenTime: 2
   _isInvincible: 0
   _doLog: 0
+  _contributeToTutCount: 0
 --- !u!114 &1843386586553039483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,7 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9700f74a11d70714b9567649f1351a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _volume: 0.5
+  _volume: 0.25
   _fadeTime: 0.15
 --- !u!1001 &2553107874394869886
 PrefabInstance:

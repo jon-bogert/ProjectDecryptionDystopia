@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9700f74a11d70714b9567649f1351a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _volume: 0.5
+  _volume: 0.25
   _fadeTime: 0.15
 --- !u!1 &692382594536359267
 GameObject:
