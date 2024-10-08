@@ -8,8 +8,7 @@ public class PlayerDeathHandler : MonoBehaviour
     [SerializeField] LayerMask _squishMask = 0;
     [SerializeField] float _fallDeathHeight = 5f;
     [Header("References")]
-    [SerializeField] Animator _legAnimator;
-    [SerializeField] Animator _armAnimator;
+    [SerializeField] Animator _animator;
 
     SoundPlayer3D _soundPlayer;
     Health _health;
@@ -62,10 +61,8 @@ public class PlayerDeathHandler : MonoBehaviour
     {
         _soundPlayer.Play("death", transform.position, SoundPlayer3D.Bank.Single);
 
-        _legAnimator.speed = 1f;
-        _armAnimator.speed = 1f;
+        _animator.speed = 1f;
 
-        _legAnimator.SetTrigger("OnDeath");
-        _armAnimator.SetTrigger("OnDeath");
+        _animator.SetTrigger("OnDeath");
     }
 }

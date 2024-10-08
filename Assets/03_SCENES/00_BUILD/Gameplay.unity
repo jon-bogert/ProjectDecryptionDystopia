@@ -1720,7 +1720,7 @@ PrefabInstance:
     - target: {fileID: 8118175132079646303, guid: 3cf3dc028b22b944a98501057b759c33,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4219,7 +4219,7 @@ PrefabInstance:
     - target: {fileID: 847809855388394855, guid: 89c4ce796e25cf844a0625cea70182b1,
         type: 3}
       propertyPath: _filename
-      value: 
+      value: level00.yaml
       objectReference: {fileID: 0}
     - target: {fileID: 847809855388394855, guid: 89c4ce796e25cf844a0625cea70182b1,
         type: 3}

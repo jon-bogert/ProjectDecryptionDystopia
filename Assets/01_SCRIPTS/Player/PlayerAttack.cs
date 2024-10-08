@@ -4,18 +4,30 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] float _damage = 0.25f;
+    [SerializeField] float _knockbackSpeed = 1f;
     [Header("References")]
     [SerializeField] Hurtbox _hurtbox;
-    [SerializeField] Animator _armAnimator;
+    [SerializeField] Animator _animator;
     [Header("Inputs")]
     [SerializeField] InputActionReference _attackInput;
 
     SoundPlayer3D _soundPlayer;
+    ThirdPersonMovement _thirdPersonMovement;
+    bool _isAttacking = false;
+    float _isAttackingCheckDelay = 0.5f;
+    float _isAttackingCheckTimer = 0f;
+
+    private void Awake()
+    {
+        _thirdPersonMovement = GetComponent<ThirdPersonMovement>();
+        if (_thirdPersonMovement == null)
+            Debug.LogWarning("ThirdPersonMovement Component not found");
+    }
 
     private void Start()
     {
         _hurtbox.onHurt += OnHurt;
-        if (_armAnimator == null)
+        if (_animator == null)
             Debug.LogWarning(name + ": Arm Animator not assigned in inspector");
 
         _soundPlayer = FindObjectOfType<SoundPlayer3D>();
@@ -25,9 +37,26 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        if (_isAttacking && _isAttackingCheckTimer <= 0f)
+        {
+            AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(0);
+            if (info.IsName("Walk-Run"))
+            {
+                _isAttacking = false;
+                _thirdPersonMovement.isImmobile = false;
+            }
+        }
+        else if (_isAttacking)
+        {
+            _isAttackingCheckTimer -= Time.deltaTime;
+        }
+
         if (_attackInput.action.WasPressedThisFrame() && !_hurtbox.isHurting)
         {
-            _armAnimator.SetTrigger("DoAttack");
+            _animator.SetTrigger("DoAttack");
+            _isAttacking = true;
+            _thirdPersonMovement.isImmobile = true;
+            _isAttackingCheckTimer = _isAttackingCheckDelay;
         }
     }
 
@@ -49,6 +78,15 @@ public class PlayerAttack : MonoBehaviour
         {
             Debug.LogError(collision.name + " has no health component");
             return;
+        }
+        KnockbackHandler knockback = collision.GetComponent<KnockbackHandler>();
+        if (knockback != null)
+        {
+            knockback.StartKnockback(transform.forward * _knockbackSpeed);
+        }
+        else
+        {
+            Debug.LogWarning(collision.name + " has no knockback handler component");
         }
 
         _soundPlayer.Play("melee-hit-player", transform.position, SoundPlayer3D.Bank.Single);

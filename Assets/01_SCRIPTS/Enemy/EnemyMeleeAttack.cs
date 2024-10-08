@@ -8,9 +8,10 @@ public class EnemyMeleeAttack : MonoBehaviour
     [SerializeField] float _attackCooldown = 1f;
     [SerializeField] float _stunTime = 5f;
     [SerializeField] float _damage = .25f;
+    [SerializeField] float _knockbackSpeed = 5f;
     [Header("References")]
     [SerializeField] Transform _detectTransform;
-    [SerializeField] Animator _armAnimator;
+    [SerializeField] Animator _animator;
 
     Hurtbox _hurtbox;
     SoundPlayer3D _soundPlayer;
@@ -36,7 +37,7 @@ public class EnemyMeleeAttack : MonoBehaviour
         {
             Debug.LogWarning(name + ": Player mask set to None");
         }
-        if (_armAnimator == null)
+        if (_animator == null)
         {
             Debug.LogError(name + ": Arm Animator not assigned in inspector");
         }
@@ -67,7 +68,7 @@ public class EnemyMeleeAttack : MonoBehaviour
         if (colliders.Length <= 0)
             return;
 
-        _armAnimator.SetTrigger("DoAttack");
+        _animator.SetTrigger("DoAttack");
         _canAttack = false;
 
         TimeIt timer = new();
@@ -91,8 +92,8 @@ public class EnemyMeleeAttack : MonoBehaviour
 
         if (_stunTimer.isExpired)
         {
-            _armAnimator.speed = 0f;
-            _stunTimer.OnComplete(() => { _isStunned = false; _armAnimator.speed = 1f; }).SetDuration(_stunTime).Start();
+            _animator.speed = 0f;
+            _stunTimer.OnComplete(() => { _isStunned = false; _animator.speed = 1f; }).SetDuration(_stunTime).Start();
         }
         else
         {
@@ -108,7 +109,14 @@ public class EnemyMeleeAttack : MonoBehaviour
             Debug.LogError(collision.name + " has no health component");
             return;
         }
+        KnockbackHandler knockback = collision.GetComponent<KnockbackHandler>();
+        if (knockback == null)
+        {
+            Debug.LogError(collision.name + " has no knockback component");
+            return;
+        }
         _soundPlayer.Play("melee-hit-enemy", transform.position, SoundPlayer3D.Bank.Single);
         health.TakeDamage(_damage);
+        knockback.StartKnockback((collision.transform.position - transform.position).normalized * _knockbackSpeed);
     }
 }

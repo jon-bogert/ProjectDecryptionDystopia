@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using XephTools;
 
 [RequireComponent(typeof(CharacterController))]
 public class ThirdPersonMovement : MonoBehaviour
@@ -17,7 +18,7 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] LayerMask _fallMask = 0;
 
     [Header("References")]
-    [SerializeField] Animator _legAnimator;
+    [SerializeField] Animator _animator;
 
     [Header("Settings")]
     [SerializeField] bool _doCameraAdjust = true;
@@ -30,6 +31,8 @@ public class ThirdPersonMovement : MonoBehaviour
     bool _isGrounded = false;
     bool _isJumping = false;
 
+    bool _isImmobile = false;
+
     CharacterController _charController;
     Transform _camera;
     StepsAudioPlayer _stepAudio;
@@ -38,12 +41,14 @@ public class ThirdPersonMovement : MonoBehaviour
     Vector3 _moveDelta = Vector3.zero;
     Vector3 _extMoveDelta = Vector3.zero;
 
+    public bool isImmobile { get { return _isImmobile; } set { _isImmobile = value; } }
+
     private void Awake()
     {
         _charController = GetComponent<CharacterController>();
         _camera = Camera.main.transform;
 
-        if (_legAnimator == null)
+        if (_animator == null)
             Debug.LogWarning(name + ": Leg Animator not assigned in inspector");
 
         if (_fallMask == 0)
@@ -85,13 +90,21 @@ public class ThirdPersonMovement : MonoBehaviour
             moveAxis.y
         );
 
+        VRDebug.Monitor(6, "immobile: " + _isImmobile);
+
+        if (_isImmobile)
+        {
+            _animator.SetFloat("WalkBlend", 0);
+            moveFinal = Vector3.zero;
+        }
+
         if (moveFinal == Vector3.zero)
         {
-            _legAnimator.SetFloat("WalkBlend", 0);
+            _animator.SetFloat("WalkBlend", 0);
         }
         else
         {
-            _legAnimator.SetFloat("WalkBlend", moveAxis.magnitude);
+            _animator.SetFloat("WalkBlend", moveAxis.magnitude);
         }
 
         AdjustByCamera(ref moveFinal);
@@ -106,14 +119,14 @@ public class ThirdPersonMovement : MonoBehaviour
             if (_isJumping)
             {
                 _isJumping = false;
-                _legAnimator.SetBool("IsJumping", false);
+                _animator.SetBool("IsJumping", false);
             }
         }
         else if (jumpAmt > 0)
         {
             _verticalVelocity = jumpAmt;
             _isJumping = true;
-            _legAnimator.SetBool("IsJumping", true);
+            _animator.SetBool("IsJumping", true);
         }
 
         _verticalVelocity -= _gravityAmount * Time.deltaTime;

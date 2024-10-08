@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AttackAnimationEvents : MonoBehaviour
+public class HumanoidAnimationEvents : MonoBehaviour
 {
+    //Attack
     [SerializeField] UnityEvent damageStart;
     [SerializeField] UnityEvent damageEnd;
+    [SerializeField] UnityEvent jumpForwardSmall;
+    [SerializeField] UnityEvent jumpForwardLarge;
     [SerializeField] UnityEvent rangedAttack;
+
+
 
     public void DamageStart()
     {
@@ -17,8 +22,19 @@ public class AttackAnimationEvents : MonoBehaviour
         damageEnd?.Invoke();
     }
 
+    public void JumpForwardSmall()
+    {
+        jumpForwardSmall?.Invoke();
+    }
+
+    public void JumpForwardLarge()
+    {
+        jumpForwardLarge?.Invoke();
+    }
+
     public void RangedAttack()
     {
         rangedAttack?.Invoke();
     }
+
 }
