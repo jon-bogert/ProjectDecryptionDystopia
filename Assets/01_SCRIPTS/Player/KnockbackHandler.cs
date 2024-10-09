@@ -4,7 +4,6 @@ using XephTools;
 public class KnockbackHandler : MonoBehaviour
 {
     [SerializeField] bool _isEnemy = false;
-    [SerializeField] float _length = 0.5f;
 
     ThirdPersonMovement _playerMovement;
     EnemyMovementController _enemyMovement;
@@ -12,6 +11,7 @@ public class KnockbackHandler : MonoBehaviour
     Vector3 _velocity = Vector3.zero;
 
     bool _isBusy = false;
+    OverTime.ModuleReference<Vector3Lerp> _overtimeRef = null;
 
     private void Awake()
     {
@@ -25,33 +25,35 @@ public class KnockbackHandler : MonoBehaviour
             Debug.LogWarning("Knockback handler set to Player, but cannot find ThirdPersonMovement component");
     }
 
-    public void StartKnockback(Vector3 initVelocity)
+    public void StartKnockback(Vector3 initVelocity, float duration)
     {
         if (_isBusy)
-            return;
+        {
+            _overtimeRef.Get().End();
+        }
 
         _isBusy = true;
 
         if (_isEnemy)
         {
-            StartEnemy(initVelocity);
+            StartEnemy(initVelocity, duration);
             return;
         }
 
-        StartPlayer(initVelocity);
+        StartPlayer(initVelocity, duration);
     }
 
-    private void StartPlayer(Vector3 initVelocity)
+    private void StartPlayer(Vector3 initVelocity, float duration)
     {
-        Vector3Lerp velocityLerp = new(initVelocity, Vector3.zero, _length, (Vector3 v) => { _playerMovement.Move(v * Time.deltaTime); });
+        Vector3Lerp velocityLerp = new(initVelocity, Vector3.zero, duration, (Vector3 v) => { _playerMovement.Move(v * Time.deltaTime); });
         velocityLerp.OnComplete(() => _isBusy = false);
-        OverTime.Add(velocityLerp);
+        _overtimeRef = OverTime.Add(velocityLerp);
     }
 
-    private void StartEnemy(Vector3 initVelocity)
+    private void StartEnemy(Vector3 initVelocity, float duration)
     {
-        Vector3Lerp velocityLerp = new(initVelocity, Vector3.zero, _length, (Vector3 v) => { _enemyMovement.Move(v * Time.deltaTime); });
+        Vector3Lerp velocityLerp = new(initVelocity, Vector3.zero, duration, (Vector3 v) => { _enemyMovement.Move(v * Time.deltaTime); });
         velocityLerp.OnComplete(() => _isBusy = false);
-        OverTime.Add(velocityLerp);
+        _overtimeRef = OverTime.Add(velocityLerp);
     }
 }

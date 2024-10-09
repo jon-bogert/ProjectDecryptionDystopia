@@ -1,10 +1,19 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using XephTools;
 
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] float _damage = 0.25f;
-    [SerializeField] float _knockbackSpeed = 1f;
+    [SerializeField] float _knockbackSpeed = 10f;
+    [SerializeField] float _knockbackDuration = 0.3f;
+    [SerializeField] float _comboWindowTime = 0.5f;
+    [Header("Movement")]
+    [SerializeField] float _smallDashSpeed = 5f;
+    [SerializeField] float _smallDashDuration = 0.2f;
+    [SerializeField] float _largeDashSpeed = 10f;
+    [SerializeField] float _largeDashDuration = 0.2f;
     [Header("References")]
     [SerializeField] Hurtbox _hurtbox;
     [SerializeField] Animator _animator;
@@ -13,15 +22,22 @@ public class PlayerAttack : MonoBehaviour
 
     SoundPlayer3D _soundPlayer;
     ThirdPersonMovement _thirdPersonMovement;
+    KnockbackHandler _playerKnockback;
     bool _isAttacking = false;
     float _isAttackingCheckDelay = 0.5f;
     float _isAttackingCheckTimer = 0f;
+    bool _doAttack = false;
 
     private void Awake()
     {
         _thirdPersonMovement = GetComponent<ThirdPersonMovement>();
         if (_thirdPersonMovement == null)
             Debug.LogWarning("ThirdPersonMovement Component not found");
+
+        _playerKnockback = GetComponent<KnockbackHandler>();
+        if (_playerKnockback == null)
+            Debug.LogWarning("Player's KockbackHandler Component not found");
+
     }
 
     private void Start()
@@ -51,9 +67,10 @@ public class PlayerAttack : MonoBehaviour
             _isAttackingCheckTimer -= Time.deltaTime;
         }
 
-        if (_attackInput.action.WasPressedThisFrame() && !_hurtbox.isHurting)
+        if (_attackInput.action.WasPressedThisFrame() && !_hurtbox.isHurting && !_doAttack)
         {
-            _animator.SetTrigger("DoAttack");
+            _doAttack = true;
+            _animator.SetBool("DoAttack", _doAttack);
             _isAttacking = true;
             _thirdPersonMovement.isImmobile = true;
             _isAttackingCheckTimer = _isAttackingCheckDelay;
@@ -82,7 +99,7 @@ public class PlayerAttack : MonoBehaviour
         KnockbackHandler knockback = collision.GetComponent<KnockbackHandler>();
         if (knockback != null)
         {
-            knockback.StartKnockback(transform.forward * _knockbackSpeed);
+            knockback.StartKnockback(transform.forward * _knockbackSpeed, _knockbackDuration);
         }
         else
         {
@@ -91,5 +108,21 @@ public class PlayerAttack : MonoBehaviour
 
         _soundPlayer.Play("melee-hit-player", transform.position, SoundPlayer3D.Bank.Single);
         health.TakeDamage(_damage);
+    }
+
+    public void ResetAttackBool()
+    {
+        _doAttack = false;
+        _animator.SetBool("DoAttack", _doAttack);
+    }
+
+    public void DoSmallDash()
+    {
+        _playerKnockback.StartKnockback(transform.forward * _smallDashSpeed, _smallDashDuration);
+    }
+
+    public void DoLargeDash()
+    {
+        _playerKnockback.StartKnockback(transform.forward * _largeDashSpeed, _largeDashDuration);
     }
 }

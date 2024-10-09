@@ -9,6 +9,7 @@ public class EnemyMeleeAttack : MonoBehaviour
     [SerializeField] float _stunTime = 5f;
     [SerializeField] float _damage = .25f;
     [SerializeField] float _knockbackSpeed = 5f;
+    [SerializeField] float _knockbackDuration = 0.25f;
     [Header("References")]
     [SerializeField] Transform _detectTransform;
     [SerializeField] Animator _animator;
@@ -117,6 +118,6 @@ public class EnemyMeleeAttack : MonoBehaviour
         }
         _soundPlayer.Play("melee-hit-enemy", transform.position, SoundPlayer3D.Bank.Single);
         health.TakeDamage(_damage);
-        knockback.StartKnockback((collision.transform.position - transform.position).normalized * _knockbackSpeed);
+        knockback.StartKnockback((collision.transform.position - transform.position).normalized * _knockbackSpeed, _knockbackDuration);
     }
 }
