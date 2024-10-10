@@ -85,7 +85,7 @@ public class EnemySeek : MonoBehaviour
 
         if (destinationNode == null)
         {
-            Debug.Log("<color=cyan> " + name + ": Destination is off the NavGraph");
+            Debug.Log(name + ": Destination is off the NavGraph");
 
             // TODO - find closest tile
             direction = (destination - transform.position).normalized;

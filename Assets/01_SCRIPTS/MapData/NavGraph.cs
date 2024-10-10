@@ -10,6 +10,12 @@ public class NavNode
     public NavNode east = null;
     public NavNode south = null;
     public NavNode west = null;
+
+    public NavNode northEast = null;
+    public NavNode southEast = null;
+    public NavNode southWest = null;
+    public NavNode northWest = null;
+
     public bool visited = false;
 
     public Vector3Int coord { get { return tile.gridCoord; } }
@@ -188,6 +194,35 @@ public class NavGraph : MonoBehaviour
             startNode.RecursiveProbe(tileMap, this);
         });
 
+        GenerateDiagonals();
+    }
+
+    private NavNode ProbeDiagonal(NavNode node, Vector3Int direction)
+    {
+        Vector3Int destCoord = node.coord + direction;
+        Vector3Int nsCoord = node.coord + Vector3Int.forward * direction.z;
+        Vector3Int ewCoord = node.coord + Vector3Int.right * direction.x;
+        if (!nodes.ContainsKey(destCoord) || nodes[destCoord].tile.type != TileType.Block
+            || !nodes.ContainsKey(nsCoord) || nodes[nsCoord].tile.type != TileType.Block
+            || !nodes.ContainsKey(ewCoord) || nodes[ewCoord].tile.type != TileType.Block)
+        {
+            return null;
+        }
+        return nodes[destCoord];
+    }
+
+    private void GenerateDiagonals()
+    {
+        foreach (var node in nodes.Values)
+        {
+            if (node.tile.type != TileType.Block)
+                continue;
+
+            node.northEast = ProbeDiagonal(node, Vector3Int.forward + Vector3Int.right);
+            node.southEast = ProbeDiagonal(node, Vector3Int.back + Vector3Int.right);
+            node.southWest = ProbeDiagonal(node, Vector3Int.back + Vector3Int.left);
+            node.northWest = ProbeDiagonal(node, Vector3Int.forward + Vector3Int.left);
+        }
     }
 
 #if UNITY_EDITOR
@@ -225,6 +260,15 @@ public class NavGraph : MonoBehaviour
                 DrawBranch(node.south, pos, Vector3.left);
             if (node.east != null)
                 DrawBranch(node.east, pos, Vector3.forward);
+
+            if (node.northEast != null)
+                DrawBranch(node.northEast, pos, Vector3.back + Vector3.right);
+            if (node.southEast != null)
+                DrawBranch(node.southEast, pos, Vector3.back + Vector3.left);
+            if (node.southWest != null)
+                DrawBranch(node.southWest, pos, Vector3.forward + Vector3.left);
+            if (node.northWest != null)
+                DrawBranch(node.northWest, pos, Vector3.forward + Vector3.right);
         }
     }
 #endif // UNITY_EDITOR
@@ -289,6 +333,11 @@ public class NavGraph : MonoBehaviour
         if (node.east != null) neighbors.Add(node.east);
         if (node.south != null) neighbors.Add(node.south);
         if (node.west != null) neighbors.Add(node.west);
+
+        if (node.northEast != null) neighbors.Add(node.northEast);
+        if (node.southEast != null) neighbors.Add(node.southEast);
+        if (node.southWest != null) neighbors.Add(node.southWest);
+        if (node.northWest != null) neighbors.Add(node.northWest);
 
         return neighbors;
     }
