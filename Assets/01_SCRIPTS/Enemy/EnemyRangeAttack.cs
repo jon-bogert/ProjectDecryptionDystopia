@@ -11,7 +11,7 @@ public class EnemyRangeAttack : MonoBehaviour
     [SerializeField] float _stunTime = 5f;
     [Header("References")]
     [SerializeField] Transform _firePoint;
-    [SerializeField] Animator _armAnimator;
+    [SerializeField] Animator _animator;
 
     [Space]
     [Header("Tutorial")]
@@ -46,7 +46,7 @@ public class EnemyRangeAttack : MonoBehaviour
             Debug.LogError("Could not find player in scene");
         }
 
-        if (_armAnimator == null)
+        if (_animator == null)
             Debug.LogError(name + ": Arm Animator not assigned in inspector");
 
         enabled = false;
@@ -64,7 +64,8 @@ public class EnemyRangeAttack : MonoBehaviour
         if (_timer <= 0f)
         {
             RestartTimer();
-            _armAnimator.SetTrigger("DoAttackRanged");
+            //_animator.SetTrigger("DoAttackRanged");
+            Debug.Log("TODO - SHOOT!");
         }
         _timer -= Time.deltaTime;
     }
@@ -82,11 +83,11 @@ public class EnemyRangeAttack : MonoBehaviour
 
         if (_stunTimer.isExpired)
         {
-            _armAnimator.speed = 0f;
+            _animator.speed = 0f;
             _stunTimer.OnComplete(() =>
             {
                 _isStunned = false;
-                _armAnimator.speed = 1f;
+                _animator.speed = 1f;
                 if (!_hasStunnedOnce)
                 {
                     _hasStunnedOnce = true;
