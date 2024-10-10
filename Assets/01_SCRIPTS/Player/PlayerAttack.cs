@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,6 +15,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float _smallDashDuration = 0.2f;
     [SerializeField] float _largeDashSpeed = 10f;
     [SerializeField] float _largeDashDuration = 0.2f;
+    [Header("Haptics")]
+    [SerializeField] float _hapticIntensity = 0.25f;
+    [SerializeField] float _hapticDuration = 0.05f;
     [Header("References")]
     [SerializeField] Hurtbox _hurtbox;
     [SerializeField] Animator _animator;
@@ -23,10 +27,23 @@ public class PlayerAttack : MonoBehaviour
     SoundPlayer3D _soundPlayer;
     ThirdPersonMovement _thirdPersonMovement;
     KnockbackHandler _playerKnockback;
+    InteractionPoint[] _interactionPoints;
+
     bool _isAttacking = false;
     float _isAttackingCheckDelay = 0.5f;
     float _isAttackingCheckTimer = 0f;
     bool _doAttack = false;
+    bool _doInteract = false;
+
+    public Action pressButton;
+
+    public bool doInteract { get { return _doInteract; }
+        set
+        {
+            _animator.SetBool("DoInteraction", value);
+            _doInteract = value;
+        }
+    }
 
     private void Awake()
     {
@@ -49,6 +66,8 @@ public class PlayerAttack : MonoBehaviour
         _soundPlayer = FindObjectOfType<SoundPlayer3D>();
         if (_soundPlayer == null)
             Debug.LogError("Couldn't find Sound Player in Scene");
+
+        _interactionPoints = FindObjectsOfType<InteractionPoint>();
     }
 
     private void Update()
@@ -69,6 +88,11 @@ public class PlayerAttack : MonoBehaviour
 
         if (_attackInput.action.WasPressedThisFrame() && !_hurtbox.isHurting && !_doAttack)
         {
+            if (_doInteract)
+            {
+                pressButton?.Invoke();
+            }
+
             _doAttack = true;
             _animator.SetBool("DoAttack", _doAttack);
             _isAttacking = true;
@@ -84,12 +108,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnHurt(Collider collision)
     {
-        Button button = collision.GetComponent<Button>();
-        if (button)
-        {
-            button.Interact();
-            return;
-        }
         Health health = collision.GetComponent<Health>();
         if (health == null)
         {
@@ -108,6 +126,10 @@ public class PlayerAttack : MonoBehaviour
 
         _soundPlayer.Play("melee-hit-player", transform.position, SoundPlayer3D.Bank.Single);
         health.TakeDamage(_damage);
+        foreach (InteractionPoint ip in _interactionPoints)
+        {
+            ip.SendHaptic(_hapticIntensity, _hapticDuration);
+        }
     }
 
     public void ResetAttackBool()

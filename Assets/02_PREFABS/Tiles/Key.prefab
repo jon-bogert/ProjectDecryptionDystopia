@@ -62,6 +62,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbdbe9a2a0748d4d95ddbf073f75e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collectAnimationTime: 0.75
+  _collectAnimationHeight: 0.5
+  _collectSpinDegrees: 1440
 --- !u!135 &4521783778363659554
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -170,7 +173,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ba79f46cd23d1ef419b5b51762b53d89, type: 2}
+      objectReference: {fileID: 2100000, guid: 6c501b3a8fc03da4bbdf78af95bf239c, type: 2}
     - target: {fileID: -4818106957885473086, guid: eea477cbb7738144693ca36a3340ed23,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -185,7 +188,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ba79f46cd23d1ef419b5b51762b53d89, type: 2}
+      objectReference: {fileID: 2100000, guid: 6c501b3a8fc03da4bbdf78af95bf239c, type: 2}
     - target: {fileID: 1769590732886145239, guid: eea477cbb7738144693ca36a3340ed23,
         type: 3}
       propertyPath: m_Materials.Array.data[1]

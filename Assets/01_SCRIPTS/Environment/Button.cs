@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using XephTools;
 
 public class Button : MonoBehaviour
@@ -7,6 +8,10 @@ public class Button : MonoBehaviour
     [SerializeField] float _pressTime = 0.4f;
     [SerializeField] float _pressAmount = 0.1f;
     [SerializeField] Transform _buttonMesh;
+
+    [Space]
+    [SerializeField] UnityEvent _onButtonApproach;
+    [SerializeField] UnityEvent _onButtonLeave;
 
     List<SelfMovable> _movables = new();
     public int[] signalId = new int[1] { 0 };
@@ -79,5 +84,15 @@ public class Button : MonoBehaviour
         {
             movable.Toggle();
         }
+    }
+
+    public void ButtonApproach()
+    {
+        _onButtonApproach?.Invoke();
+    }
+
+    public void ButtonLeave()
+    {
+        _onButtonLeave?.Invoke();
     }
 }

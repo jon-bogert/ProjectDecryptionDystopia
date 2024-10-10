@@ -68,6 +68,7 @@ namespace XephTools
         static TimeItManager instance = null;
         List<TimeIt> _timers = new();
         List<TimeIt> _removeBuffer = new();
+        List<TimeIt> _addBuffer = new();
 
         internal static void AddTimer(TimeIt timer)
         {
@@ -83,7 +84,7 @@ namespace XephTools
                 Debug.LogWarning("TimeIt already added");
                 return;
             }
-            instance._timers.Add(timer);
+            instance._addBuffer.Add(timer);
         }
         internal static void RemoveTimer(TimeIt timer)
         {
@@ -101,6 +102,12 @@ namespace XephTools
 
         private void Update()
         {
+            foreach (TimeIt timer in _addBuffer)
+            {
+                _timers.Add(timer);
+            }
+            _addBuffer.Clear();
+
             foreach (TimeIt timer in _timers)
             {
                 timer.Update(Time.deltaTime, Time.unscaledDeltaTime);

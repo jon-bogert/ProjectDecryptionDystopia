@@ -9,9 +9,15 @@ public class Health : MonoBehaviour
     [SerializeField] float _maxHealth = 1f;
     [SerializeField] Transform _targetPoint = null;
     [SerializeField] UnityEvent onDeath;
+    [SerializeField] UnityEvent onDamage;
     [SerializeField] bool _useRegen = false;
     [SerializeField] float _regenDelay = 5f;
     [SerializeField] float _fullRegenTime = 2f;
+
+    [Header("Haptics")]
+    [SerializeField] bool _sendHaptics = false;
+    [SerializeField] float _hapticIntensity = 0.75f;
+    [SerializeField] float _hapticDuration = 0.05f;
 
     [Header("Debug")]
     [SerializeField] bool _isInvincible = false;
@@ -29,6 +35,8 @@ public class Health : MonoBehaviour
     float _health = 1f;
     bool _isDead = false;
     float _invMaxHealth = 1f;
+
+    InteractionPoint[] _interactionPoints;
 
     public float health { get { return _health; } }
     public float maxHealth { get { return _maxHealth; } }
@@ -66,6 +74,15 @@ public class Health : MonoBehaviour
         {
             Debug.LogWarning(name + " Health could not find Hit Flash Component");
         }
+
+        if (_sendHaptics)
+        {
+            _interactionPoints = FindObjectsOfType<InteractionPoint>();
+            if (_interactionPoints == null || _interactionPoints.Length == 0)
+            {
+                Debug.LogWarning("No interaction points found");
+            }
+        }
     }
 
     public void UnDead()
@@ -80,6 +97,13 @@ public class Health : MonoBehaviour
             return;
 
         _hitFlash?.PlayHit();
+        if (_sendHaptics)
+        {
+            foreach (InteractionPoint ip in _interactionPoints)
+            {
+                ip.SendHaptic(_hapticIntensity, _hapticDuration);
+            }
+        }
 
         _health -= amt;
 
@@ -93,6 +117,8 @@ public class Health : MonoBehaviour
             Kill();
             return;
         }
+
+        onDamage?.Invoke();
 
         if (_useRegen)
         {
@@ -117,6 +143,7 @@ public class Health : MonoBehaviour
     public void Heal(float amt)
     {
         _health += amt;
+        onHealthChange(_health);
         if (_health > _maxHealth)
             _health = _maxHealth;
     }

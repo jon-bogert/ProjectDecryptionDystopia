@@ -102,9 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96890b35b4728cc4da656953739f7c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
+  _moveSpeed: 2
   _gravityAmount: 10
-  _stunTime: 7
   _disableSeek: 0
   _facePlayerAlways: 0
   _animator: {fileID: 5512884092661443371}
@@ -211,10 +210,12 @@ MonoBehaviour:
   _playerMask:
     serializedVersion: 2
     m_Bits: 64
+  _attackDelay: 0.1
   _attackCooldown: 1
   _stunTime: 5
   _damage: 0.2
   _knockbackSpeed: 5
+  _knockbackDuration: 0.25
   _detectTransform: {fileID: 5835640407951759411}
   _animator: {fileID: 5512884092661443371}
 --- !u!114 &4143337599333384124
@@ -229,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ccaca5a687a7842969a8f0d60920f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 0.5
+  _maxHealth: 1.5
   _targetPoint: {fileID: 8728477664177664587}
   onDeath:
     m_PersistentCalls:
@@ -282,9 +283,39 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6526037811561034715}
+        m_TargetAssemblyTypeName: EnemyMeleeAttack, Assembly-CSharp
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3322672975727747884}
+        m_TargetAssemblyTypeName: EnemyMovementController, Assembly-CSharp
+        m_MethodName: OnDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _useRegen: 0
   _regenDelay: 5
   _fullRegenTime: 2
+  _sendHaptics: 0
+  _hapticIntensity: 0.75
+  _hapticDuration: 0.05
   _isInvincible: 0
   _doLog: 0
   _contributeToTutCount: 0
@@ -430,7 +461,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isEnemy: 1
-  _length: 0.5
 --- !u!1 &692382594536359267
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,12 +848,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetAttackBool.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
@@ -838,6 +883,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3322672975727747884}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 5899161135166035014}
@@ -848,8 +898,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: HurtEnd
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: resetAttackBool.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResetHitStunned
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
@@ -863,8 +928,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetAttackBool.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6526037811561034715}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: resetAttackBool.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: resetAttackBool.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResetAttackBool
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Hurtbox, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyMovementController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
@@ -878,12 +963,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetAttackBool.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyMeleeAttack, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: resetAttackBool.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9131256188534240428, guid: 46cdeda2257902344a6dc1c0ed525998,

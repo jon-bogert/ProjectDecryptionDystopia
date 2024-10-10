@@ -24,6 +24,9 @@ public class HamburgerMenu : MonoBehaviour
         if (_menuBounds.state == MenuBoundsAnimator.State.Open)
             _menuBounds.Close(false);
         else
+        {
+            _menuBounds.transform.LookAt(Camera.main.transform.position);
             _menuBounds.Open();
+        }
     }
 }

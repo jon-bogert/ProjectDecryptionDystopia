@@ -90,10 +90,9 @@ public class ThirdPersonMovement : MonoBehaviour
             moveAxis.y
         );
 
-        VRDebug.Monitor(6, "immobile: " + _isImmobile);
-
         if (_isImmobile)
         {
+            FaceMovement(moveFinal);
             _animator.SetFloat("WalkBlend", 0);
             moveFinal = Vector3.zero;
         }
@@ -133,16 +132,16 @@ public class ThirdPersonMovement : MonoBehaviour
 
         moveFinal *= _moveSpeed;
 
-        //Ledge Check
-        if (_isGrounded)
-        {
-            Vector3 newPos = transform.position + moveFinal * Time.deltaTime;
-            bool isHit = Physics.Raycast(newPos, Vector3.down, _fallLength, _fallMask);
-            if (!isHit)
-            {
-                moveFinal = Vector3.zero;
-            }
-        }
+        ////Ledge Check
+        //if (_isGrounded)
+        //{
+        //    Vector3 newPos = transform.position + moveFinal * Time.deltaTime;
+        //    bool isHit = Physics.Raycast(newPos, Vector3.down, _fallLength, _fallMask);
+        //    if (!isHit)
+        //    {
+        //        moveFinal = Vector3.zero;
+        //    }
+        //}
 
         moveFinal.y = _verticalVelocity;
 
@@ -166,6 +165,17 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         else
         {
+            //Ledge Check
+            if (_isGrounded)
+            {
+                Vector3 newPos = transform.position + finalMove;
+                bool isHit = Physics.Raycast(newPos, Vector3.down, _fallLength, _fallMask);
+                if (!isHit)
+                {
+                    finalMove.x = finalMove.z = 0f;
+                }
+            }
+
             _charController.Move(finalMove);
         }
 

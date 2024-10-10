@@ -25,6 +25,8 @@ public class EnemyStunner : MonoBehaviour
     Color _hoverColor = Color.white;
     bool _isAnimating = false;
 
+    public float stunTime { get { return _stunTime; } }
+
     private void Start()
     {
         _hoverMesh.enabled = false;

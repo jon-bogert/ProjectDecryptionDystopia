@@ -8,6 +8,7 @@ public class HumanoidAnimationEvents : MonoBehaviour
     [SerializeField] UnityEvent animationEnd;
     [SerializeField] UnityEvent animationReturn;
     [SerializeField] UnityEvent resetAttackBool;
+    [SerializeField] UnityEvent resetStun;
 
     [Space]
 
@@ -17,6 +18,11 @@ public class HumanoidAnimationEvents : MonoBehaviour
     [SerializeField] UnityEvent jumpForwardLarge;
     [SerializeField] UnityEvent rangedAttack;
 
+
+    public void ResetStun()
+    {
+        resetStun?.Invoke();
+    }
 
     public void ResetAttackBool()
     {

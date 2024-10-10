@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
 
 public class PlayerHealthVisual : MonoBehaviour
 {
+    [SerializeField] float _chromaticAbberationIntensity = 1f;
     [SerializeField] Color _endColor = Color.red;
     [SerializeField] MeshRenderer[] _renderers = new MeshRenderer[0];
+
+    Volume _postProcVolume;
+    ChromaticAberration _chrAbb;
 
     Color _startColor = Color.white;
     Health _health;
@@ -23,6 +30,16 @@ public class PlayerHealthVisual : MonoBehaviour
             return;
         }
         _health.onHealthChange += UpdateVisual;
+
+        _postProcVolume = FindObjectOfType<Volume>();
+        if (_postProcVolume == null )
+        {
+            Debug.LogError("PlayerHealthVisual: Could not find Post Processing Volume in scene");
+            return;
+        }
+
+        if (_postProcVolume.profile.TryGet(out ChromaticAberration ca))
+            _chrAbb = ca;
     }
 
     private void OnDestroy()
@@ -40,5 +57,10 @@ public class PlayerHealthVisual : MonoBehaviour
         {
             renderer.material.color = colorFinal;
         }
+
+        if (!_postProcVolume)
+            return;
+
+        _chrAbb.intensity.value = (1f - factor) * _chromaticAbberationIntensity;
     }
 }

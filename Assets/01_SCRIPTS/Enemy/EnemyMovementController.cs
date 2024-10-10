@@ -4,11 +4,11 @@ using XephTools;
 
 [RequireComponent (typeof(EnemySeek))]
 [RequireComponent (typeof(CharacterController))]
+[RequireComponent (typeof(Health))]
 public class EnemyMovementController : MonoBehaviour
 {
     [SerializeField] float _moveSpeed = 3f;
     [SerializeField] float _gravityAmount = 10f;
-    [SerializeField] float _stunTime = 5f;
     [SerializeField] bool _disableSeek = false;
     [SerializeField] bool _facePlayerAlways = false;
     [Header("References")]
@@ -22,6 +22,8 @@ public class EnemyMovementController : MonoBehaviour
     ThirdPersonMovement _player;
     EnemySeek _seek;
     CharacterController _charController;
+    Health _health;
+    EnemyStunner _enemyStunner;
 
     Vector3 _moveDelta = Vector3.zero;
     Vector3 _extMoveDelta = Vector3.zero;
@@ -33,11 +35,32 @@ public class EnemyMovementController : MonoBehaviour
     bool _isAttacking = false;
     bool _isStunned = false;
     bool _hasStunnedOnce = false;
+    bool _isHitStunned = false;
+    bool _isImmobile = false;
+
+    public bool isStunned { get { return _isStunned; } }
+    public bool isHitStunned { get { return _isHitStunned; } }
+    public bool isImmobile { get { return _isImmobile; } set { _isImmobile = value; } }
+
+    private float stunTime
+    {
+        get
+        {
+            float r = (_enemyStunner) ? _enemyStunner.stunTime : 0f;
+            return r;
+        }
+    }
 
     private void Awake()
     {
         _seek = GetComponent<EnemySeek>();
         _charController = GetComponent<CharacterController>();
+        _health = GetComponent<Health>();
+        _enemyStunner = GetComponent<EnemyStunner>();
+        if (!_enemyStunner)
+        {
+            Debug.LogWarning(name + ": No EnemyStunner component found.");
+        }
     }
 
     private void Start()
@@ -49,6 +72,9 @@ public class EnemyMovementController : MonoBehaviour
 
     private void Update()
     {
+        if (_isHitStunned || _isImmobile)
+            return;
+
         if (_facePlayerAlways)
         {
             transform.LookAt(new Vector3(
@@ -126,11 +152,11 @@ public class EnemyMovementController : MonoBehaviour
                     if (_contributeToTutCount)
                         FindObjectOfType<TutorialManager>().IncreaseEnemyCounter();
                 }
-            }).SetDuration(_stunTime).Start();
+            }).SetDuration(stunTime).Start();
         }
         else
         {
-            _stunTimer.SetDuration(_stunTime);
+            _stunTimer.SetDuration(stunTime);
         }
     }
     
@@ -167,5 +193,19 @@ public class EnemyMovementController : MonoBehaviour
     public void Move(Vector3 amount)
     {
         _extMoveDelta += amount;
+    }
+
+    public void ResetHitStunned()
+    {
+        _isHitStunned = false;
+    }
+
+    public void OnDamage()
+    {
+        if (_isStunned)
+            return;
+
+        _isHitStunned = true;
+        _animator.SetTrigger("DoStun");
     }
 }

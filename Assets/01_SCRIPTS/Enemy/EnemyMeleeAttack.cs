@@ -5,6 +5,7 @@ public class EnemyMeleeAttack : MonoBehaviour
 {
     [SerializeField] Vector3 _detectSize = Vector3.one;
     [SerializeField] LayerMask _playerMask = 0;
+    [SerializeField] float _attackDelay = 0.1f;
     [SerializeField] float _attackCooldown = 1f;
     [SerializeField] float _stunTime = 5f;
     [SerializeField] float _damage = .25f;
@@ -14,14 +15,20 @@ public class EnemyMeleeAttack : MonoBehaviour
     [SerializeField] Transform _detectTransform;
     [SerializeField] Animator _animator;
 
+    EnemyMovementController _movement;
     Hurtbox _hurtbox;
     SoundPlayer3D _soundPlayer;
 
     bool _canAttack = true;
     bool _isAttacking = false;
+    bool _animDoAttack = false; // Mirrors DoAttack in animator
+    float _isAttackingCheckTimer = 0f;
+    float _isAttackingCheckDelay = 0.5f;
 
     TimeIt _stunTimer = new TimeIt();
     bool _isStunned = false;
+
+    TimeIt _delayTimer = new();
 
     private void OnDrawGizmosSelected()
     {
@@ -30,6 +37,11 @@ public class EnemyMeleeAttack : MonoBehaviour
 
         Gizmos.color = Color.cyan;
         Gizmos.DrawCube(_detectTransform.position, _detectSize);
+    }
+
+    private void Awake()
+    {
+        _movement = GetComponent<EnemyMovementController>();
     }
 
     private void Start()
@@ -60,20 +72,51 @@ public class EnemyMeleeAttack : MonoBehaviour
 
     private void Update()
     {
+        if (_isAttacking && _isAttackingCheckTimer <= 0f)
+        {
+            AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(0);
+            if (info.IsName("Walk-Run"))
+            {
+                _movement.isImmobile = false;
+            }
+        }
+        else if (_isAttacking)
+        {
+            if (_movement.isStunned)
+                _isAttackingCheckTimer = 0f;
+            _isAttackingCheckTimer -= Time.deltaTime;
+        }
+
         if (!_isAttacking
+            || _animDoAttack
             || !_canAttack
             || _isStunned)
             return;
 
         Collider[] colliders = Physics.OverlapBox(_detectTransform.position, _detectSize * 0.5f, transform.rotation, _playerMask);
-        if (colliders.Length <= 0)
+        if (colliders.Length <= 0) // No Player detected
+        {
+            if (!_delayTimer.isExpired)
+                _delayTimer.Abort();
+
             return;
+        }
+        if (!_delayTimer.isExpired)
+        {
+            return;
+        }
 
-        _animator.SetTrigger("DoAttack");
-        _canAttack = false;
+        _delayTimer.OnComplete(() =>
+        {
+            _animDoAttack = true;
+            _animator.SetBool("DoAttack", _animDoAttack);
+            _movement.isImmobile = true;
+            _isAttackingCheckTimer = _isAttackingCheckDelay;
+            _canAttack = false;
 
-        TimeIt timer = new();
-        timer.OnComplete(() => { _canAttack = true; }).SetDuration(_attackCooldown).Start();
+            TimeIt timer = new();
+            timer.OnComplete(() => { _canAttack = true; }).SetDuration(_attackCooldown).Start();
+        }).SetDuration(_attackDelay).Start();
     }
 
     private void OnDestroy()
@@ -85,6 +128,12 @@ public class EnemyMeleeAttack : MonoBehaviour
     public void StartAttacking()
     {
         _isAttacking = true;
+    }
+
+    public void ResetAttackBool()
+    {
+        _animDoAttack = false;
+        _animator.SetBool("DoAttack", _animDoAttack);
     }
 
     public void Stun()
@@ -119,5 +168,10 @@ public class EnemyMeleeAttack : MonoBehaviour
         _soundPlayer.Play("melee-hit-enemy", transform.position, SoundPlayer3D.Bank.Single);
         health.TakeDamage(_damage);
         knockback.StartKnockback((collision.transform.position - transform.position).normalized * _knockbackSpeed, _knockbackDuration);
+    }
+
+    public void OnDeath()
+    {
+        _isAttacking = false;
     }
 }
