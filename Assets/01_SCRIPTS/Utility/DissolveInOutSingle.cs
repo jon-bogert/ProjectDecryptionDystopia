@@ -16,7 +16,7 @@ public class DissolveInOutSingle : MonoBehaviour
     {
         if ( _material == null )
         {
-            _material = GetComponent<MeshRenderer>().material;
+            _material = GetComponent<Renderer>().material;
         }
 
         _currentState = (_state == State.In) ? 1 : 0;

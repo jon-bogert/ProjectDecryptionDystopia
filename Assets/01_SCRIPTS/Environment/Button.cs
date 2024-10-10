@@ -8,10 +8,14 @@ public class Button : MonoBehaviour
     [SerializeField] float _pressTime = 0.4f;
     [SerializeField] float _pressAmount = 0.1f;
     [SerializeField] Transform _buttonMesh;
+    [SerializeField] Transform _lineOrigin;
 
     [Space]
     [SerializeField] UnityEvent _onButtonApproach;
     [SerializeField] UnityEvent _onButtonLeave;
+
+    [Space]
+    [SerializeField] GameObject _buttonConnectorLinePrefab;
 
     List<SelfMovable> _movables = new();
     public int[] signalId = new int[1] { 0 };
@@ -36,7 +40,17 @@ public class Button : MonoBehaviour
         foreach (SelfMovable movable in movables)
         {
             if (CheckSignal(movable.signalId))
+            {
                 _movables.Add(movable);
+                ButtonConnectionLines connector = Instantiate(_buttonConnectorLinePrefab, transform).GetComponent<ButtonConnectionLines>();
+                connector.origin = _lineOrigin;
+                connector.destination = movable.transform;
+
+                DissolveInOutSingle dissolver = connector.GetComponent<DissolveInOutSingle>();
+
+                _onButtonApproach.AddListener(dissolver.DissolveIn);
+                _onButtonLeave.AddListener(dissolver.DissolveOut);
+            }
         }
 
         if (_buttonMesh == null)
