@@ -120,11 +120,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8207303773208940874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0.297}
+  m_LocalPosition: {x: 0, y: 0, z: 0.297}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3287456343441858508}
+  m_Father: {fileID: 1477953180074205586}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8216723073893650447
@@ -519,6 +519,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter_MESH
       objectReference: {fileID: 0}
+    - target: {fileID: 6611308124825746097, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7c77ff8bc4ab8354aa77103279c6ad55, type: 2}
     - target: {fileID: 6820318071096256475, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
       propertyPath: m_RootOrder
@@ -619,18 +624,94 @@ PrefabInstance:
       propertyPath: rangedAttack.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3912286860618678063}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3912286860618678063}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ThrowProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PrepProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyRangeAttack, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyRangeAttack, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8807039178311879969, guid: 46cdeda2257902344a6dc1c0ed525998, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1076661808451538866, guid: 46cdeda2257902344a6dc1c0ed525998,
+    - targetCorrespondingSourceObject: {fileID: 4029816233744691692, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6012564838711178290}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46cdeda2257902344a6dc1c0ed525998, type: 3}
---- !u!4 &3287456343441858508 stripped
+--- !u!4 &1477953180074205586 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1076661808451538866, guid: 46cdeda2257902344a6dc1c0ed525998,
+  m_CorrespondingSourceObject: {fileID: 4029816233744691692, guid: 46cdeda2257902344a6dc1c0ed525998,
     type: 3}
   m_PrefabInstance: {fileID: 2553107874394869886}
   m_PrefabAsset: {fileID: 0}

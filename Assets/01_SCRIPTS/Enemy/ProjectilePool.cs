@@ -19,10 +19,12 @@ public class ProjectilePool : MonoBehaviour
         }
     }
 
-    public void FireNext(Vector3 position, Vector3 direction)
+    public Projectile GetNext()
     {
-        _pool[_next++].Fire(position, direction);
+        Projectile p = _pool[_next++];
         if (_next >= _size)
             _next = 0;
+
+        return p;
     }
 }

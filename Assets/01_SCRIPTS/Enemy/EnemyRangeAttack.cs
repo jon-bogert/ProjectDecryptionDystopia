@@ -19,6 +19,7 @@ public class EnemyRangeAttack : MonoBehaviour
     [SerializeField] bool _attackAir = false;
 
     ProjectilePool _pool;
+    Projectile _activeProjectile = null;
     Health _playerHealth;
     float _time = 0f;
     float _timer = 0f;
@@ -64,17 +65,33 @@ public class EnemyRangeAttack : MonoBehaviour
         if (_timer <= 0f)
         {
             RestartTimer();
-            //_animator.SetTrigger("DoAttackRanged");
+            _animator.SetTrigger("DoRangedAttack");
             Debug.Log("TODO - SHOOT!");
         }
         _timer -= Time.deltaTime;
     }
 
+    public void PrepProjectile()
+    {
+        if (_activeProjectile)
+            Debug.LogWarning("Active projectile was not null before getting next");
+
+        _activeProjectile = _pool.GetNext();
+        _activeProjectile.Begin(_firePoint);
+    }
+
     public void ThrowProjectile()
     {
+        if (!_activeProjectile)
+        {
+            Debug.LogError("Active projectile was null");
+            return;
+        }
+
         Vector3 targetPoint = (_attackAir) ? transform.position + transform.forward * 10 : _playerHealth.targetPoint;
         Vector3 direction = (targetPoint - _firePoint.position).normalized;
-        _pool.FireNext(_firePoint.position, direction);
+        _activeProjectile.Fire(_firePoint.position, direction);
+        _activeProjectile = null;
     }
 
     public void Stun()
@@ -101,8 +118,6 @@ public class EnemyRangeAttack : MonoBehaviour
             _stunTimer.SetDuration(_stunTime);
         }
     }
-
-    
 
     void RestartTimer()
     {
