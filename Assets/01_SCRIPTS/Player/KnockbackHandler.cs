@@ -1,12 +1,16 @@
+using System.Collections;
 using UnityEngine;
 using XephTools;
 
 public class KnockbackHandler : MonoBehaviour
 {
-    [SerializeField] bool _isEnemy = false;
+    public enum AgentType { Player, MeleeEnemy, RangedEnemy}
+
+    [SerializeField] AgentType _agentType = AgentType.Player;
 
     ThirdPersonMovement _playerMovement;
-    EnemyMovementController _enemyMovement;
+    EnemyMovementController _meleeMovement;
+    EnemySimpleGravity _rangedMovement;
 
     Vector3 _velocity = Vector3.zero;
 
@@ -16,13 +20,17 @@ public class KnockbackHandler : MonoBehaviour
     private void Awake()
     {
         _playerMovement = GetComponent<ThirdPersonMovement>();
-        _enemyMovement = GetComponent<EnemyMovementController>();
+        _meleeMovement = GetComponent<EnemyMovementController>();
+        _rangedMovement = GetComponent<EnemySimpleGravity>();
 
-        if (_isEnemy && !_enemyMovement)
-            Debug.LogWarning("Knockback handler set to Enemy, but cannot find EnemyMovementController component");
+        if (_agentType == AgentType.MeleeEnemy && !_meleeMovement)
+            Debug.LogWarning("Knockback handler set to Melee Enemy, but cannot find EnemyMovementController component");
 
-        if (!_isEnemy && !_playerMovement)
+        if (_agentType == AgentType.Player && !_playerMovement)
             Debug.LogWarning("Knockback handler set to Player, but cannot find ThirdPersonMovement component");
+
+        if (_agentType == AgentType.RangedEnemy && !_rangedMovement)
+            Debug.LogWarning("Knockback handler set to Ranged Enemy, but cannot find EnemySimpleGravity component");
     }
 
     public void StartKnockback(Vector3 initVelocity, float duration)
@@ -34,13 +42,19 @@ public class KnockbackHandler : MonoBehaviour
 
         _isBusy = true;
 
-        if (_isEnemy)
+        switch (_agentType)
         {
-            StartEnemy(initVelocity, duration);
-            return;
+        case AgentType.Player:
+            StartPlayer(initVelocity, duration);
+            break;
+        case AgentType.RangedEnemy:
+            StartRangedEnemy(initVelocity, duration);
+            break;
+        case AgentType.MeleeEnemy:
+            StartMeleeEnemy(initVelocity, duration);
+            break;
         }
 
-        StartPlayer(initVelocity, duration);
     }
 
     private void StartPlayer(Vector3 initVelocity, float duration)
@@ -50,9 +64,16 @@ public class KnockbackHandler : MonoBehaviour
         _overtimeRef = OverTime.Add(velocityLerp);
     }
 
-    private void StartEnemy(Vector3 initVelocity, float duration)
+    private void StartMeleeEnemy(Vector3 initVelocity, float duration)
     {
-        Vector3Lerp velocityLerp = new(initVelocity, Vector3.zero, duration, (Vector3 v) => { _enemyMovement.Move(v * Time.deltaTime); });
+        Vector3Lerp velocityLerp = new(initVelocity, Vector3.zero, duration, (Vector3 v) => { _meleeMovement.Move(v * Time.deltaTime); });
+        velocityLerp.OnComplete(() => _isBusy = false);
+        _overtimeRef = OverTime.Add(velocityLerp);
+    }
+
+    private void StartRangedEnemy(Vector3 initVelocity, float duration)
+    {
+        Vector3Lerp velocityLerp = new(initVelocity, Vector3.zero, duration, (Vector3 v) => { _rangedMovement.Move(v * Time.deltaTime); });
         velocityLerp.OnComplete(() => _isBusy = false);
         _overtimeRef = OverTime.Add(velocityLerp);
     }

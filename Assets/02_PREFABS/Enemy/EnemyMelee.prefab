@@ -106,6 +106,9 @@ MonoBehaviour:
   _gravityAmount: 10
   _disableSeek: 0
   _facePlayerAlways: 0
+  _fallMask:
+    serializedVersion: 2
+    m_Bits: 128
   _animator: {fileID: 5512884092661443371}
   _contributeToTutCount: 0
   _showDebug: 0
@@ -316,7 +319,7 @@ MonoBehaviour:
   _sendHaptics: 0
   _hapticIntensity: 0.75
   _hapticDuration: 0.05
-  _isInvincible: 0
+  _isInvincible: 1
   _doLog: 0
   _contributeToTutCount: 0
 --- !u!114 &7423680028814797941
@@ -460,7 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f2b5771e2abe845a489a04de39da65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isEnemy: 1
+  _agentType: 1
 --- !u!1 &692382594536359267
 GameObject:
   m_ObjectHideFlags: 0

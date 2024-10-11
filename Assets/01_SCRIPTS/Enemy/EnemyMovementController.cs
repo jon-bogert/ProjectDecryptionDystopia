@@ -11,6 +11,7 @@ public class EnemyMovementController : MonoBehaviour
     [SerializeField] float _gravityAmount = 10f;
     [SerializeField] bool _disableSeek = false;
     [SerializeField] bool _facePlayerAlways = false;
+    [SerializeField] LayerMask _fallMask = 0;
     [Header("References")]
     [SerializeField] Animator _animator;
     [Space]
@@ -53,6 +54,11 @@ public class EnemyMovementController : MonoBehaviour
 
     private void Awake()
     {
+        if (_fallMask == 0)
+        {
+            Debug.LogWarning(name + ": Fall mask not set");
+        }
+
         _seek = GetComponent<EnemySeek>();
         _charController = GetComponent<CharacterController>();
         _health = GetComponent<Health>();
@@ -128,6 +134,15 @@ public class EnemyMovementController : MonoBehaviour
         }
         else
         {
+            //Ledge Check
+            Vector3 newPos = transform.position + finalMove;
+            bool isHit = Physics.Raycast(newPos, Vector3.down, 1, _fallMask);
+            if (!isHit)
+            {
+                finalMove.x = finalMove.z = 0f;
+            }
+
+
             _charController.Move(finalMove);
         }
 

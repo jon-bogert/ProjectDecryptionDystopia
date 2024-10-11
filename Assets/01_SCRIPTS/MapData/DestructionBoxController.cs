@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using XephTools;
 
 [RequireComponent(typeof(MeshRenderer))]
@@ -12,6 +13,7 @@ public class DestructionBoxController : MonoBehaviour
     [SerializeField] float _bStart = -.1f;
     [SerializeField] float _bEnd = 0.55f;
     [SerializeField] GameObject _rootObject;
+    [SerializeField] UnityEvent _onDeactiveate;
 
     bool _hasRun = false;
 
@@ -53,6 +55,7 @@ public class DestructionBoxController : MonoBehaviour
         _soundPlayer.Play("decon-down", transform.position, SoundPlayer3D.Bank.Single);
 
         _rootObject.SetActive(false);
+        _onDeactiveate?.Invoke();
         OverTime.LerpModule lerpB = new(_bStart, _bEnd, _time, (val) => { _material.SetFloat("_TransitionB", val); });
         OverTime.Add(lerpB);
     }

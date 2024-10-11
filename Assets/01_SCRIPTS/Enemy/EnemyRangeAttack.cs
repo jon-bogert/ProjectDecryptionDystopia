@@ -125,5 +125,13 @@ public class EnemyRangeAttack : MonoBehaviour
         _timer = XephMath.Remap(rand, 0, _shotTimeResolution, _shotTimeMin, _shotTimeMax);
     }
 
+    public void TryEndActiveProjectile()
+    {
+        if (!_activeProjectile)
+            return;
+
+        _activeProjectile.End();
+    }
+
 
 }

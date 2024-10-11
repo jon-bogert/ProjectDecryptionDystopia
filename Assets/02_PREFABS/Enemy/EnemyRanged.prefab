@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 1843386586553039483}
   - component: {fileID: 3903925623507277589}
   - component: {fileID: 8052842167058000629}
+  - component: {fileID: 8609823979511991412}
   m_Layer: 8
   m_Name: EnemyRanged
   m_TagString: Untagged
@@ -292,6 +293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gravity: 10
+  _fallMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &3814207386525312737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +490,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _volume: 0.25
   _fadeTime: 0.15
+--- !u!114 &8609823979511991412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216723073893650447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f2b5771e2abe845a489a04de39da65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agentType: 2
 --- !u!1001 &2553107874394869886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -514,6 +531,41 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a3ad55d99ef56cc41967b2ff6126a5df, type: 2}
+    - target: {fileID: 4404352492501226923, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _deathEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404352492501226923, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404352492501226923, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8683422616474188634}
+    - target: {fileID: 4404352492501226923, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404352492501226923, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Go
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404352492501226923, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: DestructionBoxController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404352492501226923, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6406527873227103165, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
       propertyPath: m_Name
@@ -524,6 +576,41 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 7c77ff8bc4ab8354aa77103279c6ad55, type: 2}
+    - target: {fileID: 6624725548000504612, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _onDeactiveate.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624725548000504612, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _onDeactiveate.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624725548000504612, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _onDeactiveate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3912286860618678063}
+    - target: {fileID: 6624725548000504612, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _onDeactiveate.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624725548000504612, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _onDeactiveate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TryEndActiveProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624725548000504612, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _onDeactiveate.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyRangeAttack, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624725548000504612, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: _onDeactiveate.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6820318071096256475, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
       propertyPath: m_RootOrder
@@ -715,6 +802,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2553107874394869886}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8683422616474188634 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6624725548000504612, guid: 46cdeda2257902344a6dc1c0ed525998,
+    type: 3}
+  m_PrefabInstance: {fileID: 2553107874394869886}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c030645085d00c42a7f852c486023a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &8695997485156100815 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6611308124825746097, guid: 46cdeda2257902344a6dc1c0ed525998,
