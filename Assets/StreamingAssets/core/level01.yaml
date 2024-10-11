@@ -1,0 +1,943 @@
+dimensions:
+  x: 12
+  y: 12
+  z: 12
+name: Across the Void
+tiles:
+- type: Block
+  coord:
+    x: 0
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 1
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 2
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 10
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 11
+    y: 0
+    z: 0
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 0
+- type: Block
+  coord:
+    x: 8
+    y: 2
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 2
+    z: 0
+- type: Block
+  coord:
+    x: 8
+    y: 3
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 3
+    z: 0
+- type: Block
+  coord:
+    x: 8
+    y: 4
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 4
+    z: 0
+- type: Block
+  coord:
+    x: 8
+    y: 5
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 5
+    z: 0
+- type: Block
+  coord:
+    x: 8
+    y: 6
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 6
+    z: 0
+- type: Block
+  coord:
+    x: 8
+    y: 7
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 7
+    z: 0
+- type: Block
+  coord:
+    x: 8
+    y: 8
+    z: 0
+- type: Block
+  coord:
+    x: 9
+    y: 8
+    z: 0
+- type: Key
+  coord:
+    x: 9
+    y: 9
+    z: 0
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 1
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 1
+- type: Block
+  coord:
+    x: 8
+    y: 2
+    z: 1
+- type: Block
+  coord:
+    x: 9
+    y: 2
+    z: 1
+- type: Block
+  coord:
+    x: 8
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 9
+    y: 3
+    z: 1
+- type: Block
+  coord:
+    x: 8
+    y: 4
+    z: 1
+- type: Block
+  coord:
+    x: 9
+    y: 4
+    z: 1
+- type: Block
+  coord:
+    x: 8
+    y: 5
+    z: 1
+- type: Block
+  coord:
+    x: 9
+    y: 5
+    z: 1
+- type: Block
+  coord:
+    x: 8
+    y: 6
+    z: 1
+- type: Block
+  coord:
+    x: 9
+    y: 6
+    z: 1
+- type: Block
+  coord:
+    x: 8
+    y: 7
+    z: 1
+- type: Block
+  coord:
+    x: 9
+    y: 7
+    z: 1
+- type: Block
+  coord:
+    x: 8
+    y: 8
+    z: 1
+- type: Block
+  coord:
+    x: 9
+    y: 8
+    z: 1
+- type: EnemyRanged
+  coord:
+    x: 8
+    y: 9
+    z: 1
+  rotation: East
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 2
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 2
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 2
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 2
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 2
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 2
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 2
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 2
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 2
+- type: PlayerStart
+  coord:
+    x: 0
+    y: 2
+    z: 2
+- type: Key
+  coord:
+    x: 9
+    y: 2
+    z: 2
+- type: Block
+  coord:
+    x: 10
+    y: 2
+    z: 2
+- type: Block
+  coord:
+    x: 11
+    y: 2
+    z: 2
+- type: Slope
+  coord:
+    x: 10
+    y: 3
+    z: 2
+  rotation: South
+- type: Slope
+  coord:
+    x: 11
+    y: 3
+    z: 2
+  rotation: South
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 3
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 3
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 3
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 3
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 3
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 3
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 3
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 3
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 3
+- type: EnemyMelee
+  coord:
+    x: 8
+    y: 2
+    z: 3
+  rotation: South
+- type: Slope
+  coord:
+    x: 10
+    y: 2
+    z: 3
+  rotation: South
+- type: Slope
+  coord:
+    x: 11
+    y: 2
+    z: 3
+  rotation: South
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 4
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 4
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 4
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 4
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 4
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 4
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 4
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 4
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 4
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 5
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 5
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 5
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 5
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 5
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 5
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 5
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 5
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 5
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 6
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 6
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 6
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 6
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 6
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 6
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 6
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 6
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 6
+- type: Block
+  coord:
+    x: 11
+    y: 2
+    z: 6
+- type: Block
+  coord:
+    x: 11
+    y: 3
+    z: 6
+- type: Slope
+  coord:
+    x: 11
+    y: 4
+    z: 6
+  rotation: North
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 7
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 7
+- type: Block
+  coord:
+    x: 11
+    y: 4
+    z: 7
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 8
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 8
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 8
+- type: Door
+  coord:
+    x: 11
+    y: 2
+    z: 8
+  rotation: East
+- type: Block
+  coord:
+    x: 11
+    y: 4
+    z: 8
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 9
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 9
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 9
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 9
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 9
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 9
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 9
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 9
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 9
+- type: EnemyMelee
+  coord:
+    x: 1
+    y: 2
+    z: 9
+  rotation: North
+- type: Block
+  coord:
+    x: 11
+    y: 2
+    z: 9
+- type: Block
+  coord:
+    x: 11
+    y: 3
+    z: 9
+- type: Block
+  coord:
+    x: 11
+    y: 4
+    z: 9
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 10
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 10
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 10
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 10
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 10
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 10
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 10
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 10
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 10
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 10
+- type: Block
+  coord:
+    x: 11
+    y: 2
+    z: 10
+- type: Block
+  coord:
+    x: 11
+    y: 3
+    z: 10
+- type: Block
+  coord:
+    x: 11
+    y: 4
+    z: 10
+- type: Block
+  coord:
+    x: 3
+    y: 0
+    z: 11
+- type: Block
+  coord:
+    x: 8
+    y: 0
+    z: 11
+- type: Block
+  coord:
+    x: 0
+    y: 1
+    z: 11
+- type: Block
+  coord:
+    x: 1
+    y: 1
+    z: 11
+- type: Block
+  coord:
+    x: 2
+    y: 1
+    z: 11
+- type: Block
+  coord:
+    x: 3
+    y: 1
+    z: 11
+- type: Block
+  coord:
+    x: 8
+    y: 1
+    z: 11
+- type: Block
+  coord:
+    x: 9
+    y: 1
+    z: 11
+- type: Block
+  coord:
+    x: 10
+    y: 1
+    z: 11
+- type: Block
+  coord:
+    x: 11
+    y: 1
+    z: 11
+- type: Block
+  coord:
+    x: 11
+    y: 2
+    z: 11
+- type: Block
+  coord:
+    x: 11
+    y: 3
+    z: 11
+- type: Slope
+  coord:
+    x: 11
+    y: 4
+    z: 11
+  rotation: South
+- type: PlayerMovable
+  coord:
+    x: 10
+    y: 2
+    z: 0
+  rotation: North
+  key: 2x2
+  move-amount:
+    x: 0
+    y: 5
+    z: 0
+- type: PlayerMovable
+  coord:
+    x: 4
+    y: 1
+    z: 7
+  rotation: North
+  key: 2x1x2
+  move-amount:
+    x: 2
+    y: 0
+    z: 0

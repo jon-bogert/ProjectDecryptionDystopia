@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] int _level = -1;
     [SerializeField] SceneType _sceneType = SceneType.Generic;
     [SerializeField] float _levelY = 23f;
+    [SerializeField] int _numberOfLevels = 3;
     //[SerializeField] float _levelHeight = 12f;
 
     float _levelHeight = 9f;
@@ -44,12 +47,31 @@ public class SceneLoader : MonoBehaviour
         inst = this;
         DontDestroyOnLoad(gameObject);
 
-        if (!Directory.Exists("core"))
-            Directory.CreateDirectory("core");
-        if (!Directory.Exists("custom"))
-            Directory.CreateDirectory("custom");
-
-        _coreLevels = System.IO.Directory.GetFiles("core");
+#if UNITY_ANDROID
+        _coreLevels = new string[_numberOfLevels];
+        string coreLevelPath = Application.streamingAssetsPath + "/core/";
+        if (!coreLevelPath.Contains("://") || !coreLevelPath.Contains(":///"))
+        {
+            coreLevelPath = "file:///" + coreLevelPath;
+        }
+        for (int i = 0; i < _coreLevels.Length; ++i)
+        {
+            _coreLevels[i] = coreLevelPath + "level" + i.ToString("D2") + ".yaml";
+        }
+#else
+        if (!Directory.Exists(Application.streamingAssetsPath + "/core"))
+            Directory.CreateDirectory(Application.streamingAssetsPath + "/core");
+        //if (!Directory.Exists("custom"))
+        //    Directory.CreateDirectory("custom");
+        _coreLevels = System.IO.Directory.GetFiles(Application.streamingAssetsPath + "/core");
+#if UNITY_EDITOR
+        List<string> coreList = _coreLevels.ToList();
+        coreList.RemoveAll((string path) => { return path.Contains(".meta"); });
+        _coreLevels = coreList.ToArray();
+#endif // UNITY_EDITOR
+        if (_coreLevels.Length != _numberOfLevels)
+            Debug.LogWarning("Scene Loader: Level Count Incorrect. Should be " + _coreLevels.Length);
+#endif // UNITY_ANDROID
         //_customLevels = System.IO.Directory.GetFiles("custom");
     }
 

@@ -1,5 +1,8 @@
 ﻿using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Networking;
 using YamlDotNet.RepresentationModel;
 
 public class TileMap3D
@@ -91,8 +94,23 @@ public class TileMap3D
         }
     }
 
-    public void LoadFromFile(string file)
+    public void LoadFromFile(string file, bool isCustomMap = false)
     {
+#if UNITY_ANDROID
+        UnityWebRequest request = new();
+        request = UnityWebRequest.Get(file);
+
+        var operation = request.SendWebRequest();
+        while (!operation.isDone) { /* Blocking until complete */ }
+
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Error: " + request.error);
+            return;
+        }
+
+        string contents = request.downloadHandler.text;
+#else
         if (!File.Exists(file))
         {
             Debug.LogError("Could not find file: " + file);
@@ -100,6 +118,7 @@ public class TileMap3D
         }
 
         string contents = File.ReadAllText(file);
+#endif //UNITY_ANDROID
         LoadFromString(contents);
     }
 
