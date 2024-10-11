@@ -319,7 +319,7 @@ MonoBehaviour:
   _sendHaptics: 0
   _hapticIntensity: 0.75
   _hapticDuration: 0.05
-  _isInvincible: 1
+  _isInvincible: 0
   _doLog: 0
   _contributeToTutCount: 0
 --- !u!114 &7423680028814797941

@@ -351,7 +351,19 @@ MonoBehaviour:
         m_CallState: 2
   onDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3912286860618678063}
+        m_TargetAssemblyTypeName: EnemyRangeAttack, Assembly-CSharp
+        m_MethodName: OnDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _useRegen: 0
   _regenDelay: 5
   _fullRegenTime: 2
@@ -718,12 +730,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
       propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
@@ -738,6 +760,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3912286860618678063}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3912286860618678063}
@@ -748,8 +775,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ThrowProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResetHitStunned
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
@@ -768,6 +805,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyRangeAttack, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
       propertyPath: damageStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: EnemyRangeAttack, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -779,6 +821,11 @@ PrefabInstance:
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
         type: 3}
       propertyPath: damageEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,
+        type: 3}
+      propertyPath: resetStun.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8932459592109375285, guid: 46cdeda2257902344a6dc1c0ed525998,

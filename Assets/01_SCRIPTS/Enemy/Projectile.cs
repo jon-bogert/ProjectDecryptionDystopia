@@ -79,6 +79,9 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!_isFiring)
+            return;
+
         Health health = collision.gameObject.GetComponent<Health>();
         if (health != null)
         {

@@ -26,6 +26,7 @@ public class EnemyRangeAttack : MonoBehaviour
     TimeIt _stunTimer = new();
     bool _isStunned = false;
     bool _hasStunnedOnce = false;
+    bool _isHitStunned = false;
 
     private void Awake()
     {
@@ -55,7 +56,7 @@ public class EnemyRangeAttack : MonoBehaviour
 
     private void Update()
     {
-        if (_isStunned)
+        if (_isHitStunned || _isStunned)
             return;
 
         Vector3 targetPoint = (_attackAir) ? transform.position + transform.forward : _playerHealth.targetPoint;
@@ -84,7 +85,7 @@ public class EnemyRangeAttack : MonoBehaviour
     {
         if (!_activeProjectile)
         {
-            Debug.LogError("Active projectile was null");
+            //Debug.LogWarning("Active projectile was null");
             return;
         }
 
@@ -131,6 +132,23 @@ public class EnemyRangeAttack : MonoBehaviour
             return;
 
         _activeProjectile.End();
+    }
+
+    public void ResetHitStunned()
+    {
+        _isHitStunned = false;
+    }
+
+    public void OnDamage()
+    {
+        if (_isStunned)
+            return;
+
+        if (_activeProjectile)
+            _activeProjectile.End();
+
+        _isHitStunned = true;
+        _animator.SetTrigger("DoStun");
     }
 
 
