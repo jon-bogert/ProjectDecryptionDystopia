@@ -42,6 +42,7 @@ public class EnemyMovementController : MonoBehaviour
     public bool isStunned { get { return _isStunned; } }
     public bool isHitStunned { get { return _isHitStunned; } }
     public bool isImmobile { get { return _isImmobile; } set { _isImmobile = value; } }
+    public bool isDead { get { return _health.isDead; } }
 
     private float stunTime
     {

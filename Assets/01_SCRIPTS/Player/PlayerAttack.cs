@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float _knockbackDuration = 0.3f;
     [SerializeField] float _comboWindowTime = 0.5f;
     [Header("Movement")]
+    [Range(0f, 1f)]
+    [SerializeField] float _detectSpread = 0.5f;
+    [SerializeField] float _maxDetectDistance = 3f;
     [SerializeField] float _smallDashSpeed = 5f;
     [SerializeField] float _smallDashDuration = 0.2f;
     [SerializeField] float _largeDashSpeed = 10f;
@@ -28,6 +32,7 @@ public class PlayerAttack : MonoBehaviour
     ThirdPersonMovement _thirdPersonMovement;
     KnockbackHandler _playerKnockback;
     InteractionPoint[] _interactionPoints;
+    EnemyMovementController[] _enemies;
 
     bool _isAttacking = false;
     float _isAttackingCheckDelay = 0.5f;
@@ -68,6 +73,7 @@ public class PlayerAttack : MonoBehaviour
             Debug.LogError("Couldn't find Sound Player in Scene");
 
         _interactionPoints = FindObjectsOfType<InteractionPoint>();
+        _enemies = FindObjectsOfType<EnemyMovementController>();
     }
 
     private void Update()
@@ -96,6 +102,7 @@ public class PlayerAttack : MonoBehaviour
             _doAttack = true;
             _animator.SetBool("DoAttack", _doAttack);
             _isAttacking = true;
+            CheckFaceEnemy();
             _thirdPersonMovement.isImmobile = true;
             _isAttackingCheckTimer = _isAttackingCheckDelay;
         }
@@ -146,5 +153,43 @@ public class PlayerAttack : MonoBehaviour
     public void DoLargeDash()
     {
         _playerKnockback.StartKnockback(transform.forward * _largeDashSpeed, _largeDashDuration);
+    }
+
+    private void CheckFaceEnemy()
+    {
+        EnemyMovementController closestEnemy = null;
+        float closestDistance = float.MaxValue;
+        Vector3 forward = transform.forward;
+
+        foreach (EnemyMovementController enemy in _enemies)
+        {
+            if (enemy.isDead || !enemy.isActiveAndEnabled || enemy.isDead)
+                continue;
+
+            // Get direction to the object
+            Vector3 directionToObject = (enemy.transform.position - transform.position).normalized;
+
+            // Calculate dot product
+            float dotProduct = Vector3.Dot(forward, directionToObject);
+
+            // Check if object is in front (dot product > threshold)
+            if (dotProduct > (1f - _detectSpread))
+            {
+                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distance < _maxDetectDistance && distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy;
+                }
+            }
+        }
+
+        if (closestEnemy == null)
+            return;
+        
+        Vector3 enemyPosXZ = closestEnemy.transform.position;
+        enemyPosXZ.y = transform.position.y;
+
+        transform.LookAt(enemyPosXZ);
     }
 }
