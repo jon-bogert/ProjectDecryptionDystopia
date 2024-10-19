@@ -18,6 +18,8 @@ public class PlayerMovable : MonoBehaviour
     [SerializeField] Vector3 _moveAmount = Vector3.zero;
     [Tooltip("For Tutorials where Movable is placed in scene")]
     [SerializeField] bool _callInitOnStart = false;
+    [SerializeField] float _maxMoveSpeed = 2f;
+    float _maxDistance = 10f;
 
     [Header("Player Check")]
     [SerializeField] Vector3 _playerCheckCenter = Vector3.zero;
@@ -33,6 +35,8 @@ public class PlayerMovable : MonoBehaviour
     [SerializeField] float _pulseIntensity = .75f;
     [SerializeField] float _pulseDuration = .05f;
 
+    InteractionLineController _interactionLine;
+
     [Space]
     [Header("Tutorial")]
     [SerializeField] UnityEvent onHitEdge;
@@ -46,6 +50,7 @@ public class PlayerMovable : MonoBehaviour
     bool _atEnd = true;
     bool _hasHitOnce = false;
 
+
     List<InteractionPoint> _interactors = new List<InteractionPoint>();
     ThirdPersonMovement _player = null;
     PlayerMovableTile _tile = null;
@@ -54,7 +59,7 @@ public class PlayerMovable : MonoBehaviour
     PlayerMovableSound _moveSound;
     ValueMover _valueMover;
 
-    LineRenderer _lineRenderer;
+    LineRenderer _trackLineRenderer;
 
     public PlayerMovableTile tile { get { return _tile; } internal set { _tile = value; } }
 
@@ -67,7 +72,7 @@ public class PlayerMovable : MonoBehaviour
         if (_moveSound == null)
             Debug.LogError("Player Movable Sound Component not added");
 
-        _lineRenderer = Instantiate(_linePrefab, transform.position, Quaternion.identity).GetComponent<LineRenderer>();
+        _trackLineRenderer = Instantiate(_linePrefab, transform.position, Quaternion.identity).GetComponent<LineRenderer>();
     }
 
     private void Start()
@@ -76,7 +81,11 @@ public class PlayerMovable : MonoBehaviour
         if (_shader == null)
             Debug.LogError(name + ": could not find Shader Controller in children");
 
-        _shader?.SetLineMaterial(_lineRenderer.material);
+        _interactionLine = GetComponentInChildren<InteractionLineController>();
+        if (_interactionLine == null)
+            Debug.LogError(name + ": could not find Interaction Line Controller in children");
+
+        _shader?.SetLineMaterial(_trackLineRenderer.material);
 
         _soundPlayer = FindObjectOfType<SoundPlayer3D>();
         if (_soundPlayer == null)
@@ -118,8 +127,8 @@ public class PlayerMovable : MonoBehaviour
 
         _startPoint = transform.position;
 
-        _lineRenderer.SetPosition(0, _startPoint + _lineOffset);
-        _lineRenderer.SetPosition(1, _startPoint + _moveAmount + _lineOffset);
+        _trackLineRenderer.SetPosition(0, _startPoint + _lineOffset);
+        _trackLineRenderer.SetPosition(1, _startPoint + _moveAmount + _lineOffset);
     }
 
     private void Update()
@@ -128,32 +137,38 @@ public class PlayerMovable : MonoBehaviour
         if (_interactors.Count <= 0)
         {
             _moveSound.Off();
+            if (!_interactionLine.isEnded)
+                _interactionLine.End();
             return;
         }
 
-        Vector3 controllerDelta = Vector3.zero;
-        int count = 0;
-        foreach (InteractionPoint interactor in _interactors)
-        {
-            if (interactor.isPressed)
-            {
-                controllerDelta += interactor.delta;
-                ++count;
-            }
-        }
+        
 
-        if (count == 0)
+        if (_interactors.Count == 0)
         {
             _moveSound.Off();
+            _interactionLine.End();
             return;
         }
+        else if (!_interactionLine.gameObject.activeSelf)
+            _interactionLine.Activate();
 
-        controllerDelta /= count;
+
+        Vector3 controllerPoint = _interactors[0].transform.position;
+
+        _interactionLine.UpdateEndPoint(controllerPoint);
+
+        Vector3 controllerDist = controllerPoint - transform.position;
+
+        if (controllerDist.magnitude > _maxDistance)
+            controllerDist = controllerDist.normalized * _maxDistance;
 
         // Get controller delta, apply along _moveAxis
-        Vector3 projectedDelta = Vector3.Project(controllerDelta, _moveAmount);
+        Vector3 projectedTarget = Vector3.Project(controllerDist, _moveAmount);
 
-        Vector3 projPoint = transform.position + projectedDelta - _startPoint;
+        projectedTarget = (projectedTarget / _maxDistance) * _maxMoveSpeed * Time.deltaTime;
+
+        Vector3 projPoint = transform.position + projectedTarget - _startPoint;
 
         // Get Clamped Value
         float t = Vector3.Dot(projPoint, _moveAmount) / Vector3.Dot(_moveAmount, _moveAmount);
@@ -253,11 +268,27 @@ public class PlayerMovable : MonoBehaviour
         }
     }
 
+    public void ReleaseHold(InteractionPoint interactionPoint)
+    {
+       if (!_interactors.Contains(interactionPoint))
+       {
+            Debug.LogWarning("Interaction Point not found when attempting to remove");
+            return;
+       }
+
+       _interactors.Remove(interactionPoint);
+
+        if (_interactors.Count == 0)
+            _shader.Down();
+    }
+
     // ======= COLLISION EVENTS ========
     private void OnTriggerEnter(Collider other)
     {
         InteractionPoint interactionPoint = other.GetComponent<InteractionPoint>();
-        if (interactionPoint == null)
+        if (interactionPoint == null || _interactors.Contains(interactionPoint))
+            return;
+        if (interactionPoint.currentMovable != null && interactionPoint.currentMovable != this)
             return;
 
         //interactionPoint.SendHaptic(_hapticIntensity, _hapticDuration);
@@ -265,16 +296,19 @@ public class PlayerMovable : MonoBehaviour
             _shader.Up();
 
         _interactors.Add(interactionPoint);
+        interactionPoint.currentMovable = this;
     }
 
     private void OnTriggerExit(Collider other)
     {
         InteractionPoint interactionPoint = other.GetComponent<InteractionPoint>();
-        if (interactionPoint == null)
+        if (interactionPoint == null || interactionPoint.isPressed)
             return;
 
         _interactors.Remove(interactionPoint);
-
+        if (interactionPoint.currentMovable == this)
+            interactionPoint.currentMovable = null;
+    
         if (_interactors.Count == 0)
             _shader.Down();
     }

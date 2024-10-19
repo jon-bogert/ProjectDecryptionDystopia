@@ -11,10 +11,24 @@ public class InteractionPoint : MonoBehaviour
     Vector3 _prevPosition;
     Vector3 _delta;
 
+    PlayerMovable _currentMovable = null;
+
     public Vector3 delta { get { return _delta; } }
 
     public Action onPress;
     public Action onRelease;
+
+    public PlayerMovable currentMovable
+    {
+        get { return _currentMovable; }
+        set
+        {
+            if (_currentMovable != null)
+                return;
+
+            _currentMovable = value;
+        }
+    }
 
     private void Start()
     {
@@ -27,9 +41,18 @@ public class InteractionPoint : MonoBehaviour
         _prevPosition = transform.position;
 
         if (_interactInput.action.WasPressedThisFrame())
+        {
             onPress?.Invoke();
+        }
         if (_interactInput.action.WasReleasedThisFrame())
+        {
             onRelease?.Invoke();
+            if (_currentMovable != null)
+            {
+                _currentMovable.ReleaseHold(this);
+                _currentMovable = null;
+            }
+        }
     }
 
     public bool isPressed { get { return _interactInput.action.IsPressed(); } }

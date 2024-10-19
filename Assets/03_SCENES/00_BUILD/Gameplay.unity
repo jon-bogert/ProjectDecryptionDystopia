@@ -3495,9 +3495,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _kioskMode: 0
-  _level: 1
+  _level: 2
   _sceneType: 1
   _levelY: 23
+  _numberOfLevels: 3
 --- !u!4 &1628325822
 Transform:
   m_ObjectHideFlags: 0
